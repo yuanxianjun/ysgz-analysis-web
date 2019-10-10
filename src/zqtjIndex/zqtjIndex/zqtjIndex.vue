@@ -1,0 +1,476 @@
+<template>
+    <div id="zqtjIndex">
+        <com-header></com-header>
+        <el-row>
+            <el-col class="header_mb">
+                <back-home></back-home>
+            </el-col>
+        </el-row>
+        <comOut></comOut>
+        <div class="zqtjContent">
+            <div class="zqtjModule">
+                <div class="zqtjtop">
+                    <div class="table-title">
+                        <i class="title-i"></i>
+                        <label>火灾扑救</label>
+                    </div>
+                    <div class="tableBox">
+                        <table ref='table1' border="1">
+                            <!-- <template v-for="(item,i) in hzpjList1" >
+                                <template v-if='i%4==0'>
+                                    <tr class="trTitle" :key="i">
+                                        <td>{{hzpjList1[i]?hzpjList1[i].title:''}}</td>
+                                        <td>{{hzpjList1[i+1]?hzpjList1[i+1].title:''}}</td>
+                                        <td>{{hzpjList1[i+2]?hzpjList1[i+2].title:''}}</td>
+                                        <td>{{hzpjList1[i+3]?hzpjList1[i+3].title:''}}</td>
+                                    </tr>
+                                    <tr class="trCount" :key="i">
+                                        <td>{{hzpjList1[i]?hzpjList1[i].count:''}}</td>
+                                        <td>{{hzpjList1[i+1]?hzpjList1[i+1].count:''}}</td>
+                                        <td>{{hzpjList1[i+2]?hzpjList1[i+2].count:''}}</td>
+                                        <td>{{hzpjList1[i+3]?hzpjList1[i+3].count:''}}</td>
+                                    </tr>
+                                </template>
+                            </template> -->
+                        </table>
+                    </div>
+                </div>
+                <div class="zqtjbottom">
+                    <div id="pieOne1" ref="pieOne1"></div>
+                </div>
+            </div>
+            <div class="zqtjModule">
+                <div class="zqtjtop">
+                    <div class="table-title">
+                        <i class="title-i"></i>
+                        <label>抢险救援</label>
+                    </div>
+                    <div class="tableBox">
+                        <table ref="table2" border="1">
+                            
+                        </table>
+                    </div>
+                </div>
+                <div class="zqtjbottom">
+                    <div id="pieOne2" ref="pieOne2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import comHeader from "@/zqtjIndex/components/comHeader";
+import backHome from "@/zqtjIndex/components/toHome";
+import comOut from "@/zqtjIndex/components/comOut";
+export default {
+    name: "zqtjIndex",
+    data() {
+        return {
+            localPage:"",
+            hzpjList1: [
+                {
+                    title: '商城市场',
+                    count: 10
+                },
+                {
+                    title: '饭店娱乐',
+                    count: 12
+                },
+                {
+                    title: '娱乐场所',
+                    count: 8
+                },{
+                    title: '办公场所',
+                    count: 9
+                },
+                {
+                    title: '体育场馆',
+                    count: 15
+                },
+                {
+                    title: '住宅场馆',
+                    count: 11
+                },
+                {
+                    title: '学校医院',
+                    count: 9
+                },
+                {
+                    title: '高层建筑',
+                    count: 13
+                }
+            ],
+            hzpjList2: [
+                {
+                    title: '交通事故',
+                    count: 10
+                },
+                {
+                    title: '压缩气体',
+                    count: 12
+                },
+                {
+                    title: '毒产品',
+                    count: 8
+                },{
+                    title: '建筑物事故',
+                    count: 9
+                },
+                {
+                    title: '倒塌事故',
+                    count: 15
+                },
+                {
+                    title: '跳楼营救',
+                    count: 11
+                },
+                {
+                    title: '水上营救',
+                    count: 9
+                },
+                {
+                    title: '电器故障',
+                    count: 13
+                },
+            ],
+        }
+    },
+    components: {
+        comHeader,
+        backHome,
+        comOut
+    },
+    mounted () {
+        this.createTable('table1',this.hzpjList1);
+        this.createTable('table2',this.hzpjList2);
+        this.pieData('pieOne1',this.hzpjList1);
+        this.pieData('pieOne2',this.hzpjList2);
+    },
+    methods: {
+        // 创建table内容
+        createTable (ref,data) {
+            let table = this.$refs[ref];
+            var tableContent = '';
+            data.forEach((item,i) => {
+                if (i%4==0) {
+                    tableContent+=`<tr class="trTitle">
+                            <td title=${item.title}>${item.title}</td>
+                            <td title=${data[i+3]?data[i+1].title:''}>${data[i+1]?data[i+1].title:''}</td>
+                            <td title=${data[i+3]?data[i+2].title:''}>${data[i+2]?data[i+2].title:''}</td>
+                            <td title=${data[i+3]?data[i+3].title:''}>${data[i+3]?data[i+3].title:''}</td>
+                        </tr>
+                        <tr class="trCount">
+                            <td title=${item.title}>${item.count}</td>
+                            <td title=${data[i+1]?data[i+1].title:''}>${data[i+1]?data[i+1].count:''}</td>
+                            <td title=${data[i+2]?data[i+2].title:''}>${data[i+2]?data[i+2].count:''}</td>
+                            <td title=${data[i+3]?data[i+3].title:''}>${data[i+3]?data[i+3].count:''}</td>
+                        </tr>`;
+                }
+            });
+            let gradeNum = Math.ceil(data.length/4);
+            if (gradeNum<3&&!(gradeNum==null)) {
+                for (let index = 0; index < 3-gradeNum; index++) {
+                    tableContent+=`<tr class="trTitle"><td></td><td></td><td></td><td></td></tr>
+                    <tr class="trCount"><td></td><td></td><td></td><td></td></tr>`
+                }
+            }
+            table.innerHTML = tableContent;
+            let trList = document.getElementsByTagName('td');
+            for (let index = 0; index < trList.length; index++) {
+                trList[index].onclick = function (e) {
+                    if(e.target.title) {
+                        window.location.href =  `calledAna.html?name=${e.target.title}`
+                    }
+                }
+            }
+        },
+        // echarts
+        pieData(val,hzpjList) {
+            let pieOne = this.$refs[val];
+            let keyUnitChart = echarts.init(pieOne);
+            keyUnitChart.clear();
+            let option;
+            let _this = this;
+            var pieData = hzpjList.map(item => {
+            return {
+                name: item.title,
+                value: item.count
+            };
+            });
+            option = {
+            color: [
+                "#45FFAC",
+                "#00FFFF",
+                "#0096FF",
+                "#7ECEF4",
+                "#448ACA",
+                "rgba(250,250,250,0.3)"
+            ],
+            grid: {
+                top: 0,
+                bottom: 0
+            },
+            legend: {
+                orient: "horizontal",
+                bottom: 0,
+                itemWidth: 6,
+                itemHeight: 6,
+                itempGap: 0,
+
+                formatter: name => {
+                let data = pieData;
+                let total = 0;
+                let target;
+                for (let i = 0, l = data.length; i < l; i++) {
+                    total += data[i].value;
+                    if (data[i].name == name) {
+                    target = data[i].value;
+                    }
+                }
+                name = name.length > 5 ? name.substr(0, 4) + "..." : name;
+                let arr = ["{a|" + name + "}"];
+                return arr.join("\n");
+                },
+                textStyle: {
+                color: "#fff",
+                rich: {
+                    a: {
+                    lineHeight: 30,
+                    fontSize: 18,
+                    color: function() {},
+                    }
+                }
+                },
+                icon: "roundRect",
+                data: pieData
+            },
+            series: [
+                // 主要展示层的
+                {
+                radius: ["55%", "63%"],
+                center: ["50%", "40%"],
+                type: "pie",
+                itemStyle: {
+                    shadowBlur: 30,
+                    shadowColor: "#00ccff"
+                },
+                label: {
+                    normal: {
+                    show: false,
+                    formatter: "{c}%",
+                    textStyle: {
+                        fontSize: 18
+                    },
+                    position: "outside"
+                    },
+                    emphasis: {
+                    show: true,
+                    formatter: function(params) {
+                        // console.log(params.data, "params");
+                        return params.data.name + "\n" + params.data.value;
+                    }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                    show: true,
+                    length: 20,
+                    length2: 25
+                    },
+                    emphasis: {
+                    show: true
+                    }
+                },
+                name: "民警训练总量",
+                data: pieData
+                },
+                // 边框的设置
+                {
+                radius: ["48%", "49%"],
+                center: ["50%", "40%"],
+                type: "pie",
+                label: {
+                    normal: {
+                    show: false
+                    },
+                    emphasis: {
+                    show: false
+                    }
+                },
+                labelLine: {
+                    normal: {
+                    show: false
+                    },
+                    emphasis: {
+                    show: false
+                    }
+                },
+                animation: false,
+                tooltip: {
+                    show: true,
+                    formatter: function(params) {
+                    console.log(params, "params");
+                    }
+                },
+                data: [
+                    {
+                    value: 1,
+                    itemStyle: {
+                        borderWidth: 1,
+                        color: "#00ccff"
+                    }
+                    }
+                ]
+                },
+                {
+                name: "外边框",
+                type: "pie",
+                clockWise: false, //顺时加载
+                hoverAnimation: false, //鼠标移入变大
+                center: ["50%", "40%"],
+                radius: ["70%", "69%"],
+                label: {
+                    normal: {
+                    show: false
+                    }
+                },
+                data: [
+                    {
+                    value: 9,
+                    name: "",
+                    itemStyle: {
+                        normal: {
+                        borderWidth: 1,
+                        borderColor: "#00ccff"
+                        }
+                    }
+                    }
+                ]
+                }
+            ]
+            };
+
+            keyUnitChart.setOption(option);
+        },
+    },
+    destroyed() {
+    }
+}
+</script>
+
+
+<style lang="scss">
+@font-face {
+    font-family: "pmFont"; /*这里是说明调用来的字体名字*/
+    src: url("./assets/font/pmFont.ttf"); /*这里是字体文件路径*/
+}
+@font-face{
+  font-family: "numberFont"; //数组字体
+  src: url("../../common/fonts/290-CAI978.TTF");
+}
+#zqtjIndex {
+color: white;
+  padding-bottom: 21px;
+  width: 1920px;
+  height: 1080px;
+//   overflow: hidden;
+  background-image: url(../../common/images/background.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  .zqtjContent {
+        width: 100%;
+        padding: 30px 20px;
+        display: flex;
+        justify-content: space-between;
+        .zqtjModule{
+            flex: 1;
+            margin: 0 20px;
+            .zqtjtop{
+                margin-bottom: 10px; 
+                .tableBox{
+                    margin-top: 10px; 
+                    width: 100%;
+                    height: 337px;
+                    overflow-y: auto;
+                    table{
+                        word-break:break-all;
+                        border-collapse:collapse;
+                        width: 100%;
+                        text-align: center;
+                        tr,td{
+                            border: 1px solid #006d94;
+                        }
+                        td{
+                            width: 25%;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            cursor: pointer;
+                        }
+                    }
+                    .trTitle{
+                        font-size: 24px;
+                        height: 44px;
+                        background-image: url(../../common/images/titleBg.png);
+                    }
+                    .trCount{
+                        font-size: 36px;
+                        height: 68px;
+                        font-family: numberFont;
+                        color: #00ccff;
+                    }
+                }
+                .title-i{
+                    width:5px;
+                    height:24px;
+                    background:linear-gradient(to right,#00ff1e,#00ffd5);
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right:10px;            
+                }
+                .table-title{
+                    color:#ffff;
+                    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#00d9df), to(#00f697));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-size:24px;
+                    font-weight: bold;
+                }
+            }
+            .zqtjbottom {
+                background-image: url(../../common/images/echartBg.png);
+                height: 436px;
+                width: 100%;
+                #pieOne1,#pieOne2{
+                    width:100%;
+                    height:calc(100% - 10px);
+                }
+            }
+        }
+        
+  }
+}
+@media screen and (width: 1920px){
+    html {
+        overflow-x: hidden!important;
+    }
+}
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+  background-color: #041530;
+  border-radius: 4px;
+}
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: #057ac5;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #057ac5;
+}
+</style>

@@ -1,0 +1,205 @@
+@import "../../../../common/styles/font.css";
+@import "../../../../common/styles/common-el.css";
+#calledAna{
+  width: 1920px;
+  height: 1080px;
+  overflow: auto;
+  position: relative;
+  background-image: url("../../../../common/images/background.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  .outBigModal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    opacity: 60%;
+    background: rgba(0, 0, 0, 0.6);
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    .big_modal_unit{
+      width:714px;
+    }
+    .big_modal_person{
+      width:1071px;
+    }
+  }
+  .big_modal {
+    width: 991px;
+    height: 602px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .modalTitle {
+      height: 30px;
+      line-height: 30px;
+      font-size: 24px;
+      color:#fff;
+    }
+  }
+   // 弹出框
+   .showMoreDiv {
+    width: 100%;
+    height: 570px;
+    background: url(../content.png) no-repeat center center;
+    background-size: 100% 100%;
+    z-index: 9999;
+    padding: 20px;
+    padding-bottom: 40px;
+    overflow: hidden;
+    .nei {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      top: 20px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      .itemTable{
+        width:100%;
+        height:192px;
+        div{
+            display: block;
+            border: 1px solid  #003e70;
+            text-align: center;
+            width:235px;
+            float:left;
+            .label{
+              font-size: 24px;
+              height:43px;
+              line-height: 43px;
+              color: #ffffff;
+              background: url(../title_bg.png);
+            }
+            .number{
+              font-size: 24px;
+              height:70px;
+              line-height: 70px;
+              color: #00ccff;
+            }
+          
+        }
+      }
+      .contextAna{
+        width:930px;
+        height:117px;
+        background:url("../context.png")no-repeat center center;
+        background-size:100% 100%;
+        text-align: center;
+        line-height: 1;
+        font-size: 24px;
+        line-height: 117px;
+        color: #ffffff;
+        position: absolute;
+        bottom:30px;
+        right: 10px;
+      }
+    }
+    .closeImg {
+      position: absolute;
+      right: 10px;
+      top: 50px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+  .header{
+    width: 100%;
+    height: 110px;
+    padding:0px 40px;
+    box-sizing:border-box;
+    position: relative;
+    top:40px;
+    .header_left{
+      float: left;
+    }
+    .header_right{
+      float:right;
+      position: absolute;
+      right:40px;
+      top:30px;
+      .buttonPos{
+        width:150px;
+        height:45px;
+        background:transparent;
+        border:none;
+        padding:0;
+      }
+    }
+  }
+  .content-wrapper{
+    width:100%;
+    height:880px;
+    padding:40px;
+    
+    .conItem{
+      width:100%;
+      height:auto;
+      margin-top:55px;
+      .itemHeader{
+        width: 100%;
+        height:30px;
+        line-height: 30px;
+        i{
+          float: left;;
+          width: 5px;
+            height: 26px;
+            background-image: linear-gradient(90deg, #00ff1d 0%, #00fff5 100%);
+        }
+        .title{
+         float: left;
+          font-size: 24px;
+          line-height: 24px;
+          color: #00ccff;
+          margin-left:20px;
+          background-image: linear-gradient(90deg, #00ff1d 0%, #00fff5 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+      .itemTable{
+        width:100%;
+        height:192px;
+        div{
+            display: block;
+            border: 1px solid  #006d94;
+            text-align: center;
+            width:306px;
+            float:left;
+            .label{
+              font-size: 24px;
+              height:96px;
+              line-height: 96px;
+              color: #ffffff;
+              background: url(../title_bg.png);
+            }
+            .number{
+              font-size: 36px;
+              height:96px;
+              line-height: 97px;
+              color: #00ccff;
+              font-family: ROME;
+            }
+          
+        }
+      }
+      
+     
+    }
+    .conItem:first-of-type  { 
+      margin-top:0px;
+     }
+   
+  }
+
+}
+@media screen and (width: 1920px){
+  html {
+      overflow-x: hidden!important;
+  }
+}

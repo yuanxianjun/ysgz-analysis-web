@@ -1,0 +1,8 @@
+.el-tooltip__popper.is-dark{
+    background: #0c75e2;
+    max-width: 300px;
+    font-size: 20px;
+}
+.el-tooltip__popper .popper__arrow, .el-tooltip__popper .popper__arrow::after{
+    border-top-color: #0c75e2!important;
+}

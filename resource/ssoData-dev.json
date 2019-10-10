@@ -1,0 +1,7 @@
+{
+  "baseUrl":"http://192.168.1.22:8914/ecp",
+  "loginUrl":"http://192.168.1.22:8914/sysm/systemIndex.html",
+  "urlList":[],
+  "whiteList":["blob:http"],
+  "ssoLock": true
+}
