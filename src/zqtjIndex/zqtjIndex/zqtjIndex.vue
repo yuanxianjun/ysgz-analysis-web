@@ -16,22 +16,6 @@
                     </div>
                     <div class="tableBox">
                         <table ref='table1' border="1">
-                            <!-- <template v-for="(item,i) in hzpjList1" >
-                                <template v-if='i%4==0'>
-                                    <tr class="trTitle" :key="i">
-                                        <td>{{hzpjList1[i]?hzpjList1[i].title:''}}</td>
-                                        <td>{{hzpjList1[i+1]?hzpjList1[i+1].title:''}}</td>
-                                        <td>{{hzpjList1[i+2]?hzpjList1[i+2].title:''}}</td>
-                                        <td>{{hzpjList1[i+3]?hzpjList1[i+3].title:''}}</td>
-                                    </tr>
-                                    <tr class="trCount" :key="i">
-                                        <td>{{hzpjList1[i]?hzpjList1[i].count:''}}</td>
-                                        <td>{{hzpjList1[i+1]?hzpjList1[i+1].count:''}}</td>
-                                        <td>{{hzpjList1[i+2]?hzpjList1[i+2].count:''}}</td>
-                                        <td>{{hzpjList1[i+3]?hzpjList1[i+3].count:''}}</td>
-                                    </tr>
-                                </template>
-                            </template> -->
                         </table>
                     </div>
                 </div>
@@ -441,6 +425,7 @@ color: white;
             }
             .zqtjbottom {
                 background-image: url(../../common/images/echartBg.png);
+                background-size: 100% 100%;
                 height: 436px;
                 width: 100%;
                 #pieOne1,#pieOne2{
