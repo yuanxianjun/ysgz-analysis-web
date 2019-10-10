@@ -163,7 +163,7 @@ export default {
             for (let index = 0; index < trList.length; index++) {
                 trList[index].onclick = function (e) {
                     if(e.target.title) {
-                        window.location.href =  `calledAna.html?name=${e.target.title}`
+                        window.location.href =  `calledAna.html?name=${encodeURI(encodeURI(e.target.title))}`;
                     }
                 }
             }
