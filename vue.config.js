@@ -2,7 +2,7 @@ module.exports = {
     baseUrl: './',
     lintOnSave: false,
     // assetsDir: 'EMDY',
-    outputDir: 'dist/event',
+    outputDir: 'dist/ysgzAna',
     devServer: {
         open: true,
         compress: true,//服务器压缩

@@ -51,69 +51,69 @@ export default {
       hzpjList1: [
         {
           title: "商城市场",
-          count: 10
+          count: 608
         },
         {
           title: "饭店娱乐",
-          count: 12
+          count: 891
         },
         {
           title: "娱乐场所",
-          count: 8
+          count: 1075
         },
         {
           title: "办公场所",
-          count: 9
+          count: 643
         },
         {
           title: "体育场馆",
-          count: 15
+          count: 546
         },
         {
           title: "住宅场馆",
-          count: 11
+          count: 971
         },
         {
           title: "学校医院",
-          count: 9
+          count: 605
         },
         {
           title: "高层建筑",
-          count: 13
+          count: 713
         }
       ],
       hzpjList2: [
         {
           title: "交通事故",
-          count: 10
+          count: 890
         },
         {
           title: "压缩气体",
-          count: 12
+          count: 663
         },
         {
           title: "毒产品",
-          count: 8
+          count: 532
         },
         {
           title: "建筑物事故",
-          count: 9
+          count: 932
         },
         {
           title: "倒塌事故",
-          count: 15
+          count: 548
         },
         {
           title: "跳楼营救",
-          count: 11
+          count: 213
         },
         {
           title: "水上营救",
-          count: 9
+          count: 374
         },
         {
           title: "电器故障",
-          count: 13
+          count: 671
         }
       ]
     };
@@ -220,7 +220,7 @@ export default {
       let trList = document.getElementsByTagName("td");
       for (let index = 0; index < trList.length; index++) {
         trList[index].onclick = function(e) {
-          if (e.target.title) {
+          if (e.target.title == "交通事故") {
             window.location.href = `calledAna.html?name=${encodeURI(
               encodeURI(e.target.title)
             )}`;

@@ -8,8 +8,8 @@
       </div>
       <div class="out_circle"></div>
       <div class="name_con" @click="toPersonInfo">
-        <span class="police_name">{{userInfo.userName?userInfo.userName:'黄景瑜'}}</span>
-        <span class="helleo">{{userInfo.roleName == "管理员" ? " " : (' '+userInfo.roleName + ' ')}}指挥官，您好</span>
+        <span class="police_name">{{userInfo.userName?userInfo.userName:''}}</span>
+        <span class="helleo">{{userInfo.roleName == "管理员" ? " " : (' '+userInfo.roleName + ' ')}}您好</span>
       </div>
       <div class="out_btn" @click="showOutPage = true"></div>
     </div>
@@ -34,7 +34,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: "comOut",
   props: {

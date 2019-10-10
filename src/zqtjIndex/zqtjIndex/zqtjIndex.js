@@ -3,7 +3,9 @@ import zqtjIndex from './zqtjIndex.vue'
 import '@/common/styles/reset.css'
 import './assets/style/style.css'
 import axios from '@/zqtjIndex/ajax'
-
+import { Row, Col } from "element-ui"
+Vue.use(Row)
+Vue.use(Col)
 Vue.prototype.axios = axios;
 Vue.config.productionTip = false;
 axios.get(`${process.env.BASE_URL}domain.json`)

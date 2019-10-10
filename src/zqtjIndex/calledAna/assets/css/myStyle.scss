@@ -163,10 +163,19 @@
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
+        .all{
+          font-size:24px;
+          font-family: ROME;
+          color:#ffffff;
+          line-height:24px;
+          float: left;
+          margin-left:10px;
+        }
       }
       .itemTable{
         width:100%;
-        height:192px;
+        height:auto;
+        overflow: hidden;
         div{
             display: block;
             border: 1px solid  #006d94;
