@@ -50,7 +50,7 @@ export default {
   }
   .modelText {
     top: 45%;
-    left: 37.5%;
+    left: 41.5%;
     position: absolute;
     z-index: 999;
     font-size: 60px !important;

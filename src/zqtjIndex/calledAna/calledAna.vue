@@ -55,6 +55,7 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 // 引入头部的组件
 import comHeader from "../components/comHeader";
 import backHome from "../components/toHome";
@@ -192,6 +193,22 @@ export default {
     };
   },
   created() {
+    var t = GetQueryString("name"); //获取地址栏参数
+    var title = decodeURI(t); //只需要转一次码
+
+    // 利用正则表达式方式，获取地址栏中的的参数值
+    function GetQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) return unescape(r[2]);
+      return null;
+    }
+    this.linkPageObj = [
+      {
+        link: "",
+        name: title
+      }
+    ];
     this.localInfo_gd();
   },
   mounted() {},

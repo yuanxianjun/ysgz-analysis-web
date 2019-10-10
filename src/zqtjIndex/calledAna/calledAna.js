@@ -2,20 +2,14 @@ import Vue from 'vue';
 import calledAna from './calledAna.vue'
 import '@/common/styles/reset.css'
 import '@/zqtjIndex/calledAna/assets/css/myStyle.scss'
-import { Button, Select, Table, TableColumn, Row, Col, Message } from 'element-ui'
+import { Button, Message } from 'element-ui'
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 Vue.component(CollapseTransition.name, CollapseTransition)
 import '@/common/styles/element-variables.scss'
 import axios from "axios"
-
 // Button select  Row Col table
 Vue.use(Button);
-Vue.use(Select);
-Vue.use(Table);
-Vue.use(TableColumn);
-Vue.use(Row);
-Vue.use(Col);
 Vue.prototype.$message = Message;
 Vue.prototype.axios = axios;
 Vue.prototype.resetSetItem = (key, newVal) => {

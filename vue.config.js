@@ -5,6 +5,17 @@ module.exports = {
     outputDir: 'dist/event',
     devServer: {
         open: true,
+        compress: true,//服务器压缩
+        // before: function (app, server) {
+        //     app.get('/', function (req, res) {   
+        //         res.redirect('/IMapManagement.html');
+        //     });        // }
+        historyApiFallback: {
+            rewrites: [
+                { from: /^\/$/, to: '/disasterAna.html' },
+
+            ]
+        }
     },
     pages: {
         'zqtjIndex': {
