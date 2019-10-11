@@ -28,6 +28,11 @@ module.exports = {
             entry: 'src/zqtjIndex/calledAna/calledAna.js',
             template: 'src/zqtjIndex/calledAna/calledAna.html',
             filename: 'calledAna.html'
+        },
+        'detailAna': {
+            entry: 'src/zqtjIndex/detailAna/detailAna.js',
+            template: 'src/zqtjIndex/detailAna/detailAna.html',
+            filename: 'detailAna.html'
         }
     }
 }
