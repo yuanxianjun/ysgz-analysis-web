@@ -6,7 +6,6 @@ import { Button, Message } from 'element-ui'
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 Vue.component(CollapseTransition.name, CollapseTransition)
-import '@/common/styles/element-variables.scss'
 import axios from "axios"
 // Button select  Row Col table
 Vue.use(Button);

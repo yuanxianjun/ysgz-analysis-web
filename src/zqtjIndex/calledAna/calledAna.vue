@@ -56,7 +56,6 @@
   </div>
 </template>
 <script>
-import moment from "moment";
 // 引入头部的组件
 import comHeader from "../components/comHeader";
 import backHome from "../components/toHome";
@@ -114,7 +113,7 @@ export default {
             { name: "黔西县大队", value: "20" },
             { name: "大方县大队", value: "16" },
             { name: "织金县大队", value: "12" },
-            { name: "威宁县大队（威宁彝族回族苗族自治县大队）", value: "11" },
+            { name: "威宁县大队", value: "11" },
             { name: "赫章县大队", value: "10" },
             { name: "纳雍县大队", value: "9" },
             { name: "毕节市内", value: "3" },
@@ -131,14 +130,14 @@ export default {
           all: 96,
           data: [
             { name: "水城县大队", value: "41" },
-            { name: "盘县（州）大队", value: "29" },
+            { name: "盘县大队", value: "29" },
             { name: "钟山区大队", value: "13" },
             { name: "六枝特区大队", value: "8" },
             { name: "红桥新区大队", value: "5" }
           ]
         },
         {
-          title: "黔东南",
+          title: "黔东南支队",
           all: 48,
           data: [
             { name: "从江县大队", value: "7" },
@@ -159,7 +158,7 @@ export default {
           ]
         },
         {
-          title: "黔南",
+          title: "黔南支队",
           all: 121,
           data: [
             { name: "都匀市大队", value: "19" },
@@ -178,7 +177,7 @@ export default {
           ]
         },
         {
-          title: "黔西南",
+          title: "黔西南支队",
           all: 68,
           data: [
             { name: "安龙县大队", value: "2" },
@@ -193,7 +192,7 @@ export default {
           ]
         },
         {
-          title: "铜仁",
+          title: "铜仁支队",
           all: 91,
           data: [
             { name: "松桃县大队", value: "17" },
@@ -206,8 +205,29 @@ export default {
             { name: "万山区大队", value: "7" },
             { name: "沿河县大队", value: "4" },
             { name: "玉屏县大队", value: "4" },
-            { name: "岑巩县大队？", value: "1" },
+            { name: "岑巩县大队", value: "1" },
             { name: "大龙经济开发区大队", value: "1" }
+          ]
+        },
+        {
+          title: "遵义支队",
+          all: 236,
+          data: [
+            { name: "播州区大队", value: "33" },
+            { name: "仁怀市大队", value: "27" },
+            { name: "湄潭县大队", value: "26" },
+            { name: "红花岗区大队", value: "23" },
+            { name: "汇川区大队", value: "21" },
+            { name: "绥阳县大队", value: "21" },
+            { name: "桐梓县大队", value: "17" },
+            { name: "习水县大队", value: "14" },
+            { name: "正安县大队", value: "14" },
+            { name: "新蒲区大队", value: "11" },
+            { name: "余庆县大队", value: "10" },
+            { name: "赤水市大队", value: "7" },
+            { name: "道真县大队", value: "4" },
+            { name: "凤冈县大队", value: "4" },
+            { name: "务川县大队", value: "4" }
           ]
         }
       ],
@@ -256,7 +276,6 @@ export default {
         name: title
       }
     ];
-    this.localInfo_gd();
   },
   mounted() {},
   methods: {
@@ -266,52 +285,6 @@ export default {
         this.showBoll = false;
         this.showBigModel = true;
       }, 2000);
-    },
-    // 根据userId 查询
-    localInfo_gd() {
-      var hytoken = window.localStorage.getItem("hytoken");
-      this.axios({
-        method: "post",
-        url: "/user/userInfo/?hytoken=" + hytoken
-      }).then(res => {
-        if (res.data && res.data.code === "success") {
-          var data = res.data.result || {};
-          if (data) {
-            this.resetSetItem("userInfo", JSON.stringify(data));
-            var jgTree = data.orgTree || "";
-            var stringTime = moment().format("YYYYMMDD");
-            this.oneDay_gd(stringTime + jgTree);
-          }
-        } else if (res.data.code == 500) {
-          this.$message({
-            message: res.data.msg,
-            center: true,
-            type: "error"
-          });
-        }
-      });
-    },
-    oneDay_gd(dataId) {
-      this.axios({
-        // headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        method: "post",
-        url: `/organization/homePageDataStatistic/${dataId}`
-      }).then(res => {
-        if (res.data && res.data.code === "success") {
-          var data = res.data.result;
-          this.oneDayData = data || {};
-          // console.log(data, "data");
-          this.personnelData = JSON.parse(data.rysj) || {};
-          this.dutyStatisticData = JSON.parse(data.zbzq) || [];
-          this.orgData = JSON.parse(data.jgyx) || [];
-        } else if (res.data.code == 500) {
-          this.$message({
-            message: res.data.msg,
-            center: true,
-            type: "error"
-          });
-        }
-      });
     }
   },
   computed: {},

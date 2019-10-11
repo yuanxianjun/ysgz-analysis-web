@@ -1,16 +1,12 @@
 @import "../../../../common/styles/font.css";
-@import "../../../../common/styles/common-el.css";
 #calledAna{
   width: 1920px;
   height: 1080px;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   background-image: url("../../../../common/images/background.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   .outBigModal {
     width: 100%;
     height: 100%;
@@ -136,6 +132,7 @@
   .content-wrapper{
     width:100%;
     height:880px;
+    overflow: auto;
     padding:40px;
     
     .conItem{
@@ -184,15 +181,15 @@
             float:left;
             .label{
               font-size: 24px;
-              height:96px;
-              line-height: 96px;
+              height:44px;
+              line-height: 44px;
               color: #ffffff;
               background: url(../title_bg.png);
             }
             .number{
               font-size: 36px;
-              height:96px;
-              line-height: 97px;
+              height:68px;
+              line-height: 68px;
               color: #00ccff;
               font-family: ROME;
             }
@@ -208,9 +205,4 @@
    
   }
 
-}
-@media screen and (width: 1920px){
-  html {
-      overflow-x: hidden!important;
-  }
 }

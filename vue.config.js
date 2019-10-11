@@ -3,6 +3,7 @@ module.exports = {
     lintOnSave: false,
     // assetsDir: 'EMDY',
     outputDir: 'dist/ysgzAna',
+    productionSourceMap: false,
     devServer: {
         open: true,
         compress: true,//服务器压缩

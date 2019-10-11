@@ -43,6 +43,7 @@
 import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
 import comOut from "@/zqtjIndex/components/comOut";
+import echarts from "echarts";
 export default {
   name: "zqtjIndex",
   data() {
@@ -123,6 +124,9 @@ export default {
     backHome,
     comOut
   },
+  created() {
+    this.localInfo_gd();
+  },
   mounted() {
     this.createTable("table1", this.hzpjList1);
     this.createTable("table2", this.hzpjList2);
@@ -142,9 +146,6 @@ export default {
           var data = res.data.result || {};
           if (data) {
             this.resetSetItem("userInfo", JSON.stringify(data));
-            var jgTree = data.orgTree || "";
-            var stringTime = moment().format("YYYYMMDD");
-            this.oneDay_gd(stringTime + jgTree);
           }
         } else if (res.data.code == 500) {
           this.$message({
@@ -155,28 +156,7 @@ export default {
         }
       });
     },
-    oneDay_gd(dataId) {
-      this.axios({
-        // headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        method: "post",
-        url: `/organization/homePageDataStatistic/${dataId}`
-      }).then(res => {
-        if (res.data && res.data.code === "success") {
-          var data = res.data.result;
-          this.oneDayData = data || {};
-          // console.log(data, "data");
-          this.personnelData = JSON.parse(data.rysj) || {};
-          this.dutyStatisticData = JSON.parse(data.zbzq) || [];
-          this.orgData = JSON.parse(data.jgyx) || [];
-        } else if (res.data.code == 500) {
-          this.$message({
-            message: res.data.msg,
-            center: true,
-            type: "error"
-          });
-        }
-      });
-    },
+
     // 创建table内容
     createTable(ref, data) {
       let table = this.$refs[ref];
@@ -404,10 +384,6 @@ export default {
 
 <style lang="scss">
 @font-face {
-  font-family: "pmFont"; /*这里是说明调用来的字体名字*/
-  src: url("./assets/font/pmFont.ttf"); /*这里是字体文件路径*/
-}
-@font-face {
   font-family: "numberFont"; //数组字体
   src: url("../../common/fonts/290-CAI978.TTF");
 }
@@ -507,21 +483,5 @@ export default {
   html {
     overflow-x: hidden !important;
   }
-}
-*::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
-  background-color: #041530;
-  border-radius: 4px;
-}
-*::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-  background-color: #057ac5;
-  border-radius: 4px;
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background: #057ac5;
 }
 </style>

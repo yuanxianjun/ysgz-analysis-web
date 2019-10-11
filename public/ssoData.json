@@ -1,7 +1,9 @@
 {
-  "baseUrl":"http://ecp2.hydata666.com/ecp",
-  "loginUrl":"http://ecp2.hydata666.com/ecp-web-sysm/index.html",
-  "urlList":[],
-  "whiteList":["blob:http"], 
+  "baseUrl": "http://10.160.127.185:8080/ysgz",
+  "loginUrl": "http://10.160.127.185:8080/index.html",
+  "urlList": [],
+  "whiteList": [
+    "blob:http"
+  ],
   "ssoLock": true
 }
