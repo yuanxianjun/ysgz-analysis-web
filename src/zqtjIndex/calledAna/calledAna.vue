@@ -10,26 +10,34 @@
         <comOut></comOut>
       </div>
       <div class="header_right">
+        <el-button class="buttonPos detailButton">
+          <a href>
+            <img src="./assets/detail.png" alt />
+          </a>
+        </el-button>
         <!-- 分析按钮 -->
         <el-button class="buttonPos" @click="showGif">
           <img src="./assets/anaButton.png" alt />
         </el-button>
       </div>
     </div>
+    <!-- area: "2019年全省统计",
+          all: "1132",
+          speed: "55",
+          nation: "444",
+          province: "33",
+          country: "1",
+    city: "0"-->
     <div class="content-wrapper">
-      <div class="conItem" v-for=" item in mockData">
-        <div class="itemHeader">
-          <i></i>
-          <span class="title">{{item.title}}</span>
-          <span class="all">{{item.all}}</span>
-        </div>
-        <div class="itemTable">
-          <div v-for="itemCon in item.data">
-            <p class="label">{{itemCon.name}}</p>
-            <p class="number">{{itemCon.value}}</p>
-          </div>
-        </div>
-      </div>
+      <el-table :data="mockData" style="width: 100%" height="790">
+        <el-table-column prop="area" label="地区" width="450"></el-table-column>
+        <el-table-column prop="all" label="总计"></el-table-column>
+        <el-table-column prop="speed" label="高速"></el-table-column>
+        <el-table-column prop="nation" label="国道"></el-table-column>
+        <el-table-column prop="province" label="省道"></el-table-column>
+        <el-table-column prop="country" label="乡村"></el-table-column>
+        <el-table-column prop="city" label="城市"></el-table-column>
+      </el-table>
     </div>
     <bollSearch v-if="showBoll"></bollSearch>
     <div class="outBigModal" v-if="showBigModel">
@@ -44,7 +52,6 @@
                 <p class="number">{{itemCon.con}}</p>
               </div>
             </div>
-
             <div class="contextAna">加强该区域辖区中队的道路抢险救援装备实力。</div>
           </div>
           <div class="closeImg" @click="showBigModel = false;">
@@ -77,158 +84,104 @@ export default {
       showBoll: false,
       mockData: [
         {
-          title: "贵阳支队",
-          all: "267",
-          data: [
-            { name: "观山湖区大队", value: "49" },
-            { name: "南明区大队", value: "34" },
-            { name: "白云区大队", value: "30" },
-            { name: "清镇市大队", value: "30" },
-            { name: "乌当区大队", value: "29" },
-            { name: "花溪区大队", value: "28" },
-            { name: "云岩区大队", value: "21" },
-            { name: "修文县大队", value: "20" },
-            { name: "息烽县大队", value: "10" },
-            { name: "经开区大队", value: "9" },
-            { name: "开阳县大队", value: "7" }
-          ]
+          area: "2019年全省合计 ",
+          all: "1132",
+          speed: "246",
+          nation: "68",
+          province: "117",
+          country: "364",
+          city: "337"
         },
         {
-          title: "安顺支队",
-          all: 75,
-          data: [
-            { name: "西秀区大队", value: "35" },
-            { name: "关岭县大队", value: "14" },
-            { name: "紫云县大队", value: "11" },
-            { name: "经济开发区大队", value: "7" },
-            { name: "镇宁县大队", value: "7" },
-            { name: "平坝区大队", value: "1" }
-          ]
+          area: "贵阳",
+          all: " 271",
+          speed: "57",
+          nation: "12",
+          province: "13",
+          country: "62",
+          city: "127"
         },
         {
-          title: "毕节支队",
-          all: 109,
-          data: [
-            { name: "七星关区大队", value: "26" },
-            { name: "黔西县大队", value: "20" },
-            { name: "大方县大队", value: "16" },
-            { name: "织金县大队", value: "12" },
-            { name: "威宁县大队", value: "11" },
-            { name: "赫章县大队", value: "10" },
-            { name: "纳雍县大队", value: "9" },
-            { name: "毕节市内", value: "3" },
-            { name: "金沙县大队", value: "2" }
-          ]
+          area: "遵义",
+          all: "237",
+          speed: "42",
+          nation: "16",
+          province: "28",
+          country: "88",
+          city: "63"
         },
         {
-          title: "贵安支队",
-          all: 15,
-          data: []
+          area: "安顺",
+          all: "237",
+          all: "75",
+          speed: "23",
+          nation: "2",
+          province: "9",
+          country: "23",
+          city: "18"
         },
         {
-          title: "六盘水支队",
-          all: 96,
-          data: [
-            { name: "水城县大队", value: "41" },
-            { name: "盘县大队", value: "29" },
-            { name: "钟山区大队", value: "13" },
-            { name: "六枝特区大队", value: "8" },
-            { name: "红桥新区大队", value: "5" }
-          ]
+          area: "黔南",
+          all: "121",
+          speed: "33",
+          nation: "8",
+          province: "12",
+          country: "46",
+          city: "22"
         },
         {
-          title: "黔东南支队",
-          all: 48,
-          data: [
-            { name: "从江县大队", value: "7" },
-            { name: "凯里市大队", value: "6" },
-            { name: "丹寨县大队", value: "6" },
-            { name: "黎平县大队", value: "6" },
-            { name: "经济开发区大队", value: "5" },
-            { name: "台江县大队", value: "4" },
-            { name: "三穗县大队", value: "3" },
-            { name: "镇远县大队", value: "3" },
-            { name: "施秉县大队", value: "2" },
-            { name: "剑河县大队", value: "1" },
-            { name: "锦屏县大队", value: "1" },
-            { name: "雷山县大队", value: "1" },
-            { name: "麻江县大队", value: "1" },
-            { name: "榕江县大队", value: "1" },
-            { name: "天柱县大队", value: "1" }
-          ]
+          area: "黔东南",
+          all: "49",
+          speed: "10",
+          nation: "7",
+          province: "6",
+          country: "14",
+          city: "12"
         },
         {
-          title: "黔南支队",
-          all: 121,
-          data: [
-            { name: "都匀市大队", value: "19" },
-            { name: "福泉市大队", value: "14" },
-            { name: "平塘县大队", value: "13" },
-            { name: "瓮安县大队", value: "13" },
-            { name: "独山县大队", value: "10" },
-            { name: "贵定县大队", value: "10" },
-            { name: "荔波县大队", value: "10" },
-            { name: "龙里县大队", value: "10" },
-            { name: "三都县大队", value: "10" },
-            { name: "惠水县大队", value: "4" },
-            { name: "长顺县大队", value: "4" },
-            { name: "开阳县大队", value: "2" },
-            { name: "罗甸县大队", value: "2" }
-          ]
+          area: "铜仁",
+          all: "91",
+          speed: "27",
+          nation: "6",
+          province: "11",
+          country: "29",
+          city: "18"
         },
         {
-          title: "黔西南支队",
-          all: 68,
-          data: [
-            { name: "安龙县大队", value: "2" },
-            { name: "册亨县大队", value: "1" },
-            { name: "普安县大队", value: "6" },
-            { name: "晴隆县大队", value: "10" },
-            { name: "望谟县大队", value: "3" },
-            { name: "兴仁县大队", value: "12" },
-            { name: "兴义市大队", value: "20" },
-            { name: "义龙新区顶效大队", value: "8" },
-            { name: "贞丰县大队", value: "6" }
-          ]
+          area: "毕节",
+          all: "109",
+          speed: "19",
+          nation: "7",
+          province: "1",
+          country: "50",
+          city: "32"
         },
         {
-          title: "铜仁支队",
-          all: 91,
-          data: [
-            { name: "松桃县大队", value: "17" },
-            { name: "碧江区大队", value: "16" },
-            { name: "石阡县大队", value: "9" },
-            { name: "思南县大队", value: "9" },
-            { name: "德江县大队", value: "8" },
-            { name: "印江县大队", value: "8" },
-            { name: "江口县大队", value: "7" },
-            { name: "万山区大队", value: "7" },
-            { name: "沿河县大队", value: "4" },
-            { name: "玉屏县大队", value: "4" },
-            { name: "岑巩县大队", value: "1" },
-            { name: "大龙经济开发区大队", value: "1" }
-          ]
+          area: "六盘水",
+          all: "96",
+          speed: "22",
+          nation: "4",
+          province: "29",
+          country: "18",
+          city: "23"
         },
         {
-          title: "遵义支队",
-          all: 236,
-          data: [
-            { name: "播州区大队", value: "33" },
-            { name: "仁怀市大队", value: "27" },
-            { name: "湄潭县大队", value: "26" },
-            { name: "红花岗区大队", value: "23" },
-            { name: "汇川区大队", value: "21" },
-            { name: "绥阳县大队", value: "21" },
-            { name: "桐梓县大队", value: "17" },
-            { name: "习水县大队", value: "14" },
-            { name: "正安县大队", value: "14" },
-            { name: "新蒲区大队", value: "11" },
-            { name: "余庆县大队", value: "10" },
-            { name: "赤水市大队", value: "7" },
-            { name: "道真县大队", value: "4" },
-            { name: "凤冈县大队", value: "4" },
-            { name: "务川县大队", value: "4" }
-          ]
+          area: "黔西南",
+          all: "68",
+          speed: "12",
+          nation: "6",
+          province: "8",
+          country: "32",
+          city: "10"
+        },
+        {
+          area: "贵安",
+          all: "15",
+          speed: "1",
+          nation: "0",
+          province: "0",
+          country: "2",
+          city: "12"
         }
       ],
       mockData2: [
@@ -262,7 +215,6 @@ export default {
   created() {
     var t = GetQueryString("name"); //获取地址栏参数
     var title = decodeURI(t); //只需要转一次码
-
     // 利用正则表达式方式，获取地址栏中的的参数值
     function GetQueryString(name) {
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
