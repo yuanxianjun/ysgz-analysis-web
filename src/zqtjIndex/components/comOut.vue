@@ -126,38 +126,7 @@ export default {
     cursor: pointer;
   }
 }
-.transition-box {
-  z-index: 666;
-  width: 93px;
-  height: 90px;
-  background-image: linear-gradient(
-    -39deg,
-    rgba(12, 116, 214, 1) 0%,
-    rgba(16, 82, 167, 1) 51%,
-    rgba(19, 50, 121, 1) 100%
-  );
-  border-style: solid;
-  border-width: 1px;
-  border-image-source: linear-gradient(
-    90deg,
-    rgba(13, 54, 78, 0.12) 0%,
-    rgba(3, 110, 154, 0.35) 100%
-  );
-  border-image-slice: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  p {
-    width: 100%;
-    text-align: center;
-    flex: 1;
-    a {
-      font-size: 14px;
-      color: #00ccff;
-    }
-  }
-}
+
 /*登录名称*/
 .name_div {
   width: 354px;

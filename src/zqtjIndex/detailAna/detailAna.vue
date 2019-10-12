@@ -236,11 +236,7 @@ export default {
       }
       .trColor {
         font-size: 48px !important;
-        background-image: -webkit-linear-gradient(
-          90deg,
-          #00ff1d 0%,
-          #00fff5 100%
-        );
+        background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -330,7 +326,7 @@ export default {
           font-size: 24px;
           height: 70px;
           line-height: 70px;
-          background-image: linear-gradient(90deg, #00ff1d 0%, #00fff5 100%);
+          background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -345,7 +341,7 @@ export default {
       line-height: 1;
       font-size: 24px;
       line-height: 117px;
-      background-image: linear-gradient(90deg, #00ff1d 0%, #00fff5 100%);
+      background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       position: absolute;

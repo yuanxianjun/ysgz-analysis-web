@@ -440,11 +440,7 @@ export default {
             height: 68px;
             font-family: numberFont;
             td {
-              background-image: linear-gradient(
-                90deg,
-                #00ff1d 0%,
-                #00fff5 100%
-              );
+              background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
             }
