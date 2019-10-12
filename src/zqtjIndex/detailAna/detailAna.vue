@@ -257,4 +257,5 @@ export default {
   top: 130px;
   right: 40px;
 }
+
 </style>
