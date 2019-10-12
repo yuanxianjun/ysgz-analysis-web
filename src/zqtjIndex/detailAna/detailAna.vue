@@ -20,17 +20,17 @@
     </div>
     <div class="detailContent">
       <table class="titleTable" border="1">
-          <thead>
-            <tr class="trTitle">
-              <td style='width:300px'>地区</td>
-              <td>总计</td>
-              <td>高速</td>
-              <td>国道</td>
-              <td>省道</td>
-              <td>乡村</td>
-              <td>城市</td>
-            </tr>
-          </thead>
+        <thead>
+          <tr class="trTitle">
+            <td style="width:300px">地区</td>
+            <td>总计</td>
+            <td>高速</td>
+            <td>国道</td>
+            <td>省道</td>
+            <td>乡村</td>
+            <td>城市</td>
+          </tr>
+        </thead>
       </table>
       <div class="tableBox">
         <table border="1">
@@ -38,27 +38,8 @@
         </table>
       </div>
     </div>
-    <bollSearch v-if="showBoll"></bollSearch>
-    <div class="outBigModal" v-if="showBigModel">
-      <!-- 立功受奖弹窗 -->
-      <div class="big_modal">
-        <div class="modalTitle">分析研判</div>
-        <div class="showMoreDiv">
-          <div class="nei">
-            <div class="itemTable">
-              <div v-for="(itemCon, i) in mockData2" :key='i'>
-                <p class="label">{{itemCon.label}}</p>
-                <p class="number">{{itemCon.con}}</p>
-              </div>
-            </div>
-            <div class="contextAna">加强该区域辖区中队的道路抢险救援装备实力。</div>
-          </div>
-          <div class="closeImg" @click="showBigModel = false;">
-            <img src="../../common/images/bubble_close.png" alt />
-          </div>
-        </div>
-      </div>
-    </div>
+    <boll-search v-if="showBoll"></boll-search>
+    <mask-box v-if="showBigModel" @closeMaskBox="closeMaskBox"></mask-box>
   </div>
 </template>
 <script>
@@ -66,7 +47,8 @@ import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
 import comOut from "@/zqtjIndex/components/comOut";
 import detailData from "../../common/json/qu";
-import bollSearch from "../../zqtjIndex/components/doScheduling";
+import bollSearch from "../components/doScheduling";
+import maskBox from "../components/maskBox";
 export default {
   name: "zqtjIndex",
   data() {
@@ -117,7 +99,8 @@ export default {
     comHeader,
     backHome,
     comOut,
-    bollSearch
+    bollSearch,
+    maskBox
   },
   created() {
     this.localInfo_gd();
@@ -132,6 +115,9 @@ export default {
         this.showBoll = false;
         this.showBigModel = true;
       }, 2000);
+    },
+    closeMaskBox() {
+      this.showBigModel = false;
     },
     // 获取登陆人的姓名
     // 根据userId 查询
@@ -190,8 +176,6 @@ export default {
   destroyed() {}
 };
 </script>
-
-
 <style lang="scss">
 @font-face {
   font-family: "numberFont"; //数组字体
@@ -217,7 +201,7 @@ export default {
       height: 734px;
       overflow-y: auto;
     }
-    .titleTable{
+    .titleTable {
       width: calc(100% - 4px);
       tr,
       td {
@@ -229,7 +213,8 @@ export default {
       border-collapse: collapse;
       width: 100%;
       text-align: center;
-      tr,td {
+      tr,
+      td {
         border: 1px solid #006d94;
         border-top: 0;
       }
@@ -243,7 +228,7 @@ export default {
       }
       .trTitle {
         background-image: url(../../common/images/titleBg.png);
-        td{
+        td {
           width: calc(1536px / 6);
         }
       }
@@ -262,133 +247,14 @@ export default {
     overflow-x: hidden !important;
   }
 }
-
-.outBigModal {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  overflow: hidden;
-  opacity: 60%;
-  background: rgba(0, 0, 0, 0.6);
-  left: 0;
-  top: 0;
-  z-index: 9999;
-  .big_modal_unit {
-    width: 714px;
-  }
-  .big_modal_person {
-    width: 1071px;
-  }
+.buttonPos {
+  width: 150px;
+  height: 45px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  position: absolute;
+  top: 130px;
+  right: 40px;
 }
-.big_modal {
-  width: 991px;
-  height: 602px;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  .modalTitle {
-    height: 30px;
-    line-height: 30px;
-    font-size: 24px;
-    color: #fff;
-  }
-}
-// 弹出框
-.showMoreDiv {
-  width: 100%;
-  height: 570px;
-  background: url(../../common/images/content.png) no-repeat center center;
-  background-size: 100% 100%;
-  z-index: 9999;
-  padding: 20px;
-  padding-bottom: 40px;
-  overflow: hidden;
-  .nei {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    top: 20px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    .itemTable {
-      width: 100%;
-      height: 192px;
-      div {
-        display: block;
-        border: 1px solid #003e70;
-        text-align: center;
-        width: 235px;
-        float: left;
-        .label {
-          font-size: 24px;
-          height: 43px;
-          line-height: 43px;
-          color: #ffffff;
-          background: url(../../common/images/title_bg.png);
-        }
-        .number {
-          font-size: 24px;
-          height: 70px;
-          line-height: 70px;
-          background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      }
-    }
-    .contextAna {
-      width: 930px;
-      height: 117px;
-      background: url("../../common/images/context.png") no-repeat center center;
-      background-size: 100% 100%;
-      text-align: center;
-      line-height: 1;
-      font-size: 24px;
-      line-height: 117px;
-      background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      position: absolute;
-      bottom: 30px;
-      right: 10px;
-    }
-  }
-  .closeImg {
-    position: absolute;
-    right: 10px;
-    top: 50px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-}
-.header{
-    width: 100%;
-    height: 110px;
-    padding:0px 40px;
-    padding-left:0px;
-    box-sizing:border-box;
-    position: relative;
-    top:40px;
-    .header_left{
-      float: left;
-    }
-    .header_right{
-      float:right;
-      position: absolute;
-      right:40px;
-      top:30px;
-      .detailButton{
-        margin-right: 40px;
-      }
-      .buttonPos{
-        width:150px;
-        height:45px;
-        background:transparent;
-        border:none;
-        padding:0;
-      }
-    }
-  }
 </style>

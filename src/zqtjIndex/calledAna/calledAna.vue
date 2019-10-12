@@ -17,7 +17,7 @@
         </el-button>
         <!-- 分析按钮 -->
         <el-button class="buttonPos" @click="showGif">
-          <img src="./assets/anaButton.png" alt />
+          <img src="../../common/images/anaButton.png" alt />
         </el-button>
       </div>
     </div>
@@ -39,27 +39,8 @@
         <el-table-column prop="city" label="城市"></el-table-column>
       </el-table>
     </div>
-    <bollSearch v-if="showBoll"></bollSearch>
-    <div class="outBigModal" v-if="showBigModel">
-      <!-- 立功受奖弹窗 -->
-      <div class="big_modal">
-        <div class="modalTitle">分析研判</div>
-        <div class="showMoreDiv">
-          <div class="nei">
-            <div class="itemTable">
-              <div v-for="itemCon in mockData2">
-                <p class="label">{{itemCon.label}}</p>
-                <p class="number">{{itemCon.con}}</p>
-              </div>
-            </div>
-            <div class="contextAna">加强该区域辖区中队的道路抢险救援装备实力。</div>
-          </div>
-          <div class="closeImg" @click="showBigModel = false;">
-            <img src="../../common/images/bubble_close.png" alt />
-          </div>
-        </div>
-      </div>
-    </div>
+    <boll-search v-if="showBoll"></boll-search>
+    <mask-box v-if="showBigModel" @closeMaskBox="closeMaskBox"></mask-box>
   </div>
 </template>
 <script>
@@ -69,6 +50,7 @@ import backHome from "../components/toHome";
 import comOut from "../components/comOut";
 import bollSearch from "../../zqtjIndex/components/doScheduling";
 import mockData from "../../common/json/zhidui";
+import maskBox from "../components/maskBox";
 export default {
   name: "calledAna",
   data() {
@@ -83,33 +65,7 @@ export default {
       oneDayData: { zbzq: "", nowTime: "" },
       showBigModel: false,
       showBoll: false,
-      mockData,
-      mockData2: [
-        {
-          label: "高发季度",
-          con: "第一季度"
-        },
-        {
-          label: "高发月份",
-          con: "二月份"
-        },
-        {
-          label: "高发时间",
-          con: "凌晨两点"
-        },
-        {
-          label: "高发类型",
-          con: "追尾"
-        },
-        {
-          label: "高发路段",
-          con: "京贵高速"
-        },
-        {
-          label: "所辖区中队",
-          con: ""
-        }
-      ]
+      mockData
     };
   },
   created() {
@@ -137,6 +93,9 @@ export default {
         this.showBoll = false;
         this.showBigModel = true;
       }, 2000);
+    },
+    closeMaskBox() {
+      this.showBigModel = false;
     }
   },
   computed: {},
@@ -144,7 +103,8 @@ export default {
     comHeader,
     comOut,
     backHome,
-    bollSearch
+    bollSearch,
+    maskBox
   }
 };
 </script>
