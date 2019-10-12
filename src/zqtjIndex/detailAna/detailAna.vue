@@ -6,17 +6,23 @@
         <back-home :localPage="linkPageObj"></back-home>
       </el-col>
     </el-row>
-    <comOut></comOut>
-    <!-- 分析按钮 -->
-    <el-button class="buttonPos" @click="showGif">
-      <img src="../../common/images/anaButton.png" alt />
-    </el-button>
+    <div class="header">
+      <div class="header_left">
+        <!-- 退出按钮  -->
+        <comOut></comOut>
+      </div>
+      <div class="header_right">
+        <!-- 分析按钮 -->
+        <el-button class="buttonPos" @click="showGif">
+          <img src="../../common/images/anaButton.png" alt />
+        </el-button>
+      </div>
+    </div>
     <div class="detailContent">
-      <div class="tableBox">
-        <table class="titleTable" border="1">
+      <table class="titleTable" border="1">
           <thead>
-            <tr class="trTitle titleWidth">
-              <td colspan="2">地区</td>
+            <tr class="trTitle">
+              <td style='width:300px'>地区</td>
               <td>总计</td>
               <td>高速</td>
               <td>国道</td>
@@ -25,6 +31,9 @@
               <td>城市</td>
             </tr>
           </thead>
+      </table>
+      <div class="tableBox">
+        <table border="1">
           <tbody ref="tbodyBox"></tbody>
         </table>
       </div>
@@ -37,7 +46,7 @@
         <div class="showMoreDiv">
           <div class="nei">
             <div class="itemTable">
-              <div v-for="itemCon in mockData2">
+              <div v-for="(itemCon, i) in mockData2" :key='i'>
                 <p class="label">{{itemCon.label}}</p>
                 <p class="number">{{itemCon.con}}</p>
               </div>
@@ -150,7 +159,7 @@ export default {
     // 创建table内容
     createTable(ref, data) {
       let table = this.$refs[ref];
-      var tableContent = `<tr class='titleWidth'><td colspan="2">${data.area}</td>
+      var tableContent = `<tr><td colspan="2" style='width:300px'>${data.area}</td>
       <td class='trColor'>${data.all}</td>
       <td class='trColor'>${data.speed}</td>
       <td class='trColor'>${data.nation}</td>
@@ -162,11 +171,11 @@ export default {
         item.districtList.forEach((disItem, k) => {
           tableContent += `<tr>`;
           if (k == 0) {
-            tableContent += `<td style='width:calc(188px / 14);' rowspan=${
+            tableContent += `<td style='width:calc(1836px / 14);' rowspan=${
               item.districtList.length ? item.districtList.length : "1"
             }>${item.area}</td>`;
           }
-          tableContent += `<td style='width:calc(188px / 14);'>${disItem.area}</td>
+          tableContent += `<td style='width:calc(1836px / 14);'>${disItem.area}</td>
           <td class='trColor'>${disItem.all}</td>
           <td class='trColor'>${disItem.speed}</td>
           <td class='trColor'>${disItem.nation}</td>
@@ -202,20 +211,27 @@ export default {
   -webkit-font-smoothing: antialiased;
   .detailContent {
     width: 100%;
-    padding: 30px 20px;
+    padding: 40px;
     .tableBox {
       width: 100%;
-      height: 850px;
+      height: 734px;
       overflow-y: auto;
+    }
+    .titleTable{
+      width: calc(100% - 4px);
+      tr,
+      td {
+        border-top: 1px solid #006d94;
+      }
     }
     table {
       word-break: break-all;
       border-collapse: collapse;
       width: 100%;
       text-align: center;
-      tr,
-      td {
+      tr,td {
         border: 1px solid #006d94;
+        border-top: 0;
       }
       td {
         font-family: numberFont;
@@ -225,20 +241,18 @@ export default {
         font-size: 24px;
         height: 64px;
       }
-      tbody {
-        width: 100%;
-      }
       .trTitle {
         background-image: url(../../common/images/titleBg.png);
-      }
-      .titleWidth td {
-        width: calc(100% / 7);
+        td{
+          width: calc(1536px / 6);
+        }
       }
       .trColor {
         font-size: 48px !important;
         background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        width: calc(1536px / 6);
       }
     }
   }
@@ -248,16 +262,7 @@ export default {
     overflow-x: hidden !important;
   }
 }
-.buttonPos {
-  position: absolute;
-  top: 130px;
-  right: 40px;
-  width: 150px;
-  height: 45px;
-  background: transparent;
-  border: none;
-  padding: 0;
-}
+
 .outBigModal {
   width: 100%;
   height: 100%;
@@ -358,4 +363,32 @@ export default {
     cursor: pointer;
   }
 }
+.header{
+    width: 100%;
+    height: 110px;
+    padding:0px 40px;
+    padding-left:0px;
+    box-sizing:border-box;
+    position: relative;
+    top:40px;
+    .header_left{
+      float: left;
+    }
+    .header_right{
+      float:right;
+      position: absolute;
+      right:40px;
+      top:30px;
+      .detailButton{
+        margin-right: 40px;
+      }
+      .buttonPos{
+        width:150px;
+        height:45px;
+        background:transparent;
+        border:none;
+        padding:0;
+      }
+    }
+  }
 </style>
