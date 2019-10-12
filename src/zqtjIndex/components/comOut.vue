@@ -126,7 +126,6 @@ export default {
     cursor: pointer;
   }
 }
-
 /*登录名称*/
 .name_div {
   width: 354px;
