@@ -86,7 +86,7 @@ export default {
       hzpjList2: [
         {
           title: "交通事故",
-          count: 890
+          count: 1132
         },
         {
           title: "压缩气体",
@@ -436,10 +436,18 @@ export default {
             background-image: url(../../common/images/titleBg.png);
           }
           .trCount {
-            font-size: 36px;
+            font-size: 48px;
             height: 68px;
             font-family: numberFont;
-            color: #00ccff;
+            td {
+              background-image: linear-gradient(
+                90deg,
+                #00ff1d 0%,
+                #00fff5 100%
+              );
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            }
           }
         }
         .title-i {

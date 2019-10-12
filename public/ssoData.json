@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://10.160.127.185:8080/ysgz",
-  "loginUrl": "http://10.160.127.185:8080/index.html",
+  "loginUrl": "http://ysgz.hydata666.com/",
   "urlList": [],
   "whiteList": [
     "blob:http"

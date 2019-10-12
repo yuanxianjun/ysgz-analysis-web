@@ -2,9 +2,10 @@ import Vue from 'vue'
 import detailAna from './detailAna.vue'
 import '@/common/styles/reset.css'
 import axios from '@/zqtjIndex/ajax'
-import { Row, Col, Message } from "element-ui"
+import { Row, Col, Message, Button } from "element-ui"
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Button)
 Vue.prototype.axios = axios;
 Vue.prototype.$message = Message;
 Vue.config.productionTip = false;

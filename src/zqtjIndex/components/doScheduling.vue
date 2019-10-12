@@ -41,7 +41,7 @@ export default {
   }
   .gif {
     position: relative;
-    background: url("../assets/boll.gif") no-repeat;
+    background: url("../../common/images/boll.gif") no-repeat;
     height: 600px;
     width: 800px;
     left: 50%;
