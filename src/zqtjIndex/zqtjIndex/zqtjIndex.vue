@@ -89,32 +89,32 @@ export default {
           count: 1132
         },
         {
-          title: "压缩气体",
-          count: 663
+          title: "危化品事故",
+          count: 200
         },
         {
-          title: "毒产品",
-          count: 532
+          title: "建、构筑物事故",
+          count: 60
         },
         {
-          title: "建筑物事故",
-          count: 932
+          title: "自然灾害",
+          count: 342
         },
         {
-          title: "倒塌事故",
-          count: 548
+          title: "突发事件",
+          count: 8
         },
         {
-          title: "跳楼营救",
-          count: 213
+          title: "救人",
+          count: 3086
         },
         {
-          title: "水上营救",
-          count: 374
+          title: "基础设施（备）事故",
+          count: 387
         },
         {
-          title: "电器故障",
-          count: 671
+          title: "其他",
+          count: 890
         }
       ]
     };
@@ -200,10 +200,19 @@ export default {
       let trList = document.getElementsByTagName("td");
       for (let index = 0; index < trList.length; index++) {
         trList[index].onclick = function(e) {
+          var jsonData = JSON.stringify([
+            { link: "calledAna.html", name: e.target.title }
+          ]);
+          window.localStorage.setItem("linkPageObj", jsonData);
+          window.localStorage.setItem("dataName", e.target.title);
           if (e.target.title == "交通事故") {
-            window.location.href = `calledAna.html?name=${encodeURI(
-              encodeURI(e.target.title)
-            )}`;
+            window.location.href = `calledAna.html`;
+          }
+          if (e.target.title == "救人") {
+            window.location.href = `calledAna.html`;
+          }
+          if (e.target.title == "危化品事故") {
+            window.location.href = `calledAna.html`;
           }
         };
       }
@@ -332,9 +341,7 @@ export default {
             animation: false,
             tooltip: {
               show: true,
-              formatter: function(params) {
-                console.log(params, "params");
-              }
+              formatter: function(params) {}
             },
             data: [
               {

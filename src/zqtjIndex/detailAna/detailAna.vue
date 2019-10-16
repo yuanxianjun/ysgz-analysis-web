@@ -3,7 +3,7 @@
     <com-header></com-header>
     <el-row>
       <el-col class="header_mb">
-        <back-home :localPage="linkPageObj"></back-home>
+        <back-home></back-home>
       </el-col>
     </el-row>
     <div class="header">
@@ -24,11 +24,29 @@
           <tr class="trTitle">
             <td style="width:300px">地区</td>
             <td>总计</td>
-            <td>高速</td>
-            <td>国道</td>
-            <td>省道</td>
-            <td>乡村</td>
-            <td>城市</td>
+            <template v-if="boolTraffic">
+              <td>高速</td>
+              <td>国道</td>
+              <td>省道</td>
+              <td>乡村</td>
+              <td>城市</td>
+            </template>
+            <template v-if="boolPeople">
+              <td>设备故障救人</td>
+              <td>生产事故救人</td>
+              <td>跳楼营救</td>
+              <td>水上营救</td>
+              <td>其他</td>
+            </template>
+            <template v-if="boolDanger">
+              <td>爆炸品</td>
+              <td>毒害品</td>
+              <td>压缩气体和液化气体</td>
+              <td>易燃液体</td>
+              <td>腐蚀品</td>
+              <td>氧化剂和有机过氧化物</td>
+              <td>杂类</td>
+            </template>
           </tr>
         </thead>
       </table>
@@ -46,7 +64,7 @@
 import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
 import comOut from "@/zqtjIndex/components/comOut";
-import detailData from "../../common/json/qu";
+import quData from "../../common/json/qu";
 import bollSearch from "../components/doScheduling";
 import maskBox from "../components/maskBox";
 export default {
@@ -55,44 +73,10 @@ export default {
     return {
       showBigModel: false,
       showBoll: false,
-      mockData2: [
-        {
-          label: "高发季度",
-          con: "第一季度"
-        },
-        {
-          label: "高发月份",
-          con: "二月份"
-        },
-        {
-          label: "高发时间",
-          con: "凌晨两点"
-        },
-        {
-          label: "高发类型",
-          con: "追尾"
-        },
-        {
-          label: "高发路段",
-          con: "京贵高速"
-        },
-        {
-          label: "所辖区中队",
-          con: ""
-        }
-      ],
-      linkPageObj: [
-        {
-          link: "calledAna.html",
-          name: "交通事故"
-        },
-        {
-          link: "",
-          name: "详情列表"
-        }
-      ],
-      localPage: "",
-      detailData
+      detailData: {},
+      boolTraffic: false,
+      boolPeople: false,
+      boolDanger: false
     };
   },
   components: {
@@ -104,6 +88,23 @@ export default {
   },
   created() {
     this.localInfo_gd();
+    var dataName = window.localStorage.getItem("dataName");
+    if (dataName == "交通事故") {
+      this.boolTraffic = true;
+      this.boolPeople = false;
+      this.boolDanger = false;
+      this.detailData = quData.trafficeData;
+    } else if (dataName == "救人") {
+      this.boolPeople = true;
+      this.boolTraffic = false;
+      this.boolDanger = false;
+      this.detailData = quData.savePeploeData;
+    } else if ((dataName = "危化品事故")) {
+      this.boolPeople = false;
+      this.boolTraffic = false;
+      this.boolDanger = true;
+      this.detailData = quData.dangerData;
+    }
   },
   mounted() {
     this.createTable("tbodyBox", this.detailData);
@@ -151,7 +152,10 @@ export default {
       <td class='trColor'>${data.nation}</td>
       <td class='trColor'>${data.province}</td>
       <td class='trColor'>${data.country}</td>
-      <td class='trColor'>${data.city}</td></tr>`;
+      <td class='trColor'>${data.city}</td>
+      <td class='trColor'>${data.corrosives}</td>
+      <td class='trColor'>${data.country}</td>
+      <td class='trColor'>${data.oxygen}</td></tr>`;
       data.cityList.forEach((item, i) => {
         // tableContent+=`<tr><td rowspan=${item.districtList.length?item.districtList.length:'1'}>${item.title}</td>`
         item.districtList.forEach((disItem, k) => {
@@ -167,7 +171,10 @@ export default {
           <td class='trColor'>${disItem.nation}</td>
           <td class='trColor'>${disItem.province}</td>
           <td class='trColor'>${disItem.country}</td>
-          <td class='trColor'>${disItem.city}</td></tr>`;
+          <td class='trColor'>${disItem.city}</td>
+          <td class='trColor'>${disItem.fire}</td>
+          <td class='trColor'>${disItem.corrosives}</td>
+          <td class='trColor'>${disItem.oxygen}</td></tr>`;
         });
       });
       table.innerHTML = tableContent;
@@ -257,5 +264,4 @@ export default {
   top: 130px;
   right: 40px;
 }
-
 </style>

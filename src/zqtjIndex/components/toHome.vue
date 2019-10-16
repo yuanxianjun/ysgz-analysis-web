@@ -1,17 +1,13 @@
 <template>
   <div>
     <div class="navigate">
-      <img class="homeIcon" src="../../common/images/home.png" alt>
-      <a class="_link color-grind" href="disasterAna.html">接警分析</a>
-      <template v-if="typeof localPage == 'string'">
-        <span class="littleHeng">-</span>
-        <span class="color-grind">{{localPage}}</span>
-      </template>
-      <template v-else>
+      <img class="homeIcon" src="../../common/images/home.png" alt />
+      <a class="_link color-grind" @click="toHome">接警分析</a>
+      <template>
         <template v-for="(page,index) in localPage">
           <span class="littleHeng">-</span>
           <template v-if="index < localPage.length-1">
-            <a class="_link color-grind" :href="page.link">{{page.name}}</a>
+            <a class="_link color-grind" @click="toSecondPage(page.link)">{{page.name}}</a>
           </template>
           <template v-else>
             <span class="color-grind">{{page.name}}</span>
@@ -25,13 +21,34 @@
 <script>
 export default {
   name: "backHome",
-  props: ["localPage"],
+  props: [],
   data() {
-    return {};
+    return {
+      localPage: []
+    };
   },
-  created() {},
+  created() {
+    this.getLink();
+  },
   mounted() {},
-  methods: {}
+  methods: {
+    toHome() {
+      window.location.href = "disasterAna.html";
+      var linkData = window.localStorage.setItem("linkPageObj", "[]");
+    },
+    toSecondPage(pageLink) {
+      window.location.href = pageLink;
+      var linkData = this.localPage.slice(0, -1);
+      window.localStorage.setItem("linkPageObj", JSON.stringify(linkData));
+    },
+    getLink() {
+      var linkData = window.localStorage.getItem("linkPageObj");
+      if (linkData == "undefined") {
+        linkData = "[]";
+      }
+      this.localPage = JSON.parse(linkData || "[]");
+    }
+  }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

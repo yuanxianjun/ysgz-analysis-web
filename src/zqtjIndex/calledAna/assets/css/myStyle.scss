@@ -40,51 +40,6 @@
     height:880px;
     overflow: hidden;
     padding:40px;
-    .el-table{
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-    .el-table__header-wrapper{
-      // border:1px solid #006d94;
-      .el-table__header{
-      
-        font-size:24px;
-        color:#ffffff;
-        height:64px;
-        line-height: 64px;
-        th{
-          border:1px solid #006d94;
-          background:url(../../../../common/images/title_bg.png) no-repeat center center;
-          background-size:100% 100%;
-        }
-      }
-      
-    }
-    .el-table__body{
-      .el-table__row{
-        height:64px;
-        line-height: 64px;
-        font-size:48px !important;
-        color:#ffffff !important;
-        text-align: center;
-        td{
-          font-family: ROME;
-          background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          border:1px solid #006d94;
-          border-top:none;
-        }
-        .el-table_1_column_1 {
-          color:#ffffff;
-          font-size:24px;
-          background: none;
-          -webkit-text-fill-color: #ffffff;
-        }
-      }
-    }
-
-   
   }
 
 }
