@@ -3,6 +3,7 @@ import detailAna from './detailAna.vue'
 import '@/common/styles/reset.css'
 import axios from '@/zqtjIndex/ajax'
 import { Row, Col, Message, Button, Table, TableColumn } from "element-ui"
+import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Button)

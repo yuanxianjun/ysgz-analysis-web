@@ -1,11 +1,7 @@
 <template>
   <div id="zqtjIndex">
     <com-header></com-header>
-    <el-row>
-      <el-col class="header_mb">
-        <back-home></back-home>
-      </el-col>
-    </el-row>
+    <backHome></backHome>
     <div class="header">
       <div class="header_left">
         <!-- 退出按钮  -->
@@ -19,42 +15,23 @@
       </div>
     </div>
     <div class="detailContent">
-      <table class="titleTable" border="1">
-        <thead>
-          <tr class="trTitle">
-            <td style="width:300px">地区</td>
-            <td>总计</td>
-            <template v-if="boolTraffic">
-              <td>高速</td>
-              <td>国道</td>
-              <td>省道</td>
-              <td>乡村</td>
-              <td>城市</td>
-            </template>
-            <template v-if="boolPeople">
-              <td>设备故障救人</td>
-              <td>生产事故救人</td>
-              <td>跳楼营救</td>
-              <td>水上营救</td>
-              <td>其他</td>
-            </template>
-            <template v-if="boolDanger">
-              <td>爆炸品</td>
-              <td>毒害品</td>
-              <td>压缩气体和液化气体</td>
-              <td>易燃液体</td>
-              <td>腐蚀品</td>
-              <td>氧化剂和有机过氧化物</td>
-              <td>杂类</td>
-            </template>
-          </tr>
-        </thead>
-      </table>
-      <div class="tableBox">
-        <table border="1">
-          <tbody ref="tbodyBox"></tbody>
-        </table>
-      </div>
+      <el-table
+        :data="detailData"
+        border
+        height="800"
+        :span-method="arraySpanMethod"
+        :header-cell-class-name="thHeader"
+        style="width: 100%;">
+        template
+        <el-table-column
+          v-for="(item,i) in headerData[detailsType]"
+          :key="i"
+          :prop="item.prop"
+          :label="item.label"
+          :width="item.width"
+          align="center">
+        </el-table-column>
+      </el-table>
     </div>
     <boll-search v-if="showBoll"></boll-search>
     <mask-box v-if="showBigModel" @closeMaskBox="closeMaskBox"></mask-box>
@@ -73,10 +50,127 @@ export default {
     return {
       showBigModel: false,
       showBoll: false,
-      detailData: {},
-      boolTraffic: false,
-      boolPeople: false,
-      boolDanger: false
+      detailData: [],
+      detailsType: "",
+      areaInterval: [],
+      headerData: {
+        boolTraffic: [
+          {
+            prop: "totalArea",
+            label: "地",
+            width: "180"
+          },
+          {
+            prop: "area",
+            label: "区",
+            width: "180"
+          },
+          {
+            prop: "all",
+            label: "总计"
+          },
+          {
+            prop: "speed",
+            label: "高速"
+          },
+          {
+            prop: "nation",
+            label: "国道"
+          },
+          {
+            prop: "province",
+            label: "省道"
+          },
+          {
+            prop: "country",
+            label: "乡村"
+          },
+          {
+            prop: "city",
+            label: "城市"
+          },
+        ],
+        boolPeople: [
+          {
+            prop: "totalArea",
+            label: "地",
+            width: "180"
+          },
+          {
+            prop: "area",
+            label: "区",
+            width: "180"
+          },
+          {
+            prop: "all",
+            label: "总计"
+          },
+          {
+            prop: "speed",
+            label: "设备故障救人"
+          },
+          {
+            prop: "nation",
+            label: "生产事故救人"
+          },
+          {
+            prop: "province",
+            label: "跳楼营救"
+          },
+          {
+            prop: "country",
+            label: "水上营救"
+          },
+          {
+            prop: "city",
+            label: "其他"
+          }
+        ],
+        boolDanger: [
+          {
+            prop: "totalArea",
+            label: "地",
+            width: "180"
+          },
+          {
+            prop: "area",
+            label: "区",
+            width: "180"
+          },
+          {
+            prop: "all",
+            label: "总计"
+          },
+          {
+            prop: "speed",
+            label: "爆炸品"
+          },
+          {
+            prop: "nation",
+            label: "毒害品"
+          },
+          {
+            prop: "province",
+            label: "压缩气体和液化气体"
+          },
+          {
+            prop: "country",
+            label: "易燃液体"
+          },
+          {
+            prop: "city",
+            label: "腐蚀品"
+          },
+          {
+            prop: "fire",
+            label: "氧化剂和有机过氧化物"
+          },
+          {
+            prop: "corrosives",
+            label: "杂类"
+          },
+        ],
+      }
     };
   },
   components: {
@@ -90,24 +184,18 @@ export default {
     this.localInfo_gd();
     var dataName = window.localStorage.getItem("dataName");
     if (dataName == "交通事故") {
-      this.boolTraffic = true;
-      this.boolPeople = false;
-      this.boolDanger = false;
+      this.detailsType = "boolTraffic";
       this.detailData = quData.trafficeData;
     } else if (dataName == "救人") {
-      this.boolPeople = true;
-      this.boolTraffic = false;
-      this.boolDanger = false;
+      this.detailsType = "boolPeople";
       this.detailData = quData.savePeploeData;
     } else if ((dataName = "危化品事故")) {
-      this.boolPeople = false;
-      this.boolTraffic = false;
-      this.boolDanger = true;
+      this.detailsType = "boolDanger";
       this.detailData = quData.dangerData;
     }
   },
   mounted() {
-    this.createTable("tbodyBox", this.detailData);
+    this.createTable(this.detailData);
   },
   methods: {
     showGif() {
@@ -119,6 +207,40 @@ export default {
     },
     closeMaskBox() {
       this.showBigModel = false;
+    },
+    arraySpanMethod ({row, column, rowIndex, columnIndex}) {
+      if (rowIndex=== 0) {
+        if (columnIndex === 0) {
+          return [1, 2];
+        } else if (columnIndex === 1) {
+          return [0, 0];
+        }
+      } else{
+        if(row.area=='小计'&&columnIndex==0){
+          for(let i = 0; this.areaInterval.length;i++) {
+            if (row.totalArea == this.areaInterval[i].name){
+              return {
+                rowspan: this.areaInterval[i].index,
+                colspan: 1
+              };
+              break;
+            }
+          }
+          
+        } else if (row.area!=='小计'&&columnIndex==0){
+          return {
+            rowspan: 0,
+            colspan: 0
+          };
+        }
+      } 
+    },
+    thHeader ({row, column, rowIndex, columnIndex}) {
+      if (columnIndex === 0) {
+        return 'rightHeader'
+      } else if(columnIndex === 1) {
+        return 'leftHeader';
+      }
     },
     // 获取登陆人的姓名
     // 根据userId 查询
@@ -142,42 +264,29 @@ export default {
         }
       });
     },
-
     // 创建table内容
-    createTable(ref, data) {
-      let table = this.$refs[ref];
-      var tableContent = `<tr><td colspan="2" style='width:300px'>${data.area}</td>
-      <td class='trColor'>${data.all}</td>
-      <td class='trColor'>${data.speed}</td>
-      <td class='trColor'>${data.nation}</td>
-      <td class='trColor'>${data.province}</td>
-      <td class='trColor'>${data.country}</td>
-      <td class='trColor'>${data.city}</td>
-      <td class='trColor'>${data.corrosives}</td>
-      <td class='trColor'>${data.country}</td>
-      <td class='trColor'>${data.oxygen}</td></tr>`;
-      data.cityList.forEach((item, i) => {
-        // tableContent+=`<tr><td rowspan=${item.districtList.length?item.districtList.length:'1'}>${item.title}</td>`
-        item.districtList.forEach((disItem, k) => {
-          tableContent += `<tr>`;
-          if (k == 0) {
-            tableContent += `<td style='width:calc(1836px / 14);' rowspan=${
-              item.districtList.length ? item.districtList.length : "1"
-            }>${item.area}</td>`;
-          }
-          tableContent += `<td style='width:calc(1836px / 14);'>${disItem.area}</td>
-          <td class='trColor'>${disItem.all}</td>
-          <td class='trColor'>${disItem.speed}</td>
-          <td class='trColor'>${disItem.nation}</td>
-          <td class='trColor'>${disItem.province}</td>
-          <td class='trColor'>${disItem.country}</td>
-          <td class='trColor'>${disItem.city}</td>
-          <td class='trColor'>${disItem.fire}</td>
-          <td class='trColor'>${disItem.corrosives}</td>
-          <td class='trColor'>${disItem.oxygen}</td></tr>`;
-        });
+    createTable(data) {
+      let arr = [];
+      data.forEach((item,i) => {
+        if (item.area=='小计'){
+          arr.push({
+            name: item.totalArea,
+            index: i
+          });
+        }
       });
-      table.innerHTML = tableContent;
+      this.areaInterval = [];
+      
+      arr.push({
+        index:data.length
+      });
+      for(let i = arr.length-1; i>0;i--) {
+        this.areaInterval.push({
+          name : arr[i-1].name,
+          index: arr[i].index-arr[i-1].index
+        })
+      }
+      this.areaInterval.reverse()
     }
   },
   destroyed() {}
@@ -203,50 +312,119 @@ export default {
   .detailContent {
     width: 100%;
     padding: 40px;
-    .tableBox {
-      width: 100%;
-      height: 734px;
-      overflow-y: auto;
+    overflow: auto;
+    .el-table--border::after, .el-table--group::after, .el-table::before{
+      background-color: #006d94;
     }
-    .titleTable {
-      width: calc(100% - 4px);
-      tr,
-      td {
-        border-top: 1px solid #006d94;
-      }
+    .el-table, .el-table__expanded-cell,.el-table th, .el-table tr{
+      background-color: transparent!important; 
     }
-    table {
-      word-break: break-all;
-      border-collapse: collapse;
-      width: 100%;
-      text-align: center;
-      tr,
-      td {
-        border: 1px solid #006d94;
-        border-top: 0;
-      }
-      td {
-        font-family: numberFont;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    .el-table--border, .el-table--group{
+      border-color: #006d94;
+    }
+    td{
+      border-color: #006d94;
+    }
+    .el-table__header-wrapper {
+    // border:1px solid #006d94;
+      .el-table__header {
         font-size: 24px;
+        
         height: 64px;
-      }
-      .trTitle {
-        background-image: url(../../common/images/titleBg.png);
-        td {
-          width: calc(1536px / 6);
+        line-height: 64px;
+        tr{
+          color: #ffffff!important;
+        }
+        th {
+          padding: 0px!important;
+          border-color: #006d94;
+          background: url(../../common/images/title_bg.png) no-repeat center center;
+          background-size: 100% 100%;
         }
       }
-      .trColor {
+    }
+    .el-table__body {
+      .el-table__row {
+        height: 64px;
+        line-height: 64px;
         font-size: 48px !important;
-        background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        width: calc(1536px / 6);
+        color: #ffffff !important;
+        text-align: center;
+        td {
+          font-family: ROME;
+          background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          border-color: #006d94;
+          border-top: none;
+        }
+        td:first-of-type,.el-table_1_column_2,.el-table_1_column_1{
+          color: #ffffff;
+          font-size: 24px;
+          background: none;
+          -webkit-text-fill-color: #ffffff;
+        }
       }
     }
+    .rightHeader{
+      text-align: right;
+      border-right: 0px!important;
+      // padding: 0; 
+      .cell{
+        padding-right:0; 
+      }
+    }
+    .leftHeader{
+      text-align: left;
+      .cell{
+        padding-left:0; 
+      }
+    }
+    // height: 500px;
+    // .tableBox {
+    //   width: 100%;
+    //   // height: 734px;
+    //   overflow-y: auto;
+    // }
+    // .titleTable {
+    //   width: calc(100% - 4px);
+    //   tr,
+    //   td {
+    //     border-top: 1px solid #006d94;
+    //   }
+    // }
+    // table {
+    //   word-break: break-all;
+    //   border-collapse: collapse;
+    //   width: 100%;
+    //   text-align: center;
+    //   tr,
+    //   td {
+    //     border: 1px solid #006d94;
+    //     border-top: 0;
+    //   }
+    //   td {
+    //     font-family: numberFont;
+    //     overflow: hidden;
+    //     text-overflow: ellipsis;
+    //     white-space: nowrap;
+    //     font-size: 24px;
+    //     height: 64px;
+    //   }
+    //   .trTitle {
+    //     background-image: url(../../common/images/titleBg.png);
+    //     td {
+    //       width: calc(1536px / 6);
+    //     }
+    //   }
+    //   .trColor {
+    //     font-size: 48px !important;
+    //     background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
+    //     -webkit-background-clip: text;
+    //     -webkit-text-fill-color: transparent;
+    //     width: calc(1536px / 6);
+    //   }
+    // }
   }
 }
 @media screen and (width: 1920px) {
@@ -258,10 +436,38 @@ export default {
   width: 150px;
   height: 45px;
   background: transparent;
-  border: none;
-  padding: 0;
+  border: none!important;
+  padding: 0!important;
   position: absolute;
-  top: 130px;
-  right: 40px;
+  // top: 130px;
+  right: 0px;
 }
+.header{
+    width: 100%;
+    height: 110px;
+    padding:0px 40px;
+    padding-left:0px;
+    box-sizing:border-box;
+    position: relative;
+    top:40px;
+    .header_left{
+      float: left;
+    }
+    .header_right{
+      float:right;
+      position: absolute;
+      right:40px;
+      top:30px;
+      .detailButton{
+        margin-right: 40px;
+      }
+      .buttonPos{
+        width:150px;
+        height:45px;
+        background:transparent;
+        border:none;
+        padding:0;
+      }
+    }
+  }
 </style>
