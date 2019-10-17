@@ -30,6 +30,16 @@
       <el-table-column prop="corrosives" label="氧化剂和有机过氧化物" width="250"></el-table-column>
       <el-table-column prop="oxygen" label="杂类"></el-table-column>
     </template>
+    <template v-else-if="boolNature">
+      <el-table-column prop="area" label="地区" width="200"></el-table-column>
+      <el-table-column prop="all" label="总计"></el-table-column>
+      <el-table-column prop="speed" label="地震"></el-table-column>
+      <el-table-column prop="nation" label="水灾"></el-table-column>
+      <el-table-column prop="province" label="风灾"></el-table-column>
+      <el-table-column prop="country" label="山体滑坡"></el-table-column>
+      <el-table-column prop="city" label="旱灾"></el-table-column>
+      <el-table-column prop="fire" label="其它"></el-table-column>
+    </template>
   </el-table>
 </template>
 <script>
@@ -40,6 +50,7 @@ export default {
     return {
       boolTraffic: false,
       boolPeople: false,
+      boolNature: false,
       boolDanger: false,
       mockData: []
     };
@@ -56,11 +67,17 @@ export default {
       this.boolTraffic = false;
       this.boolDanger = false;
       this.mockData = allData.savePeploeData;
-    } else if ((dataName = "危化品事故")) {
+    } else if (dataName == "危化品事故") {
       this.boolPeople = false;
       this.boolTraffic = false;
       this.boolDanger = true;
       this.mockData = allData.dangerData;
+    } else if (dataName == "自然灾害") {
+      this.boolPeople = false;
+      this.boolTraffic = false;
+      this.boolDanger = false;
+      this.boolNature = true;
+      this.mockData = allData.naturalData;
     }
   },
   methods: {}

@@ -214,6 +214,9 @@ export default {
           if (e.target.title == "危化品事故") {
             window.location.href = `calledAna.html`;
           }
+          if (e.target.title == "自然灾害") {
+            window.location.href = `calledAna.html`;
+          }
         };
       }
     },

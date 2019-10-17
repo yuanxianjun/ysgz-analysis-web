@@ -1,5 +1,5 @@
 
-var trafficData, savePeploeData, dangerData, data;
+var trafficData, savePeploeData, dangerData, naturalData, data;
 
 // 交通数据
 trafficData = [
@@ -132,7 +132,21 @@ dangerData = [
     { "area": "黔西南", "all": "4", "speed": "0", "nation": "0", "province": "3", "country": "1", "city": "0", "fire": "0", "corrosives": "0", "oxygen": "0" },
     { "area": "贵安", "all": "0", "speed": "0", "nation": "0", "province": "0", "country": "0", "city": "0", "fire": "0", "corrosives": "0", "oxygen": "0" },
 ]
+// 自然灾害
+naturalData = [
+    { "area": "2019年全省合计 ", "all": "343", "speed": "1", "nation": "278", "province": "3", "country": "33", "city": "0", "fire": "28" },
+    { "area": "贵阳", "all": "164", "speed": "0", "nation": "143", "province": "0", "country": "9", "city": "0", "fire": "12" },
+    { "area": "遵义", "all": "27", "speed": "0", "nation": "24", "province": "1", "country": "2", "city": "0", "fire": "0" },
+    { "area": "安顺", "all": "11", "speed": "0", "nation": "11", "province": "0", "country": "0", "city": "0", "fire": "0" },
+    { "area": "黔南", "all": "12", "speed": "0", "nation": "9", "province": "0", "country": "3", "city": "0", "fire": "0" },
+    { "area": "黔东南", "all": "20", "speed": "0", "nation": "14", "province": "0", "country": "2", "city": "0", "fire": "4" },
+    { "area": "铜仁", "all": "12", "speed": "1", "nation": "7", "province": "0", "country": "2", "city": "0", "fire": "2" },
+    { "area": "毕节", "all": "31", "speed": "0", "nation": "25", "province": "1", "country": "5", "city": "0", "fire": "0" },
+    { "area": "六盘水", "all": "19", "speed": "0", "nation": "8", "province": "0", "country": "7", "city": "0", "fire": "4" },
+    { "area": "黔西南", "all": "43", "speed": "0", "nation": "37", "province": "1", "country": "3", "city": "0", "fire": "2" },
+    { "area": "贵安", "all": "4", "speed": "0", "nation": "0", "province": "0", "country": "0", "city": "0", "fire": "4" },
+]
 data = {
-    trafficData, savePeploeData, dangerData
+    trafficData, savePeploeData, dangerData, naturalData
 };
 export default data;
