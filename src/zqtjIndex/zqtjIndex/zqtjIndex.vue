@@ -86,7 +86,7 @@ export default {
       hzpjList2: [
         {
           title: "交通事故",
-          count: 1132
+          count: 1217
         },
         {
           title: "危化品事故",
@@ -98,7 +98,7 @@ export default {
         },
         {
           title: "自然灾害",
-          count: 342
+          count: 343
         },
         {
           title: "突发事件",

@@ -5,7 +5,7 @@ var trafficData, savePeploeData, dangerData, naturalData, data;
 trafficData = [
     {
         "area": "2019年全省合计 ",
-        "all": "1132",
+        "all": "1217",
         "speed": "246",
         "nation": "68",
         "province": "117",

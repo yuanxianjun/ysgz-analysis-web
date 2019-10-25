@@ -2,6 +2,7 @@ import Vue from 'vue';
 import calledAna from './calledAna.vue'
 import '@/common/styles/reset.css'
 import '@/zqtjIndex/calledAna/assets/css/myStyle.scss'
+import 'element-ui/lib/theme-chalk/index.css';
 import { Button, Message, Table, TableColumn } from 'element-ui'
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'

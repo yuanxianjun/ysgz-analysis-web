@@ -5,17 +5,9 @@
       <div class="modalTitle">分析研判</div>
       <div class="showMoreDiv">
         <div class="nei">
-          <!-- <div class="itemTable">
-            <div v-for="itemCon in mockData2">
-              <p class="label">{{itemCon.label}}</p>
-              <p class="number">{{itemCon.con}}</p>
-            </div>
-          </div>
-          <div class="contextAna">
-            <p>加强该区域辖区中队的道路抢险救援装备实力。</p>
-          </div>-->
-          <div class="header">交通事故分析</div>
-          <div class="content">
+          <div class="header">{{title}}分析</div>
+          <!-- 交通事故 -->
+          <div v-if="title =='交通事故'" class="content">
             <p class="title">(一)道路类型分析</p>
             <div class="ecartsDiv">
               <histogramCom></histogramCom>
@@ -68,9 +60,81 @@
               </ul>
             </div>
           </div>
+
+          <!-- 救人 -->
+          <div v-if="title == '救人'" class="content">
+            <p class="title">(一)事故类型分析</p>
+            <div class="ecartsDiv">
+              <histogramCom></histogramCom>
+            </div>
+            <p class="content_item">设备故障救人占比31.43%。跳楼救人占比29.19%。水上营救占比18.86%。其他类型救人占比 19.7%。</p>
+            <p class="content_item">在设备故障救人中，主要以电梯故障为主，占设备故障救人的91.34%，占全省救人出警的38.71%。</p>
+            <p class="content_item">在水上营救中，主要以打捞为主，占水上营救的63.23%，占全省救人出警的11.92%。</p>
+            <p class="content_item">其他类型中，以社会救助为主，占其他类型救人的71.54%，占全省救人出警的14.09%。</p>
+            <p class="title">(二)区县境内分析</p>
+            <!-- 插入地图 -->
+            <div class="map">
+              <map-com></map-com>
+            </div>
+            <p class="content_item">
+              救人救援排名前3的支队有
+              <span class="redFont">贵阳支队、遵义支队、六盘水支队。</span>其中贵阳支队的救人接警数量占全省救人接警的47.27%。
+            </p>
+            <p class="content_item">
+              救人救援排名前10的大队有
+              <span
+                class="redFont"
+              >南明大队、云岩大队、观山湖大队、红花冈大队、清镇市大队、花溪大队、乌当大队、白云大队、经开大队、汇川大队。</span>
+            </p>
+            <p class="content_item">
+              跳楼救人排名前10的大队有
+              <span
+                class="redFont"
+              >南明大队、云岩大队、观山湖大队、白云大队、红花冈大队、花溪大队、清镇市大队、钟山区大队、汇川区大队、仁怀市大队。</span>
+              其中南明区的花果园社区跳楼营救接警数量占全省跳楼营救的12.98%，是跳楼最高发的社区。
+            </p>
+          </div>
+          <div v-if="title == '自然灾害'" class="content">
+            <p class="title">(一)灾害类型分析</p>
+            <div class="ecartsDiv">
+              <histogramCom></histogramCom>
+            </div>
+            <p
+              class="content_item"
+            >贵州河流处在长江和珠江两大水系上游交错地带，苗岭是长江和珠江两流域的分水岭，以北属长江流域，流域面积115747平方千米，占全省国土面积约65%，主要河流有乌江、赤水河、清水江、洪州河、舞阳河、锦江、松桃河、松坎河、牛栏江、横江等。苗岭以南属珠江流域，流域面积60420平方千米，占全省国土面积约35%，主要河流有南盘江、北盘江、红水河、都柳江、打狗河等。</p>
+            <p
+              class="content_item"
+            >贵州境内山脉众多，重峦叠嶂，绵延纵横，山高谷深。其中92.5%的面积为山地和丘陵。北部有大娄山，自西向东北斜贯北境，川黔要隘娄山关高1444米；中南部苗岭横亘，主峰雷公山高2178米；东北境有武陵山，由湘蜿蜒入黔，主峰梵净山高2572米；西部高耸乌蒙山，属此山脉的赫章县珠市乡韭菜坪海拔2900.6米，为贵州境内最高点。</p>
+            <p class="content_item">贵州省河流众多且地处山区，全年降水量大，容易发生水灾及山体滑坡事故。</p>
+            <p class="content_item">水灾事故占自然灾害事故的81%，是贵州省自然灾害事故抢险救援的重中之重。</p>
+            <p class="title">(二)区县境内分析</p>
+            <!-- 插入地图 -->
+            <div class="map">
+              <map-com></map-com>
+            </div>
+            <p class="content_item">
+              自然灾害事故救援排名前3的支队有
+              <span class="redFont">贵阳支队、黔西南支队、毕节支队。</span>其中贵阳支队的自然灾害接警数量占全省自然灾害接警的47.8%。
+            </p>
+            <p class="content_item">
+              自然灾害事故救援排名前10的大队有
+              <span
+                class="redFont"
+              >云岩大队、南明大队、金阳大队、清镇大队、七星关大队、乌当大队、花溪大队、贞丰县大队、安龙县大队、兴义市大队。</span>
+            </p>
+            <p class="content_item">
+              水灾事故救援排名前10的大队有
+              <span class="redFont">云岩大队、南明大队、金阳大队、清镇大队、乌当大队、花溪大队、贞丰县大队、汇川大队、兴义市大队。</span>
+            </p>
+            <p class="content_item">
+              山体滑坡事故救援排名前4的大队有
+              <span class="redFont">云岩大队、水城县大队、罗甸县大队、赫章县大队。</span>
+            </p>
+            <!-- <p class="title">(三)事故性质分析</p> -->
+          </div>
         </div>
         <div class="closeImg" @click="closeAll">
-          <img src="../../common/images/bubble_close.png" alt />
+          <img src="../../common/images/bubble_close.png" />
         </div>
       </div>
     </div>
@@ -79,41 +143,18 @@
 <script>
 import tableCom from "./tableCom";
 import histogramCom from "./echartsBar";
+import mapCom from "./map";
 export default {
   name: "maskBox",
   data() {
     return {
-      mockData2: [
-        {
-          label: "高发季度",
-          con: "第一季度"
-        },
-        {
-          label: "高发月份",
-          con: "二月份"
-        },
-        {
-          label: "高发时间",
-          con: "凌晨两点"
-        },
-        {
-          label: "高发类型",
-          con: "追尾"
-        },
-        {
-          label: "高发路段",
-          con: "京贵高速"
-        },
-        {
-          label: "所辖区中队",
-          con: ""
-        }
-      ]
+      title: window.localStorage.getItem("dataName")
     };
   },
   components: {
     tableCom,
-    histogramCom
+    histogramCom,
+    mapCom
   },
   mounted() {},
   methods: {
@@ -124,6 +165,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.map {
+  width: 100%;
+  height: 600px;
+}
 .title {
   font-size: 26px;
   font-weight: bold;
@@ -235,26 +280,6 @@ export default {
           -webkit-text-fill-color: transparent;
         }
       }
-    }
-    .contextAna {
-      width: 930px;
-      height: 117px;
-      background: url(../../common/images/context.png) no-repeat center center;
-      background-size: 100% 100%;
-      text-align: center;
-      line-height: 1;
-      p {
-        width: 100%;
-        height: 100%;
-        font-size: 24px;
-        line-height: 117px;
-        background-image: linear-gradient(top, #00f6fb 0%, #00ff98 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      position: absolute;
-      bottom: 30px;
-      right: 10px;
     }
   }
   .closeImg {

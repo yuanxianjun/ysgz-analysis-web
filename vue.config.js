@@ -14,7 +14,6 @@ module.exports = {
         historyApiFallback: {
             rewrites: [
                 { from: /^\/$/, to: '/disasterAna.html' },
-
             ]
         }
     },
