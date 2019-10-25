@@ -55,7 +55,8 @@ export default {
         { name: "万山区", value: 0, city: "铜仁" },
         { name: "玉屏侗族自治县", value: 0, city: "铜仁" },
         { name: "观山湖区", value: 0, city: "贵阳" }
-      ]
+      ],
+      allData: []
     };
   },
   created() {
@@ -66,14 +67,12 @@ export default {
   },
   methods: {
     dealData() {
-      let allData = [];
       if (this.titleName == "救人") {
-        allData = quJSON.savePeploeData;
-      } else {
-        allData = quJSON.natureData;
+        this.allData = quJSON.savePeploeData;
+      } else if (this.titleName == "自然灾害") {
+        this.allData = quJSON.natureData;
       }
-
-      allData.forEach(item => {
+      this.allData.forEach(item => {
         if (item.area !== "小计" && item.area !== "2019年全省合计") {
           this.nameData.push({
             city: item.totalArea,
@@ -112,7 +111,7 @@ export default {
           trigger: "item",
           formatter: function(params) {
             var val = "";
-            var quData = quJSON.savePeploeData;
+            var quData = _this.allData;
             for (var i = 0, len = quData.length; i < len; i++) {
               if (params.name == quData[i].area) {
                 val =
@@ -146,19 +145,24 @@ export default {
                   params.data.city +
                   params.name +
                   "</br>" +
-                  "设备故障" +
+                  detailText[0] +
+                  " : " +
                   0 +
                   "</br>" +
-                  "生产事故救人 : " +
+                  detailText[1] +
+                  " : " +
                   0 +
                   "</br>" +
-                  "跳楼营救 : " +
+                  detailText[2] +
+                  " : " +
                   0 +
                   "</br>" +
-                  "水上营救 : " +
+                  detailText[3] +
+                  " : " +
                   0 +
                   "</br>" +
-                  "其它 : " +
+                  detailText[4] +
+                  " : " +
                   0 +
                   "</br>";
               }
@@ -217,23 +221,6 @@ export default {
         ]
       };
       chart.setOption(option);
-
-      // 高亮区
-      const city = {
-        guiyang: [
-          "南明区",
-          "云岩区",
-          "花溪区",
-          "乌当区",
-          "观山湖区",
-          "白云区",
-          "清镇市",
-          "开阳县",
-          "息烽县",
-          "修文县"
-        ],
-        zunyi: []
-      };
       const changeHighlight = function(params, whichAction) {
         var allData = _this.nameData;
         for (let i = 0, len = allData.length; i < len; i++) {
