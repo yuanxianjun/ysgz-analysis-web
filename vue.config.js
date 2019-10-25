@@ -32,6 +32,11 @@ module.exports = {
             entry: 'src/zqtjIndex/detailAna/detailAna.js',
             template: 'src/zqtjIndex/detailAna/detailAna.html',
             filename: 'detailAna.html'
-        }
+        },
+        'copterData': {
+            entry: 'src/zqtjIndex/copterData/copterData.js',
+            template: 'src/zqtjIndex/copterData/copterData.html',
+            filename: 'copterData.html'
+        },
     }
 }
