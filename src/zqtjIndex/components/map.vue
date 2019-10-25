@@ -253,6 +253,9 @@ export default {
       chart.on("mouseover", function(params) {
         changeHighlight(params, "highlight");
       });
+      chart.on("mouseout", function(params) {
+        changeHighlight(params, "downplay");
+      });
     }
   },
   computed: {},
