@@ -392,7 +392,7 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 @font-face {
   font-family: "numberFont"; //数组字体
   src: url("../../common/fonts/290-CAI978.TTF");

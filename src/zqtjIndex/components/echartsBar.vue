@@ -27,6 +27,16 @@ export default {
         ],
         dataTraffic = ["乡村道路", "城市道路", "高速", "省道", "国道"],
         dataNature = ["地震", "水灾", "风灾", "山体滑坡", "旱灾", "其它"],
+        dataChemistry = [
+          "爆炸品",
+          "毒害品",
+          "压缩气体和液化气体",
+          "易燃液体",
+          "易燃固体、自燃物品和遇湿易燃物品",
+          "腐蚀品",
+          "氧化剂和有机过氧化物",
+          "杂类"
+        ],
         dataFire_y = [
           {
             name: "设备故障",
@@ -146,18 +156,80 @@ export default {
             }
           }
         ],
+        dataChemistry_y = [
+          {
+            name: "爆炸品",
+            value: "4",
+            itemStyle: {
+              color: "red"
+            }
+          },
+          {
+            name: "毒害品",
+            value: "1",
+            itemStyle: {
+              color: "orange"
+            }
+          },
+          {
+            name: "压缩气体和液化气体",
+            value: "155",
+            itemStyle: {
+              color: "#ffcc66"
+            }
+          },
+          {
+            name: "易燃液体",
+            value: "45",
+            itemStyle: {
+              color: "#FB9A99"
+            }
+          },
+          {
+            name: "易燃固体、自燃物品和遇湿易燃物品",
+            value: "3",
+            itemStyle: {
+              color: "#FB9A99"
+            }
+          },
+          {
+            name: "腐蚀品",
+            value: "2",
+            itemStyle: {
+              color: "#33A02C"
+            }
+          },
+          {
+            name: "氧化剂和有机过氧化物",
+            value: "1",
+            itemStyle: {
+              color: "#DA70D6"
+            }
+          },
+          {
+            name: "杂类",
+            value: "10",
+            itemStyle: {
+              color: "#CD1076"
+            }
+          }
+        ],
         xData,
-        yData,
-        titleName = window.localStorage.getItem("dataName");
+        yData;
+      var dataJson = JSON.parse(window.localStorage.getItem("dataJson"));
+      var titleName = dataJson.dataName;
       if (titleName == "交通事故") {
         xData = dataTraffic;
         yData = dataTraffic_y;
-      } else if (titleName == "救人") {
+      } else if (titleName == "群众遇险") {
         xData = dataFire;
         yData = dataFire_y;
-      } else if (titleName == "自然灾害") {
+      } else if (titleName == "水旱灾害") {
         xData = dataNature;
         yData = dataNature_y;
+      } else if (titleName == "化学危险品事故") {
+        xData = dataChemistry;
+        yData = dataChemistry_y;
       }
       //找到dom
       let pieOne = this.$refs.lineDiv;
@@ -190,11 +262,14 @@ export default {
         xAxis: [
           {
             type: "category",
+
             axisTick: {
               show: false,
               color: "#707070"
             },
             axisLabel: {
+              interval: 0,
+              rotate: -45, //标签旋转角度，对于长文本标签设置旋转可避免文本重叠
               textStyle: {
                 fontSize: 28,
                 color: "#ffffff"
@@ -210,7 +285,7 @@ export default {
         ],
         yAxis: {
           type: "value",
-          name: "(人)",
+          name: "(起)",
           nameTextStyle: {
             fontSize: 28,
             color: "#ffffff"

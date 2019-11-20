@@ -19,7 +19,7 @@
           <div class="headImg">
             <img class="head_img" src="../../common/images/outHead.png" alt />
           </div>
-          <div class="loginName">{{userInfo.userName?userInfo.userName:'黄景瑜'}}</div>
+          <div class="loginName">{{userInfo.userName?userInfo.userName:''}}</div>
           <div class="btns">
             <div class="confirm" @click="outConfirm">
               <img src="../../common/images/modal_3.png" alt />
@@ -201,7 +201,6 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  opacity: 60%;
   background: rgba(0, 0, 0, 0.6);
   left: 0;
   top: 0;

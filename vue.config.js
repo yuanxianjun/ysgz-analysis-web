@@ -6,6 +6,7 @@ module.exports = {
     productionSourceMap: false,
     devServer: {
         open: true,
+        hot: true,
         compress: true,//服务器压缩
         // before: function (app, server) {
         //     app.get('/', function (req, res) {   
@@ -13,11 +14,21 @@ module.exports = {
         //     });        // }
         historyApiFallback: {
             rewrites: [
-                { from: /^\/$/, to: '/disasterAna.html' },
+                { from: /^\/$/, to: '/index.html' },
             ]
         }
     },
     pages: {
+        'index': {
+            entry: 'src/zqtjIndex/index/index.js',
+            template: 'src/zqtjIndex/index/index.html',
+            filename: 'index.html'
+        },
+        'emergency': {
+            entry: 'src/zqtjIndex/emergency/emergency.js',
+            template: 'src/zqtjIndex/emergency/emergency.html',
+            filename: 'emergency.html'
+        },
         'zqtjIndex': {
             entry: 'src/zqtjIndex/zqtjIndex/zqtjIndex.js',
             template: 'src/zqtjIndex/zqtjIndex/zqtjIndex.html',

@@ -23,14 +23,27 @@
         :header-cell-class-name="thHeader"
         style="width: 100%;"
       >
-        <el-table-column
+        <!-- <el-table-column
           v-for="(item,i) in headerData[detailsType]"
           :key="i"
           :prop="item.prop"
           :label="item.label"
           :width="item.width"
           align="center"
-        ></el-table-column>
+        ></el-table-column>-->
+        <el-table-column prop="cityName"></el-table-column>
+        <el-table-column prop="totalArea"></el-table-column>
+        <el-table-column prop="all"></el-table-column>
+        <el-table-column prop="speed"></el-table-column>
+        <el-table-column prop="other"></el-table-column>
+        <!-- <el-table-column prop="areaInfo">
+          <template slot-scope="scope">
+            <div>{{scope.row.areaInfo}}</div>
+          </template>
+        </el-table-column>-->
+        <!-- <el-table-column
+          prop="item.totalArea"
+        ></el-table-column>-->
       </el-table>
     </div>
     <boll-search v-if="showBoll"></boll-search>
@@ -227,24 +240,39 @@ export default {
     maskBox
   },
   created() {
-    this.localInfo_gd();
     var dataName = window.localStorage.getItem("dataName");
     if (dataName == "交通事故") {
       this.detailsType = "boolTraffic";
-      this.detailData = quData.trafficeData;
-    } else if (dataName == "救人") {
-      this.detailsType = "boolPeople";
-      this.detailData = quData.savePeploeData;
-    } else if (dataName == "危化品事故") {
-      this.detailsType = "boolDanger";
-      this.detailData = quData.dangerData;
-    } else if (dataName == "自然灾害") {
-      this.detailsType = "boolNatrue";
-      this.detailData = quData.natureData;
+      //   this.detailData = quData.trafficeData;
+      // } else if (dataName == "群众遇险") {
+      //   this.detailsType = "boolPeople";
+      //   this.detailData = quData.savePeploeData;
+      // } else if (dataName == "化学危险品事故") {
+      //   this.detailsType = "boolDanger";
+      //   this.detailData = quData.dangerData;
+      // } else if (dataName == "水旱灾害") {
+      //   this.detailsType = "boolNatrue";
+      //   this.detailData = quData.natureData;
     }
+    this.detailData = [
+      {
+        cityName: "贵阳市",
+        totalArea: "南明区",
+        all: "100",
+        speed: "12",
+        other: "88"
+      },
+      {
+        cityName: "贵阳市",
+        totalArea: "乌当区",
+        all: "100",
+        speed: "12",
+        other: "88"
+      }
+    ];
   },
   mounted() {
-    this.createTable(this.detailData);
+    // this.createTable(this.detailData);
   },
   methods: {
     showGif() {
@@ -290,56 +318,35 @@ export default {
         return "leftHeader";
       }
     },
-    // 获取登陆人的姓名
-    // 根据userId 查询
-    localInfo_gd() {
-      var hytoken = window.localStorage.getItem("hytoken");
-      this.axios({
-        method: "post",
-        url: "/user/userInfo/?hytoken=" + hytoken
-      }).then(res => {
-        if (res.data && res.data.code === "success") {
-          var data = res.data.result || {};
-          if (data) {
-            this.resetSetItem("userInfo", JSON.stringify(data));
-          }
-        } else if (res.data.code == 500) {
-          this.$message({
-            message: res.data.msg,
-            center: true,
-            type: "error"
-          });
-        }
-      });
-    },
+
     createTable(data) {
       let arr = [];
-      data.forEach((item, i) => {
-        if (item.area == "小计") {
-          arr.push({
-            name: item.totalArea,
-            index: i
-          });
-        }
-      });
-      this.areaInterval = [];
+      // data.forEach((item, i) => {
+      //   if (item.area == "小计") {
+      //     arr.push({
+      //       name: item.totalArea,
+      //       index: i
+      //     });
+      //   }
+      // });
 
-      arr.push({
-        index: data.length
-      });
-      for (let i = arr.length - 1; i > 0; i--) {
-        this.areaInterval.push({
-          name: arr[i - 1].name,
-          index: arr[i].index - arr[i - 1].index
-        });
-      }
+      // this.areaInterval = [];
+      // arr.push({
+      //   index: data.length
+      // });
+      // for (let i = arr.length - 1; i > 0; i--) {
+      //   this.areaInterval.push({
+      //     name: arr[i - 1].name,
+      //     index: arr[i].index - arr[i - 1].index
+      //   });
+      // }
       this.areaInterval.reverse();
     }
   },
   destroyed() {}
 };
 </script>
-<style lang="scss">
+<style lang="scss" >
 @font-face {
   font-family: "numberFont"; //数组字体
   src: url("../../common/fonts/290-CAI978.TTF");

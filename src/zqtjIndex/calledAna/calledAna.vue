@@ -19,14 +19,7 @@
         </el-button>
       </div>
     </div>
-    <!-- area: "2019年全省统计",
-          all: "1132",
-          speed: "55",
-          nation: "444",
-          province: "33",
-          country: "1",
-    city: "0"-->
-    <div class="content-wrapper">
+    <div class="content-wrapper1">
       <table-com></table-com>
     </div>
     <boll-search v-if="showBoll"></boll-search>
@@ -85,5 +78,5 @@ export default {
 </script>
 
 
-<style>
+<style lang="scss" scoped>
 </style>

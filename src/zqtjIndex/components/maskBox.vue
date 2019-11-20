@@ -62,7 +62,7 @@
           </div>
 
           <!-- 救人 -->
-          <div v-if="title == '救人'" class="content">
+          <div v-if="title == '群众遇险'" class="content">
             <p class="title">(一)事故类型分析</p>
             <div class="ecartsDiv">
               <histogramCom></histogramCom>
@@ -94,7 +94,8 @@
               其中南明区的花果园社区跳楼营救接警数量占全省跳楼营救的12.98%，是跳楼最高发的社区。
             </p>
           </div>
-          <div v-if="title == '自然灾害'" class="content">
+          <!-- 水旱灾害 -->
+          <div v-if="title == '水旱灾害'" class="content">
             <p class="title">(一)灾害类型分析</p>
             <div class="ecartsDiv">
               <histogramCom></histogramCom>
@@ -132,6 +133,41 @@
             </p>
             <!-- <p class="title">(三)事故性质分析</p> -->
           </div>
+          <div v-if="title == '化学危险品事故'" class="content">
+            <p class="title">(一)事故类型分析</p>
+            <div class="ecartsDiv">
+              <histogramCom></histogramCom>
+            </div>
+            <p
+              class="content_item"
+            >压缩气体和液化气体接警占比70.13%。易燃液体接警占比20.36%。杂类接警占比4.52%。爆炸品接警占比 1.8%。易燃固体、自燃物品和遇湿易燃物品接警占比1.3%。腐蚀品接警占比0.9%。毒害品接警占比0.45%。氧化剂和有机过氧化物接警0.45%。</p>
+            <p
+              class="content_item"
+            >化学危险品事故接警中，压缩气体和液化气体的接警数量占比超过70%。在压缩气体和液化气体接警中，主要是天然气管道泄漏，煤气管道泄漏，液化气罐泄漏、起火。 在易燃液体接警中，主要是汽油、柴油泄漏。</p>
+
+            <p class="title">(二)区县境内分析</p>
+            <!-- 插入地图 -->
+            <div class="map">
+              <map-com></map-com>
+            </div>
+            <p class="content_item">
+              化学危险品事故救援排名前3的支队有
+              <span class="redFont">贵阳支队、六盘水支队、遵义支队。</span>其中贵阳支队的救人接警数量占全省救人接警的62.89%，六盘水支队占11.76%，遵义支队占10.4%。
+            </p>
+            <p class="content_item">
+              化学危险品事故救援排名前10的大队有
+              <span
+                class="redFont"
+              >南明大队、云岩大队、白云大队、观山湖大队、花溪大队、红花冈大队、钟山大队、经开大队、水城县大队、清镇市大队。</span>
+            </p>
+            <p class="content_item">
+              压缩气体和液化气体救援排名前10的大队有
+              <span
+                class="redFont"
+              >南明大队、云岩大队、观山湖大队、红花冈大队、钟山大队、白云大队、水城县大队、清镇市大队、经开大队、花溪大队。</span>
+              南明区人口密集，燃气、液化气罐使用量大，容易发生燃气管道、液化气罐泄漏。
+            </p>
+          </div>
         </div>
         <div class="closeImg" @click="closeAll">
           <img src="../../common/images/bubble_close.png" />
@@ -148,13 +184,17 @@ export default {
   name: "maskBox",
   data() {
     return {
-      title: window.localStorage.getItem("dataName")
+      dataJson: JSON.parse(window.localStorage.getItem("dataJson")),
+      title: ""
     };
   },
   components: {
     tableCom,
     histogramCom,
     mapCom
+  },
+  created() {
+    this.title = this.dataJson.dataName;
   },
   mounted() {},
   methods: {
@@ -175,7 +215,7 @@ export default {
 }
 .ecartsDiv {
   width: 1470px;
-  height: 600px;
+  height: 800px;
 }
 .yellowFont {
   color: yellow;
@@ -189,7 +229,6 @@ export default {
   height: 100%;
   position: fixed;
   overflow: hidden;
-  opacity: 60%;
   background: rgba(0, 0, 0, 0.6);
   left: 0;
   top: 0;

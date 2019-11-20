@@ -3,7 +3,7 @@ import calledAna from './calledAna.vue'
 import '@/common/styles/reset.css'
 import '@/zqtjIndex/calledAna/assets/css/myStyle.scss'
 import 'element-ui/lib/theme-chalk/index.css';
-import { Button, Message, Table, TableColumn } from 'element-ui'
+import { Button, Message, Table, TableColumn, Loading } from 'element-ui'
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 Vue.component(CollapseTransition.name, CollapseTransition)
@@ -12,6 +12,7 @@ import axios from "axios"
 Vue.use(Button);
 Vue.use(Table);
 Vue.use(TableColumn);
+Vue.use(Loading);
 Vue.prototype.$message = Message;
 Vue.prototype.axios = axios;
 Vue.prototype.resetSetItem = (key, newVal) => {

@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       mapData: [],
-      titleName: window.localStorage.getItem("dataName"),
+      dataJson: JSON.parse(window.localStorage.getItem("dataJson")),
+      titleName: "",
       mapArr: [
         guizhou,
         guiyangshi,
@@ -66,11 +67,15 @@ export default {
     this.concatMapJson();
   },
   methods: {
+    // 处理数据
     dealData() {
-      if (this.titleName == "救人") {
+      this.titleName = this.dataJson.dataName;
+      if (this.titleName == "群众遇险") {
         this.allData = quJSON.savePeploeData;
-      } else if (this.titleName == "自然灾害") {
+      } else if (this.titleName == "水旱灾害") {
         this.allData = quJSON.natureData;
+      } else if (this.titleName == "化学危险品事故") {
+        this.allData = quJSON.chemistryData;
       }
       this.allData.forEach(item => {
         if (item.area !== "小计" && item.area !== "2019年全省合计") {
@@ -93,7 +98,8 @@ export default {
         detailText;
       echarts.registerMap("贵州", { features: _this.mapData });
       var chart = echarts.init(document.getElementById("mapCity"));
-      if (_this.titleName == "救人") {
+
+      if (_this.titleName == "群众遇险") {
         detailText = [
           "设备故障救人",
           "生产事故救人",
@@ -101,8 +107,19 @@ export default {
           "水上营救",
           "其它"
         ];
-      } else {
+      } else if (_this.titleName == "水旱灾害") {
         detailText = ["地震", "水灾", "风灾", "山体滑坡", "旱灾", "其它"];
+      } else if (_this.titleName == "化学危险品事故") {
+        detailText = [
+          "爆炸品",
+          "毒害品",
+          "压缩气体和液化气体",
+          "易燃液体",
+          "易燃固体、自燃物品和遇湿易燃物品",
+          "腐蚀品",
+          "氧化剂和有机过氧化物",
+          "杂类"
+        ];
       }
 
       var option = {
@@ -137,9 +154,20 @@ export default {
                   detailText[4] +
                   " : " +
                   quData[i].city +
+                  "</br>" +
+                  detailText[5] +
+                  " : " +
+                  quData[i].fire +
                   "</br>";
+                +detailText[6] +
+                  " : " +
+                  quData[i].aaa +
+                  "</br>" +
+                  detailText[7] +
+                  " : " +
+                  quData[i].bbb;
 
-                break;
+                // break;
               } else {
                 val =
                   params.data.city +
@@ -162,6 +190,18 @@ export default {
                   0 +
                   "</br>" +
                   detailText[4] +
+                  " : " +
+                  0 +
+                  "</br>" +
+                  detailText[5] +
+                  " : " +
+                  0 +
+                  "</br>" +
+                  detailText[6] +
+                  " : " +
+                  0 +
+                  "</br>" +
+                  detailText[7] +
                   " : " +
                   0 +
                   "</br>";

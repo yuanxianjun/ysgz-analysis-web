@@ -33,7 +33,7 @@ export default {
   mounted() {},
   methods: {
     toHome() {
-      window.location.href = "disasterAna.html";
+      window.location.href = "index.html";
       var linkData = window.localStorage.setItem("linkPageObj", "[]");
     },
     toSecondPage(pageLink) {
