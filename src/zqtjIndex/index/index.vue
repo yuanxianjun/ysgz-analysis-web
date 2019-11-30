@@ -387,7 +387,7 @@ export default {
         method: "get",
         url: todayFire + params
       }).then(res => {
-        this.tableData = res.data.reslut;
+        this.tableData = res.data.result;
         this.loading = false;
       });
     }

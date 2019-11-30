@@ -5,7 +5,7 @@
     <div class="content-wrapper">
       <div class="header">
         <div class="header_left">
-          <!-- 退出按钮  -->
+          <!-- 退出按钮-->
           <comOut></comOut>
         </div>
         <div class="header_middle">
@@ -37,19 +37,274 @@
               :props="slectProps"
               filterable
               clearable
+              @change="changeOrgTreeid"
             ></el-cascader>
           </div>
+          <el-button class="customBtn" @click="postAll">查询</el-button>
         </div>
         <div class="header_right">
-          <el-button class="customBtn" @click="rescue_get">查询</el-button>
-          <el-button class="customBtn" @click="handleCancel">取消</el-button>
+          <el-row>
+            <el-col :span="8" class="elCol">
+              <div class="label">接警总量</div>
+              <div class="valueDiv">
+                <i class="value">{{sumData.total}}</i>
+                <span class="unit">起</span>
+              </div>
+            </el-col>
+            <el-col :span="8" class="elCol">
+              <div class="label">出动车辆</div>
+              <div class="valueDiv">
+                <i class="value">{{sumData.car}}</i>
+                <span class="unit">辆</span>
+              </div>
+            </el-col>
+            <el-col :span="8" class="elCol">
+              <div class="label">出动人员</div>
+              <div class="valueDiv">
+                <i class="value">{{sumData.person}}</i>
+                <span class="unit">人</span>
+              </div>
+            </el-col>
+          </el-row>
         </div>
       </div>
       <div class="content">
+        <!-- 火灾扑救框 -->
+        <div class="fireFightingAll">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>火灾扑救</label>
+          </div>
+          <div class="fireLiDiv">
+            <el-row>
+              <el-col :span="4" class="fireliBg">
+                <p class="fireTitle">火灾接警</p>
+                <p class="fireValue">
+                  <span class="number">{{fightFire_data.alarm}}</span>
+                  <span class="unit">起</span>
+                </p>
+              </el-col>
+              <el-col :span="4" class="fireliBg">
+                <p class="fireTitle">重大火灾</p>
+                <p class="fireValue">
+                  <span class="number">{{fightFire_data.intensive }}</span>
+                  <span class="unit">起</span>
+                </p>
+              </el-col>
+              <el-col :span="4" class="fireliBg">
+                <p class="fireTitle">出动车辆</p>
+                <p class="fireValue">
+                  <span class="number">{{fightFire_data.car}}</span>
+                  <span class="unit">辆</span>
+                </p>
+              </el-col>
+              <el-col :span="4" class="fireliBg">
+                <p class="fireTitle">出动人员</p>
+                <p class="fireValue">
+                  <span class="number">{{fightFire_data.person}}</span>
+                  <span class="unit">人</span>
+                </p>
+              </el-col>
+              <el-col :span="4" class="fireliBg">
+                <p class="fireTitle">财产损失</p>
+                <p class="fireValue">
+                  <span class="number">{{fightFire_data.money}}</span>
+                  <span class="unit">万元</span>
+                </p>
+              </el-col>
+              <el-col :span="4" class="fireliBg">
+                <p class="fireTitle">抢救人员</p>
+                <p class="fireValue">
+                  <span class="number">{{fightFire_data.rescue}}</span>
+                  <span class="unit">人</span>
+                </p>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+        <!-- 火灾扑救框 -->
+        <div class="areaFireDiv" v-if="boolFireAreaData">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>区域火灾扑救数量</label>
+          </div>
+          <div
+            class="chart"
+            v-loading="boolFireArea"
+            element-loading-background="rgba(0, 0, 0, 0.6)"
+          >
+            <div class="rescueChartCon">
+              <!-- 暂时弃用 @refresh="refreshList"-->
+              <detachment-com v-if="!boolFireArea" :statisData="fightFire_data.areaFireAnalysis"></detachment-com>
+            </div>
+          </div>
+        </div>
+        <!-- 火灾扑救描述框 -->
+        <div class="fireFightingDescribe">
+          <div class="contentText">火灾扑救总体描述</div>
+        </div>
+        <!-- 火灾场所框 -->
+        <div class="firePlace">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>火灾场所(单位:起)</label>
+          </div>
+          <div class="tableBox">
+            <el-row class="rowDiv">
+              <el-col :span="4" class="tableCol" v-for="(item,index) in firePlace" :key="index">
+                <template>
+                  <div>
+                    <div class="title">{{item.name}}</div>
+                    <div class="number">{{item.num}}</div>
+                  </div>
+                </template>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+        <!-- 应急救援总数框 -->
+        <div class="emergenceRescue">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>应急救援</label>
+          </div>
+          <div class="rescueOneCon">
+            <el-row>
+              <el-col :span="4">
+                <div class="rescueOneCon_div">
+                  <el-row>
+                    <el-col :span="10">
+                      <img src="./assets/img/应急救援.png" />
+                    </el-col>
+                    <el-col :span="14">
+                      <div style="display:inline-block;">
+                        <p class="rescueOneCon_title gradientFont">应急救援</p>
+                        <p>
+                          <span class="number">{{rescue_data.alarm ||0}}</span>
+                          <span class="unit">起</span>
+                        </p>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-col>
+              <el-col :span="4">
+                <div class="rescueOneCon_div">
+                  <el-row>
+                    <el-col :span="10">
+                      <img src="./assets/img/重大事故.png" />
+                    </el-col>
+                    <el-col :span="14">
+                      <div>
+                        <p class="rescueOneCon_title gradientFont">重大事故</p>
+                        <p>
+                          <span class="number">{{rescue_data.intensive||0}}</span>
+                          <span class="unit">起</span>
+                        </p>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-col>
+
+              <el-col :span="4">
+                <div class="rescueOneCon_div">
+                  <el-row>
+                    <el-col :span="10">
+                      <img src="./assets/img/出动车辆.png" />
+                    </el-col>
+                    <el-col :span="14">
+                      <div style="display:inline-block;">
+                        <p class="rescueOneCon_title gradientFont">出动车辆</p>
+                        <p>
+                          <span class="number">{{rescue_data.car ||0 }}</span>
+                          <span class="unit">辆次</span>
+                        </p>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-col>
+              <el-col :span="4">
+                <div class="rescueOneCon_div">
+                  <el-row>
+                    <el-col :span="10">
+                      <img src="./assets/img/出动人员.png" />
+                    </el-col>
+                    <el-col :span="14">
+                      <div>
+                        <p class="rescueOneCon_title gradientFont">出动人员</p>
+                        <p>
+                          <span class="number">{{rescue_data.person ||0}}</span>
+                          <span class="unit">人</span>
+                        </p>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-col>
+
+              <el-col :span="4">
+                <div class="rescueOneCon_div">
+                  <el-row>
+                    <el-col :span="10">
+                      <img src="./assets/img/财产损失.png" />
+                    </el-col>
+                    <el-col :span="14">
+                      <div style="display:inline-block;">
+                        <p class="rescueOneCon_title gradientFont">财产损失</p>
+                        <p>
+                          <span class="number">{{rescue_data.money ||0}}</span>
+                          <span class="unit">万元</span>
+                        </p>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-col>
+              <el-col :span="4">
+                <div class="rescueOneCon_div">
+                  <el-row>
+                    <el-col :span="10">
+                      <img src="./assets/img/抢救人员.png" />
+                    </el-col>
+                    <el-col :span="14">
+                      <div>
+                        <p class="rescueOneCon_title gradientFont">抢救人员</p>
+                        <p>
+                          <span class="number">{{rescue_data.rescue || 0}}</span>
+                          <span class="unit">人</span>
+                        </p>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+        <!-- 区域应急救援统计框 -->
+        <div class="areaFireDiv" v-if="boolDetach">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>区域应急救援数量</label>
+          </div>
+          <div class="chart" v-loading="bool" element-loading-background="rgba(0, 0, 0, 0.6)">
+            <div class="rescueChartCon">
+              <!-- 暂时弃用 @refresh="refreshList" -->
+              <detachment2-com v-if="!bool" :statisData="detachmentList"></detachment2-com>
+            </div>
+          </div>
+        </div>
+        <!-- 火灾扑救描述框  -->
+        <div class="fireFightingDescribe">
+          <div class="contentText">应急救援总体描述</div>
+        </div>
+        <!-- 应急救援分析 列表 -->
         <div class="tableDiv">
           <div class="table-title">
             <i class="title-i"></i>
-            <label>分析列表(单位:起)</label>
+            <label>应急救援分析(单位:起)</label>
           </div>
           <div class="tableBox" v-loading="bool" element-loading-background="rgba(0, 0, 0, 0.6)">
             <el-row class="rowDiv" v-if="!bool">
@@ -99,21 +354,6 @@
             </el-row>
           </div>
         </div>
-        <div class="chart" v-loading="bool" element-loading-background="rgba(0, 0, 0, 0.6)">
-          <div class="rescueChartCon">
-            <statistice-com @toNext="toNext" v-if="!bool" :statisData="analysisList"></statistice-com>
-          </div>
-        </div>
-        <div
-          class="chart"
-          v-loading="bool"
-          element-loading-background="rgba(0, 0, 0, 0.6)"
-          v-if="boolDetach"
-        >
-          <div class="rescueChartCon">
-            <detachment-com @refresh="refreshList" v-if="!bool" :statisData="detachmentList"></detachment-com>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -122,9 +362,17 @@
 import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
 import comOut from "@/zqtjIndex/components/comOut";
-import { rescueAnalysis, orgTreeUrl } from "../requestUrl";
+import {
+  rescueAnalysis,
+  orgTreeUrl,
+  info,
+  fightFire,
+  fireAnalysis,
+  rescue
+} from "../requestUrl";
 import statisticeCom from "./components/statisticeCom.vue";
 import detachmentCom from "./components/detachmentCom.vue";
+import detachment2Com from "./components/detachmentCom2.vue";
 // import func from "d:/commandrescue/vue-temp/vue-editor-bridge";
 export default {
   name: "emergency",
@@ -133,12 +381,16 @@ export default {
     backHome,
     comOut,
     statisticeCom,
-    detachmentCom
+    detachmentCom,
+    detachment2Com
   },
   data() {
     return {
       bool: true,
       boolDetach: false,
+      //  区域火灾扑救遮罩
+      boolFireArea: false,
+      boolFireAreaData: true,
       userInfo: JSON.parse(window.localStorage.getItem("userInfo")),
       orgTreeId: "",
       dateValue: [],
@@ -171,26 +423,151 @@ export default {
         { name: "核与辐射事件", id: "020507000000", value: 0 },
         { name: "公共卫生事件", id: "020504000000", value: 0 }
       ],
-      detachmentList: []
+      detachmentList: [],
+      fightFire_data: {
+        alarm: 0,
+        intensive: 0,
+        car: 0,
+        person: 0,
+        money: 0,
+        rescue: 0,
+        areaFireAnalysis: []
+      },
+      rescue_data: {},
+      sumData: {
+        car: 0,
+        person: 0,
+        total: 0
+      },
+      firePlace: {}
     };
   },
+  computed: {
+    // 更新各个接口参数params
+    params: function() {
+      return {
+        endDate: this.dateValue[1],
+        orgTreeId: this.orgTreeId,
+        startDate: this.dateValue[0]
+      };
+    }
+  },
   created() {
+    this.userInfo = {
+      admin: false,
+      areaId: "520102",
+      areaName: "贵州",
+      cityId: "520100",
+      orgId: "213f9a43359c4ce7bfd998d983de24d8",
+      orgName: "指挥中心",
+      orgRole: "01",
+      orgTree: "0100000052000000",
+      roleName: "指挥员",
+      userId: "2e9a5b91639b4d15a2aa0ba8c049b909",
+      userName: "甘泉"
+    };
+    window.localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+    this.localInfo_gd();
     this.orgTreeId = this.userInfo.orgTree;
     this.orgTree_gd(this.orgTreeId);
     this.dateDetail();
   },
   mounted() {
-    // this.rescue_get();
+    this.postAll();
   },
 
   methods: {
+    postAll() {
+      // var index = this.selectedOptions.length - 1;
+      // this.orgTreeId = this.selectedOptions[index];
+      this.sumInfo_get();
+      this.fightFire_get();
+      this.fireAnalysis_get();
+      this.rescueData_get();
+      this.rescue_get();
+    },
+
+    // 火灾场所综合信息
+    fireAnalysis_get() {
+      this.axios({
+        method: "post",
+        url: fireAnalysis,
+        data: this.params
+      }).then(res => {
+        this.firePlace = res.data.result;
+      });
+    },
+    // 火灾扑救综合信息
+    fightFire_get() {
+      this.boolFireArea = true;
+      this.axios({
+        method: "post",
+        url: fightFire,
+        data: this.params
+      }).then(res => {
+        this.fightFire_data = res.data.result;
+        this.boolFireArea = false;
+        var judgeCondition = res.data.result.areaFireAnalysis;
+        if (judgeCondition !== null) {
+          this.boolFireAreaData = true;
+        } else if (judgeCondition == null) {
+          this.boolFireAreaData = false;
+        }
+      });
+    },
+    // 接警综合信息
+    sumInfo_get() {
+      this.axios({
+        method: "post",
+        url: info,
+        data: this.params
+      }).then(res => {
+        var data = res.data.result;
+        this.sumData.car = data.car ? data["car"] : 0;
+        this.sumData.person = data.person ? data["person"] : 0;
+        this.sumData.total = data.total ? data["total"] : 0;
+      });
+    },
+    // 应急救援
+    rescueData_get() {
+      this.axios({
+        method: "post",
+        url: rescue,
+        data: this.params
+      }).then(res => {
+        this.rescue_data = res.data.result;
+      });
+    },
+
+    // 根据userId 查询
+    localInfo_gd() {
+      var hytoken = window.localStorage.getItem("hytoken");
+      this.axios({
+        method: "post",
+        url: "/user/userInfo/?hytoken=" + hytoken
+      }).then(res => {
+        if (res.data && res.data.code === "success") {
+          var data = res.data.result || {};
+          if (data) {
+            this.resetSetItem("userInfo", JSON.stringify(data));
+            this.userInfo = data;
+          }
+        } else if (res.data.code == 500) {
+          this.$message({
+            message: res.data.msg,
+            center: true,
+            type: "error"
+          });
+        }
+      });
+    },
     // 跳转到区队的统计页面
     toNext(item) {
       if (item.value < 1) {
         return;
       }
       var jsonData = JSON.stringify([
-        { link: "emergency.html", name: "应急救援数据" },
+        // { link: "indexAna.html", name: "应急救援数据" },
         { link: "calledAna.html", name: item.name }
       ]);
       window.localStorage.setItem("linkPageObj", jsonData);
@@ -208,11 +585,11 @@ export default {
       data = data.slice(index, limit);
       return data;
     },
-    refreshList(params) {
-      var arr = this.selectedOptions;
-      this.selectedOptions = [...arr, params.code];
-      this.rescue_get();
-    },
+    // refreshList(params) {
+    //   var arr = this.selectedOptions;
+    //   this.selectedOptions = [...arr, params.code];
+    //   this.rescue_get();
+    // },
     orgTree_gd(id) {
       this.axios({
         method: "get",
@@ -221,7 +598,6 @@ export default {
         this.orgTreeData = [];
         this.orgTreeData.push(res.data.result);
         this.selectedOptions[0] = this.orgTreeData[0].orgTreeId;
-        this.rescue_get();
       });
     },
     // 取消选中条件
@@ -244,26 +620,24 @@ export default {
         startDay = curTimeYear + "-" + "01" + "-" + "01";
       this.dateValue = [startDay, nowDay];
     },
+    changeOrgTreeid(params) {
+      var index = params.length;
+      if (index > 0) {
+        this.orgTreeId = params[index - 1];
+      }
+    },
     changeDate() {
       // console.log(this.dateValue);
     },
     // 分析列表
     rescue_get() {
-      var index = this.selectedOptions.length - 1;
-      this.orgTreeId = this.selectedOptions[index];
-      var data = {
-        startDate: this.dateValue[0],
-        endDate: this.dateValue[1],
-        orgTreeId: this.selectedOptions[index]
-      };
       this.bool = true;
       this.axios({
         method: "post",
         url: rescueAnalysis,
-        data
+        data: this.params
       }).then(res => {
         var data = res.data.result;
-
         // this.analysisList = Object.assign({}, this.analysisList);
         this.analysisList = [
           { name: "化学危险品事故", id: "020100000000", value: 0 },

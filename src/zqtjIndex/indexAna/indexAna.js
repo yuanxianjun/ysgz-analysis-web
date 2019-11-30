@@ -1,18 +1,24 @@
-import Vue from 'vue'
-import detailAna from './detailAna.vue'
+import Vue from 'vue';
+import index from './indexAna.vue'
 import '@/common/styles/reset.css'
-import axios from 'axios'
-import { Row, Col, Message, Button, Table, TableColumn, Loading } from "element-ui"
+import '@/zqtjIndex/indexAna/assets/css/myStyle.scss'
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(Row)
-Vue.use(Col)
-Vue.use(Button)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(Loading)
-Vue.prototype.axios = axios;
+import { Button, Message, Table, TableColumn, Row, Col, DatePicker, Cascader, Loading } from 'element-ui'
+// collapse 展开折叠
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+Vue.component(CollapseTransition.name, CollapseTransition)
+import axios from "axios"
+// Button select  Row Col table
+Vue.use(Button);
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(DatePicker);
+Vue.use(Cascader);
+Vue.use(Loading);
 Vue.prototype.$message = Message;
-Vue.config.productionTip = false;
+Vue.prototype.axios = axios;
 Vue.prototype.resetSetItem = (key, newVal) => {
     if (key === 'userInfo') {
         // 创建一个StorageEvent事件
@@ -29,14 +35,15 @@ Vue.prototype.resetSetItem = (key, newVal) => {
         return storage.setItem(key, newVal);
     }
 };
+Vue.config.productionTip = false;
 axios.get(`${process.env.BASE_URL}domain.json`)
     .then(res => {
         axios.defaults.baseURL = res.data.baseUrl;
-        axios.defaults.rabbitMQUrl = res.data.rabbitMQUrl;
+        axios.defaults.mqURL = res.data.activeMQUrl;
+        localStorage.setItem('mqUrl', res.data.activeMQUrl);
         new Vue({
-            render: h => h(detailAna)
+            render: h => h(index)
         }).$mount('#app')
-
     }).catch(err => {
         console.log(err);
     });

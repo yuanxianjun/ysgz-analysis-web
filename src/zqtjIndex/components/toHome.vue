@@ -33,7 +33,7 @@ export default {
   mounted() {},
   methods: {
     toHome() {
-      window.location.href = "index.html";
+      window.location.href = "indexAna.html";
       var linkData = window.localStorage.setItem("linkPageObj", "[]");
     },
     toSecondPage(pageLink) {

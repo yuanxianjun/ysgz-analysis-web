@@ -22,28 +22,17 @@
         :span-method="arraySpanMethod"
         :header-cell-class-name="thHeader"
         style="width: 100%;"
+        v-loading="loadTable"
+        element-loading-background="rgba(0, 0, 0, 0.6)"
       >
-        <!-- <el-table-column
-          v-for="(item,i) in headerData[detailsType]"
+        <el-table-column
+          v-for="(item,i) in headerData"
           :key="i"
-          :prop="item.prop"
-          :label="item.label"
+          :prop="item.code"
+          :label="item.name"
           :width="item.width"
           align="center"
-        ></el-table-column>-->
-        <el-table-column prop="cityName"></el-table-column>
-        <el-table-column prop="totalArea"></el-table-column>
-        <el-table-column prop="all"></el-table-column>
-        <el-table-column prop="speed"></el-table-column>
-        <el-table-column prop="other"></el-table-column>
-        <!-- <el-table-column prop="areaInfo">
-          <template slot-scope="scope">
-            <div>{{scope.row.areaInfo}}</div>
-          </template>
-        </el-table-column>-->
-        <!-- <el-table-column
-          prop="item.totalArea"
-        ></el-table-column>-->
+        ></el-table-column>
       </el-table>
     </div>
     <boll-search v-if="showBoll"></boll-search>
@@ -54,182 +43,22 @@
 import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
 import comOut from "@/zqtjIndex/components/comOut";
-import quData from "../../common/json/qu";
+// import quData from "../../common/json/qu";
 import bollSearch from "../components/doScheduling";
 import maskBox from "../components/maskBox";
+import { rsaa } from "../requestUrl";
 export default {
   name: "zqtjIndex",
   data() {
     return {
+      loadTable: true,
       showBigModel: false,
       showBoll: false,
       detailData: [],
       detailsType: "",
       areaInterval: [],
-      headerData: {
-        boolTraffic: [
-          {
-            prop: "totalArea",
-            label: "地",
-            width: "180"
-          },
-          {
-            prop: "area",
-            label: "区",
-            width: "180"
-          },
-          {
-            prop: "all",
-            label: "总计"
-          },
-          {
-            prop: "speed",
-            label: "高速"
-          },
-          {
-            prop: "nation",
-            label: "国道"
-          },
-          {
-            prop: "province",
-            label: "省道"
-          },
-          {
-            prop: "country",
-            label: "乡村"
-          },
-          {
-            prop: "city",
-            label: "城市"
-          }
-        ],
-        boolPeople: [
-          {
-            prop: "totalArea",
-            label: "地",
-            width: "180"
-          },
-          {
-            prop: "area",
-            label: "区",
-            width: "180"
-          },
-          {
-            prop: "all",
-            label: "总计"
-          },
-          {
-            prop: "speed",
-            label: "设备故障救人"
-          },
-          {
-            prop: "nation",
-            label: "生产事故救人"
-          },
-          {
-            prop: "province",
-            label: "跳楼营救"
-          },
-          {
-            prop: "country",
-            label: "水上营救"
-          },
-          {
-            prop: "city",
-            label: "其他"
-          }
-        ],
-        boolDanger: [
-          {
-            prop: "totalArea",
-            label: "地",
-            width: "180"
-          },
-          {
-            prop: "area",
-            label: "区",
-            width: "180"
-          },
-          {
-            prop: "all",
-            label: "总计"
-          },
-          {
-            prop: "speed",
-            label: "爆炸品"
-          },
-          {
-            prop: "nation",
-            label: "毒害品"
-          },
-          {
-            prop: "province",
-            label: "压缩气体和液化气体"
-          },
-          {
-            prop: "country",
-            label: "易燃液体"
-          },
-          {
-            prop: "city",
-            label: "易燃固体、自燃物品和遇湿易燃物品",
-            width: 300
-          },
-          {
-            prop: "fire",
-            label: "腐蚀品"
-          },
-          {
-            prop: "corrosives",
-            label: "氧化剂和有机过氧化物"
-          },
-          {
-            prop: "oxygen",
-            label: "杂类"
-          }
-        ],
-        boolNatrue: [
-          {
-            prop: "totalArea",
-            label: "地",
-            width: "180"
-          },
-          {
-            prop: "area",
-            label: "区",
-            width: "180"
-          },
-          {
-            prop: "all",
-            label: "总计"
-          },
-          {
-            prop: "speed",
-            label: "地震"
-          },
-          {
-            prop: "nation",
-            label: "水灾"
-          },
-          {
-            prop: "province",
-            label: "风灾"
-          },
-          {
-            prop: "country",
-            label: "山体滑坡"
-          },
-          {
-            prop: "city",
-            label: "旱灾",
-            width: 300
-          },
-          {
-            prop: "fire",
-            label: "其它"
-          }
-        ]
-      }
+      headerData: [],
+      dataJson: JSON.parse(window.localStorage.getItem("dataJson"))
     };
   },
   components: {
@@ -240,41 +69,45 @@ export default {
     maskBox
   },
   created() {
-    var dataName = window.localStorage.getItem("dataName");
-    if (dataName == "交通事故") {
-      this.detailsType = "boolTraffic";
-      //   this.detailData = quData.trafficeData;
-      // } else if (dataName == "群众遇险") {
-      //   this.detailsType = "boolPeople";
-      //   this.detailData = quData.savePeploeData;
-      // } else if (dataName == "化学危险品事故") {
-      //   this.detailsType = "boolDanger";
-      //   this.detailData = quData.dangerData;
-      // } else if (dataName == "水旱灾害") {
-      //   this.detailsType = "boolNatrue";
-      //   this.detailData = quData.natureData;
-    }
-    this.detailData = [
-      {
-        cityName: "贵阳市",
-        totalArea: "南明区",
-        all: "100",
-        speed: "12",
-        other: "88"
-      },
-      {
-        cityName: "贵阳市",
-        totalArea: "乌当区",
-        all: "100",
-        speed: "12",
-        other: "88"
-      }
-    ];
+    // if (this.dataJson.dataName == "交通事故") {
+    //   this.detailsType = "boolTraffic";
+    //   this.detailData = quData.trafficeData;
+    // } else if (this.dataJson.dataName == "群众遇险") {
+    //   this.detailsType = "boolPeople";
+    //   this.detailData = quData.savePeploeData;
+    // } else if (this.dataJson.dataName == "化学危险品事故") {
+    //   this.detailsType = "boolDanger";
+    //   this.detailData = quData.dangerData;
+    // } else if (this.dataJson.dataName == "水旱灾害") {
+    //   this.detailsType = "boolNatrue";
+    //   this.detailData = quData.natureData;
+    // }
   },
   mounted() {
-    // this.createTable(this.detailData);
+    this.getData();
   },
   methods: {
+    // 获取表格数据
+    getData() {
+      var data = {
+        endDate: this.dataJson.dateValue[1],
+        startDate: this.dataJson.dateValue[0],
+        typeId: this.dataJson.dataId,
+        orgTreeId: this.dataJson.orgTreeId
+      };
+      this.axios({
+        method: "post",
+        url: rsaa,
+        data
+      }).then(res => {
+        this.loadTable = false;
+        var resTitleData = res.data.result.titleList;
+        this.headerData = resTitleData;
+        this.detailData = res.data.result.mapList;
+        this.createTable(this.detailData);
+      });
+    },
+    // 显示加载中的动画
     showGif() {
       this.showBoll = true;
       setTimeout(() => {
@@ -293,9 +126,14 @@ export default {
           return [0, 0];
         }
       } else {
-        if (row.area == "小计" && columnIndex == 0) {
+        // 如果当前行包括小计 并且是第一列
+        if (
+          (row.area == "小计" && columnIndex == 0) ||
+          (rowIndex == 1 && columnIndex == 0)
+        ) {
+          // 循环区域组成的数据列表 如果城市名字等于数据名字就合并当前行
           for (let i = 0; this.areaInterval.length; i++) {
-            if (row.totalArea == this.areaInterval[i].name) {
+            if (row.city == this.areaInterval[i].name) {
               return {
                 rowspan: this.areaInterval[i].index,
                 colspan: 1
@@ -318,29 +156,37 @@ export default {
         return "leftHeader";
       }
     },
-
+    // 创建表格
     createTable(data) {
       let arr = [];
-      // data.forEach((item, i) => {
-      //   if (item.area == "小计") {
-      //     arr.push({
-      //       name: item.totalArea,
-      //       index: i
-      //     });
-      //   }
-      // });
-
-      // this.areaInterval = [];
-      // arr.push({
-      //   index: data.length
-      // });
-      // for (let i = arr.length - 1; i > 0; i--) {
-      //   this.areaInterval.push({
-      //     name: arr[i - 1].name,
-      //     index: arr[i].index - arr[i - 1].index
-      //   });
-      // }
-      this.areaInterval.reverse();
+      data.forEach((item, i) => {
+        if (item.city.indexOf("合计") == -1) {
+          arr.push({
+            name: item.city,
+            index: i
+          });
+        }
+      });
+      function unique(arr) {
+        let obj = {};
+        let newArr = arr.reduce((cur, next) => {
+          obj[next.name] ? "" : (obj[next.name] = true && cur.push(next));
+          return cur;
+        }, []);
+        return newArr;
+      }
+      arr = unique(arr);
+      this.areaInterval = [];
+      arr.push({
+        index: data.length
+      });
+      for (let i = arr.length - 1; i > 0; i--) {
+        this.areaInterval.push({
+          name: arr[i - 1].name,
+          index: arr[i].index - arr[i - 1].index
+        });
+      }
+      var data = this.areaInterval.reverse();
     }
   },
   destroyed() {}

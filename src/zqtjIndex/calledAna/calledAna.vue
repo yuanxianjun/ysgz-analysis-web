@@ -10,7 +10,11 @@
         <comOut></comOut>
       </div>
       <div class="header_right">
-        <el-button class="buttonPos detailButton" @click="toNext">
+        <el-button
+          class="buttonPos detailButton"
+          @click="toNext"
+          v-if="dataJson.orgTreeId.length<=24"
+        >
           <img src="./assets/detail.png" />
         </el-button>
         <!-- 分析按钮 -->
@@ -38,7 +42,8 @@ export default {
   name: "calledAna",
   data() {
     return {
-      // 一日一更新的数据
+      dataJson: JSON.parse(window.localStorage.getItem("dataJson")),
+      // 一日一更新的数据e
       oneDayData: { zbzq: "", nowTime: "" },
       showBigModel: false,
       showBoll: false

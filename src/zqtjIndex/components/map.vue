@@ -16,6 +16,7 @@ import qianxinan from "@/common/guizhouJson/qianxinan.json";
 import tongrenshi from "@/common/guizhouJson/tongrenshi.json";
 import zunyishi from "@/common/guizhouJson/zunyishi.json";
 import quJSON from "../../common/json/qu.js";
+import { rsaa } from "../requestUrl";
 export default {
   data() {
     return {
@@ -57,154 +58,83 @@ export default {
         { name: "玉屏侗族自治县", value: 0, city: "铜仁" },
         { name: "观山湖区", value: 0, city: "贵阳" }
       ],
-      allData: []
+      allData: [],
+      dataJson: JSON.parse(window.localStorage.getItem("dataJson"))
     };
   },
   created() {
-    this.dealData();
+    this.getData();
   },
   mounted() {
     this.concatMapJson();
   },
   methods: {
+    // 获取大队数据
+    getData() {
+      var data = {
+        endDate: this.dataJson.dateValue[1],
+        startDate: this.dataJson.dateValue[0],
+        typeId: this.dataJson.dataId,
+        orgTreeId: this.dataJson.orgTreeId
+      };
+      this.axios({
+        method: "post",
+        url: rsaa,
+        data
+      }).then(res => {
+        this.loadTable = false;
+        this.allData = res.data.result.mapList;
+        this.dealData(res.data.result.titleList);
+      });
+    },
     // 处理数据
-    dealData() {
-      this.titleName = this.dataJson.dataName;
-      if (this.titleName == "群众遇险") {
-        this.allData = quJSON.savePeploeData;
-      } else if (this.titleName == "水旱灾害") {
-        this.allData = quJSON.natureData;
-      } else if (this.titleName == "化学危险品事故") {
-        this.allData = quJSON.chemistryData;
-      }
+    dealData(val) {
+      // this.titleName = this.dataJson.dataName;
+      // if (this.titleName == "群众遇险") {
+      //   this.allData = quJSON.savePeploeData;
+      // } else if (this.titleName == "水旱灾害") {
+      //   this.allData = quJSON.natureData;
+      // } else if (this.titleName == "化学危险品事故") {
+      //   this.allData = quJSON.chemistryData;
+      // }
       this.allData.forEach(item => {
         if (item.area !== "小计" && item.area !== "2019年全省合计") {
           this.nameData.push({
-            city: item.totalArea,
+            city: item.city,
             name: item.area,
-            value: item.all
+            value: item.total
           });
         }
       });
+      this.detailText = val.filter(item => {
+        if (item.code[0] == "0") {
+          return item;
+        }
+      });
+      this.renderMap();
     },
+    // 拼接数据
     concatMapJson() {
       for (var item of this.mapArr) {
         this.mapData.push(...item.features);
       }
-      this.renderMap();
     },
     renderMap() {
-      var _this = this,
-        detailText;
+      var _this = this;
       echarts.registerMap("贵州", { features: _this.mapData });
       var chart = echarts.init(document.getElementById("mapCity"));
-
-      if (_this.titleName == "群众遇险") {
-        detailText = [
-          "设备故障救人",
-          "生产事故救人",
-          "跳楼营救",
-          "水上营救",
-          "其它"
-        ];
-      } else if (_this.titleName == "水旱灾害") {
-        detailText = ["地震", "水灾", "风灾", "山体滑坡", "旱灾", "其它"];
-      } else if (_this.titleName == "化学危险品事故") {
-        detailText = [
-          "爆炸品",
-          "毒害品",
-          "压缩气体和液化气体",
-          "易燃液体",
-          "易燃固体、自燃物品和遇湿易燃物品",
-          "腐蚀品",
-          "氧化剂和有机过氧化物",
-          "杂类"
-        ];
-      }
-
       var option = {
         tooltip: {
           show: true,
           trigger: "item",
           formatter: function(params) {
-            var val = "";
             var quData = _this.allData;
-            for (var i = 0, len = quData.length; i < len; i++) {
+            for (let i = 0, len = quData.length; i < len; i++) {
               if (params.name == quData[i].area) {
-                val =
-                  params.data.city +
-                  params.name +
-                  "</br>" +
-                  detailText[0] +
-                  " : " +
-                  quData[i].speed +
-                  "</br>" +
-                  detailText[1] +
-                  " : " +
-                  quData[i].nation +
-                  "</br>" +
-                  detailText[2] +
-                  " : " +
-                  quData[i].province +
-                  "</br>" +
-                  detailText[3] +
-                  " : " +
-                  quData[i].country +
-                  "</br>" +
-                  detailText[4] +
-                  " : " +
-                  quData[i].city +
-                  "</br>" +
-                  detailText[5] +
-                  " : " +
-                  quData[i].fire +
-                  "</br>";
-                +detailText[6] +
-                  " : " +
-                  quData[i].aaa +
-                  "</br>" +
-                  detailText[7] +
-                  " : " +
-                  quData[i].bbb;
-
-                // break;
-              } else {
-                val =
-                  params.data.city +
-                  params.name +
-                  "</br>" +
-                  detailText[0] +
-                  " : " +
-                  0 +
-                  "</br>" +
-                  detailText[1] +
-                  " : " +
-                  0 +
-                  "</br>" +
-                  detailText[2] +
-                  " : " +
-                  0 +
-                  "</br>" +
-                  detailText[3] +
-                  " : " +
-                  0 +
-                  "</br>" +
-                  detailText[4] +
-                  " : " +
-                  0 +
-                  "</br>" +
-                  detailText[5] +
-                  " : " +
-                  0 +
-                  "</br>" +
-                  detailText[6] +
-                  " : " +
-                  0 +
-                  "</br>" +
-                  detailText[7] +
-                  " : " +
-                  0 +
-                  "</br>";
+                var val = params.data.city + params.name + "</br>";
+                _this.detailText.forEach(item => {
+                  val += item.name + " : " + quData[i][item.code] + "</br>";
+                });
               }
             }
             return val;
@@ -216,11 +146,11 @@ export default {
           show: true,
           type: "piecewise",
           pieces: [
-            { min: 160 },
-            { min: 120, max: 160 },
-            { min: 80, max: 120 },
-            { min: 40, max: 80 },
-            { min: 0, max: 40 },
+            { min: 100 },
+            { min: 60, max: 100 },
+            { min: 30, max: 60 },
+            { min: 10, max: 20 },
+            { min: 1, max: 10 },
             { max: 1 }
           ],
           left: "left",

@@ -1,236 +1,84 @@
 <template>
-  <div id="histogram" ref="lineDiv" style="width:100%;height:100%;"></div>
+  <div
+    id="histogram"
+    ref="lineDiv"
+    v-loading="loadChart"
+    element-loading-background="rgba(0, 0, 0, 0.6)"
+    style="width:100%;height:100%;"
+  ></div>
 </template>
 <script>
 import echarts from "echarts";
+import { rsa } from "../requestUrl";
 export default {
   name: "histogramCom",
   data() {
     return {
-      data: []
+      loadChart: true,
+      dataJson: JSON.parse(window.localStorage.getItem("dataJson"))
     };
   },
   created() {},
   mounted() {
-    this.initChart();
+    this.getData();
   },
   methods: {
-    //折线图
-    initChart() {
-      var _this = this,
-        dataFire = [
-          "设备故障救人",
-          "生产事故救人",
-          "跳楼营救",
-          "水上营救",
-          "其它"
-        ],
-        dataTraffic = ["乡村道路", "城市道路", "高速", "省道", "国道"],
-        dataNature = ["地震", "水灾", "风灾", "山体滑坡", "旱灾", "其它"],
-        dataChemistry = [
-          "爆炸品",
-          "毒害品",
-          "压缩气体和液化气体",
-          "易燃液体",
-          "易燃固体、自燃物品和遇湿易燃物品",
-          "腐蚀品",
-          "氧化剂和有机过氧化物",
-          "杂类"
-        ],
-        dataFire_y = [
-          {
-            name: "设备故障",
-            value: "970",
-            itemStyle: {
-              color: "red"
-            }
-          },
-          {
-            name: "生产事故救人",
-            value: "25",
-            itemStyle: {
-              color: "orange"
-            }
-          },
-          {
-            name: "跳楼营救",
-            value: "901",
-            itemStyle: {
-              color: "#ffcc66"
-            }
-          },
-          {
-            name: "水上营救",
-            value: "582",
-            itemStyle: {
-              color: "#FB9A99"
-            }
-          },
-          {
-            name: "其它",
-            value: "608",
-            itemStyle: {
-              color: "#33A02C"
-            }
-          }
-        ],
-        dataTraffic_y = [
-          {
-            name: "乡村道路",
-            value: "364",
-            itemStyle: {
-              color: "red"
-            }
-          },
-          {
-            name: "城市交通",
-            value: "337",
-            itemStyle: {
-              color: "orange"
-            }
-          },
-          {
-            name: "高速",
-            value: "246",
-            itemStyle: {
-              color: "#ffcc66"
-            }
-          },
-          {
-            name: "省道",
-            value: "117",
-            itemStyle: {
-              color: "#FB9A99"
-            }
-          },
-          {
-            name: "国道",
-            value: "68",
-            itemStyle: {
-              color: "#33A02C"
-            }
-          }
-        ],
-        dataNature_y = [
-          {
-            name: "地震",
-            value: "1",
-            itemStyle: {
-              color: "red"
-            }
-          },
-          {
-            name: "水灾",
-            value: "278",
-            itemStyle: {
-              color: "orange"
-            }
-          },
-          {
-            name: "风灾",
-            value: "3",
-            itemStyle: {
-              color: "#ffcc66"
-            }
-          },
-          {
-            name: "山体滑坡",
-            value: "33",
-            itemStyle: {
-              color: "#FB9A99"
-            }
-          },
-          {
-            name: "旱灾",
-            value: "0",
-            itemStyle: {
-              color: "#FB9A99"
-            }
-          },
+    getData() {
+      var data = {
+        endDate: this.dataJson.dateValue[1],
+        startDate: this.dataJson.dateValue[0],
+        typeId: this.dataJson.dataId,
+        orgTreeId: this.dataJson.orgTreeId
+      };
+      this.axios({
+        method: "post",
+        url: rsa,
+        data
+      }).then(res => {
+        var resTitleData = res.data.result.titleList;
+        var headerData = resTitleData,
+          allData = res.data.result.mapList;
+        this.loadChart = false;
+        this.processData(headerData, allData[0]);
+      });
+    },
 
-          {
-            name: "其它",
-            value: "28",
+    /**
+     * 处理数据为可用数据
+     *  [{name:"",vlaue:""}...]
+     */
+    processData(keys, nums) {
+      var colors = [
+        "red",
+        "orange",
+        "#ffcc66",
+        "#FB9A99",
+        "#FB9A95",
+        "#33A02C",
+        "#CD1076",
+        "#DA70D6"
+      ];
+      var xData = [],
+        yData = [];
+      keys.map((item, index) => {
+        if (item.name !== "地区" && item.name !== "总计") {
+          yData.push({
+            name: item.name,
+            value: nums[item.code],
             itemStyle: {
-              color: "#33A02C"
+              color: colors[index]
             }
-          }
-        ],
-        dataChemistry_y = [
-          {
-            name: "爆炸品",
-            value: "4",
-            itemStyle: {
-              color: "red"
-            }
-          },
-          {
-            name: "毒害品",
-            value: "1",
-            itemStyle: {
-              color: "orange"
-            }
-          },
-          {
-            name: "压缩气体和液化气体",
-            value: "155",
-            itemStyle: {
-              color: "#ffcc66"
-            }
-          },
-          {
-            name: "易燃液体",
-            value: "45",
-            itemStyle: {
-              color: "#FB9A99"
-            }
-          },
-          {
-            name: "易燃固体、自燃物品和遇湿易燃物品",
-            value: "3",
-            itemStyle: {
-              color: "#FB9A99"
-            }
-          },
-          {
-            name: "腐蚀品",
-            value: "2",
-            itemStyle: {
-              color: "#33A02C"
-            }
-          },
-          {
-            name: "氧化剂和有机过氧化物",
-            value: "1",
-            itemStyle: {
-              color: "#DA70D6"
-            }
-          },
-          {
-            name: "杂类",
-            value: "10",
-            itemStyle: {
-              color: "#CD1076"
-            }
-          }
-        ],
-        xData,
-        yData;
-      var dataJson = JSON.parse(window.localStorage.getItem("dataJson"));
-      var titleName = dataJson.dataName;
-      if (titleName == "交通事故") {
-        xData = dataTraffic;
-        yData = dataTraffic_y;
-      } else if (titleName == "群众遇险") {
-        xData = dataFire;
-        yData = dataFire_y;
-      } else if (titleName == "水旱灾害") {
-        xData = dataNature;
-        yData = dataNature_y;
-      } else if (titleName == "化学危险品事故") {
-        xData = dataChemistry;
-        yData = dataChemistry_y;
-      }
+          });
+          xData.push(item.name);
+        }
+      });
+      // console.log(xData, yData);
+      this.initChart(xData, yData);
+    },
+    //折线图
+    initChart(xData, yData) {
+      var _this = this;
+
       //找到dom
       let pieOne = this.$refs.lineDiv;
       this.myChart = echarts.init(pieOne);
@@ -306,7 +154,7 @@ export default {
           {
             name: "",
             type: "bar",
-            barWidth: "60%",
+            barMaxWidth: "200",
             data: yData
           }
         ]

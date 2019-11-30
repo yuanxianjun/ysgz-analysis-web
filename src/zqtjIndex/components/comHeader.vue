@@ -34,21 +34,6 @@ export default {
   },
   methods: {
     getServeTime_gd() {
-      // this.axios({
-      //   method: "post",
-      //   url: "/nowTime"
-      // }).then(res => {
-      //   if (res.data && res.data.code === "success") {
-      //     this.serveTime = res.data.result;
-      //     this.getCurrTime();
-      //   } else if (res.data.code == 500) {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       center: true,
-      //       type: "error"
-      //     });
-      //   }
-      // })
       this.getCurrTime();
     },
     // 获取时间
@@ -62,7 +47,6 @@ export default {
       } else {
         time = new Date();
       }
-      console.log(time)
       clearInterval(timer);
       timer = setInterval(function() {
         let year, month, day, hour, min, sec, week;

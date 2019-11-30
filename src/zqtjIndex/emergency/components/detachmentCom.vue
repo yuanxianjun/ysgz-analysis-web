@@ -9,7 +9,7 @@
 <script>
 import echarts from "echarts";
 export default {
-  name: "emergencyCom",
+  name: "detachmentCom",
   props: ["statisData"],
   data() {
     return {};
@@ -17,7 +17,9 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    this.pieData(this.statisData);
+    if (this.statisData) {
+      this.pieData(this.statisData);
+    }
   },
   updated: function() {},
   methods: {
@@ -25,45 +27,28 @@ export default {
       var index = 0; //默认选中高亮模块索引
       let pieOne = this.$refs.annular,
         _ = this,
-        yData2 = [],
-        yData = [];
+        xData,
+        yData,
+        yData2;
       let keyUnitChart = echarts.init(pieOne);
       keyUnitChart.clear();
-
-      var xData = [
-        "化学危险品事故",
-        "交通事故",
-        "地震及次生灾害",
-        "建筑物坍塌",
-        "重大安全生产事故",
-        "空难",
-        "爆炸及恐怖事件",
-        "群众遇险",
-        "水旱灾害",
-        "气象灾害",
-        "地质灾害",
-        "森林火灾",
-        "草原火灾",
-        "矿山事故",
-        "水上事故",
-        "重大污染事件",
-        "核与辐射事件",
-        "公共卫生事件"
-      ];
-
-      if (val) {
-        yData = val;
-
-        yData2 = val.map(item => {
-          return {
-            name: item.name,
-            id: item.id,
-            value: 10000000000,
-            bgBool: true,
-            trueValue: item.value
-          };
-        });
-      }
+      yData = val.map(res => {
+        return {
+          value: res.num,
+          code: res.code
+        };
+      });
+      yData2 = val.map(res => {
+        return {
+          value: 1000000000,
+          trueValue: res.num,
+          code: res.code,
+          bool: true
+        };
+      });
+      xData = val.map(res => {
+        return res.name;
+      });
       var option = {
         backgroundColor: "transparent",
         color: ["#3398DB"],
@@ -107,7 +92,7 @@ export default {
             },
             axisLabel: {
               show: true,
-              rotate: -36,
+              // rotate: -36,
               interval: "0",
               color: "rgb(170,170,170)",
               fontSize: 16
@@ -216,12 +201,10 @@ export default {
       };
       keyUnitChart.setOption(option);
       keyUnitChart.on("click", function(params) {
-        // console.log(params.data.bgBool && params.data.trueValue < 1);
-        // debugger;
-        if (params.data.bgBool && params.data.trueValue < 1) {
+        if (params.data.bool && params.data.trueValue < 1) {
           return;
         } else {
-          _.$emit("toNext", params.data);
+          _.$emit("refresh", params.data);
         }
       });
     }

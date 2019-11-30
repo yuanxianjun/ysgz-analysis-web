@@ -60,7 +60,6 @@
               </ul>
             </div>
           </div>
-
           <!-- 救人 -->
           <div v-if="title == '群众遇险'" class="content">
             <p class="title">(一)事故类型分析</p>
@@ -107,18 +106,18 @@
               class="content_item"
             >贵州境内山脉众多，重峦叠嶂，绵延纵横，山高谷深。其中92.5%的面积为山地和丘陵。北部有大娄山，自西向东北斜贯北境，川黔要隘娄山关高1444米；中南部苗岭横亘，主峰雷公山高2178米；东北境有武陵山，由湘蜿蜒入黔，主峰梵净山高2572米；西部高耸乌蒙山，属此山脉的赫章县珠市乡韭菜坪海拔2900.6米，为贵州境内最高点。</p>
             <p class="content_item">贵州省河流众多且地处山区，全年降水量大，容易发生水灾及山体滑坡事故。</p>
-            <p class="content_item">水灾事故占自然灾害事故的81%，是贵州省自然灾害事故抢险救援的重中之重。</p>
+            <p class="content_item">水灾事故占水旱灾害事故的100%，是贵州省水旱灾害事故抢险救援的重中之重。</p>
             <p class="title">(二)区县境内分析</p>
             <!-- 插入地图 -->
             <div class="map">
               <map-com></map-com>
             </div>
             <p class="content_item">
-              自然灾害事故救援排名前3的支队有
-              <span class="redFont">贵阳支队、黔西南支队、毕节支队。</span>其中贵阳支队的自然灾害接警数量占全省自然灾害接警的47.8%。
+              水旱灾害事故救援排名前3的支队有
+              <span class="redFont">贵阳支队、黔西南支队、毕节支队。</span>其中贵阳支队的水旱灾害接警数量占全省水旱灾害接警的47.8%。
             </p>
             <p class="content_item">
-              自然灾害事故救援排名前10的大队有
+              水旱灾害事故救援排名前10的大队有
               <span
                 class="redFont"
               >云岩大队、南明大队、金阳大队、清镇大队、七星关大队、乌当大队、花溪大队、贞丰县大队、安龙县大队、兴义市大队。</span>
@@ -168,6 +167,30 @@
               南明区人口密集，燃气、液化气罐使用量大，容易发生燃气管道、液化气罐泄漏。
             </p>
           </div>
+          <div v-if="title == '地震及次生灾害'" class="content">
+            <dialog-earth></dialog-earth>
+          </div>
+          <div v-if="title == '建筑物坍塌'" class="content">
+            <dialog-build></dialog-build>
+          </div>
+          <div v-if="title == '气象灾害'" class="content">
+            <dialog-weather></dialog-weather>
+          </div>
+          <div v-if="title == '地质灾害'" class="content">
+            <dialog-geo></dialog-geo>
+          </div>
+          <div v-if="title == '森林火灾'" class="content">
+            <dialog-forest></dialog-forest>
+          </div>
+          <div v-if="title == '草原火灾'" class="content">
+            <dialog-prairie></dialog-prairie>
+          </div>
+          <div v-if="title == '矿山事故'" class="content">
+            <dialog-mine></dialog-mine>
+          </div>
+          <div v-if="title == '公共卫生事件'" class="content">
+            <dialog-health></dialog-health>
+          </div>
         </div>
         <div class="closeImg" @click="closeAll">
           <img src="../../common/images/bubble_close.png" />
@@ -180,6 +203,14 @@
 import tableCom from "./tableCom";
 import histogramCom from "./echartsBar";
 import mapCom from "./map";
+import dialogEarth from "./dialogEarth";
+import dialogBuild from "./dialogBuild";
+import dialogWeather from "./dialogWeather";
+import dialogGeo from "./dialogGeo";
+import dialogForest from "./dialogForest";
+import dialogPrairie from "./dialogPrairie";
+import dialogHealth from "./dialogHealth";
+import dialogMine from "./dialogMine";
 export default {
   name: "maskBox",
   data() {
@@ -191,7 +222,15 @@ export default {
   components: {
     tableCom,
     histogramCom,
-    mapCom
+    mapCom,
+    dialogEarth,
+    dialogHealth,
+    dialogMine,
+    dialogBuild,
+    dialogWeather,
+    dialogGeo,
+    dialogForest,
+    dialogPrairie
   },
   created() {
     this.title = this.dataJson.dataName;
