@@ -141,7 +141,17 @@
         </div>
         <!-- 火灾扑救描述框 -->
         <div class="fireFightingDescribe">
-          <div class="contentText">火灾扑救总体描述</div>
+          <div class="contentText">
+            <p>
+              今年以来，全省发生火灾接警
+              <span class="number">{{fightFire_data.alarm}}</span>起，重大火灾
+              <span class="number">{{fightFire_data.intensive}}</span>起，财产损失
+              <span class="number">{{fightFire_data.money}}</span>万元，出动车辆
+              <span class="number">{{fightFire_data.car}}</span>辆次，出动人员
+              <span class="number">{{fightFire_data.person}}</span>人次，抢救人员
+              <span class="number">{{fightFire_data.rescue}}</span>人。
+            </p>
+          </div>
         </div>
         <!-- 火灾场所框 -->
         <div class="firePlace">
@@ -298,7 +308,17 @@
         </div>
         <!-- 火灾扑救描述框  -->
         <div class="fireFightingDescribe">
-          <div class="contentText">应急救援总体描述</div>
+          <div class="contentText">
+            <p>
+              今年以来，全省发生应急救援
+              <span class="number">{{rescue_data.alarm||0}}</span>起，重大事故
+              <span class="number">{{rescue_data.intensive||0}}</span>起，财产损失
+              <span class="number">{{rescue_data.money||0}}</span>万元，出动车辆
+              <span class="number">{{rescue_data.car||0}}</span>辆次，出动人员
+              <span class="number">{{rescue_data.person||0}}</span>人次，抢救人员
+              <span class="number">{{rescue_data.rescue||0}}</span>人。
+            </p>
+          </div>
         </div>
         <!-- 应急救援分析 列表 -->
         <div class="tableDiv">
