@@ -85,7 +85,7 @@
                 </p>
               </el-col>
               <el-col :span="4" class="fireliBg">
-                <p class="fireTitle">重大火灾</p>
+                <p class="fireTitle">亡人火灾</p>
                 <p class="fireValue">
                   <span class="number">{{fightFire_data.intensive }}</span>
                   <span class="unit">起</span>
@@ -143,7 +143,7 @@
         <div class="fireFightingDescribe">
           <div class="contentText">
             <p>
-              今年以来，全省发生火灾接警
+              2019年1月1日至2019年12月3日，全省发生火灾接警
               <span class="number">{{fightFire_data.alarm}}</span>起，重大火灾
               <span class="number">{{fightFire_data.intensive}}</span>起，财产损失
               <span class="number">{{fightFire_data.money}}</span>万元，出动车辆
@@ -302,7 +302,7 @@
           <div class="chart" v-loading="bool" element-loading-background="rgba(0, 0, 0, 0.6)">
             <div class="rescueChartCon">
               <!-- 暂时弃用 @refresh="refreshList" -->
-              <detachment2-com v-if="!bool" :statisData="detachmentList"></detachment2-com>
+              <detachmentEmergencyCom v-if="!bool" :statisData="detachmentList"></detachmentEmergencyCom>
             </div>
           </div>
         </div>
@@ -310,7 +310,7 @@
         <div class="fireFightingDescribe">
           <div class="contentText">
             <p>
-              今年以来，全省发生应急救援
+              2019年1月1日至2019年12月3日，全省发生应急救援
               <span class="number">{{rescue_data.alarm||0}}</span>起，重大事故
               <span class="number">{{rescue_data.intensive||0}}</span>起，财产损失
               <span class="number">{{rescue_data.money||0}}</span>万元，出动车辆
@@ -326,7 +326,171 @@
             <i class="title-i"></i>
             <label>应急救援分析(单位:起)</label>
           </div>
-          <div class="tableBox" v-loading="bool" element-loading-background="rgba(0, 0, 0, 0.6)">
+          <div class="tableBox">
+            <el-row class="rowDiv" v-if="!bool">
+              <el-col
+                :span="4"
+                class="tableCol"
+                v-for="(item,index) in limitData(0,6)"
+                :key="index"
+              >
+                <template>
+                  <div @click="toNext(item)">
+                    <div class="title">{{item.name}}</div>
+                    <div class="number">{{item.value}}</div>
+                  </div>
+                </template>
+              </el-col>
+            </el-row>
+            <el-row class="rowDiv" v-if="!bool">
+              <el-col
+                :span="4"
+                class="tableCol"
+                v-for="(item,index) in limitData(6,12)"
+                :key="index"
+              >
+                <template>
+                  <div @click="toNext(item)">
+                    <div class="title">{{item.name}}</div>
+                    <div class="number">{{item.value}}</div>
+                  </div>
+                </template>
+              </el-col>
+            </el-row>
+            <el-row class="rowDiv" v-if="!bool">
+              <el-col
+                :span="4"
+                class="tableCol"
+                v-for="(item,index) in limitData(12,18)"
+                :key="index"
+              >
+                <template>
+                  <div @click="toNext(item)">
+                    <div class="title">{{item.name}}</div>
+                    <div class="number">{{item.value}}</div>
+                  </div>
+                </template>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+
+        <!-- 社会救助统计图 -->
+        <div class="areaFireDiv" v-if="boolDetach">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>社会救助</label>
+          </div>
+          <div class="chart" v-loading="bool" element-loading-background="rgba(0, 0, 0, 0.6)">
+            <div class="rescueChartCon">
+              <!-- 暂时弃用 @refresh="refreshList" -->
+              <detachmentSocialCom v-if="!bool" :statisData="detachmentList"></detachmentSocialCom>
+            </div>
+          </div>
+        </div>
+        <!-- 社会救助描述框  -->
+        <div class="fireFightingDescribe">
+          <div class="contentText">
+            <p>
+              2019年1月1日至2019年12月1日，全省共接社会救助
+              <span class="number">{{rescue_data.alarm||0}}</span>
+              <span class="number">{{rescue_data.intensive||0}}</span>起，财产损失
+              <span class="number">{{rescue_data.money||0}}</span>万元，出动车辆
+              <span class="number">{{rescue_data.car||0}}</span>辆次，出动人员
+              <span class="number">{{rescue_data.person||0}}</span>人次，抢救人员
+              <span class="number">{{rescue_data.rescue||0}}</span>人。
+            </p>
+          </div>
+        </div>
+        <!-- 社会救助查询列表 -->
+        <div class="tableDiv">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>应急救援分析(单位:起)</label>
+          </div>
+          <div class="tableBox">
+            <el-row class="rowDiv" v-if="!bool">
+              <el-col
+                :span="4"
+                class="tableCol"
+                v-for="(item,index) in limitData(0,6)"
+                :key="index"
+              >
+                <template>
+                  <div @click="toNext(item)">
+                    <div class="title">{{item.name}}</div>
+                    <div class="number">{{item.value}}</div>
+                  </div>
+                </template>
+              </el-col>
+            </el-row>
+            <el-row class="rowDiv" v-if="!bool">
+              <el-col
+                :span="4"
+                class="tableCol"
+                v-for="(item,index) in limitData(6,12)"
+                :key="index"
+              >
+                <template>
+                  <div @click="toNext(item)">
+                    <div class="title">{{item.name}}</div>
+                    <div class="number">{{item.value}}</div>
+                  </div>
+                </template>
+              </el-col>
+            </el-row>
+            <el-row class="rowDiv" v-if="!bool">
+              <el-col
+                :span="4"
+                class="tableCol"
+                v-for="(item,index) in limitData(12,18)"
+                :key="index"
+              >
+                <template>
+                  <div @click="toNext(item)">
+                    <div class="title">{{item.name}}</div>
+                    <div class="number">{{item.value}}</div>
+                  </div>
+                </template>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+
+        <!-- 公务执勤统计图 -->
+        <div class="areaFireDiv" v-if="boolOfficial">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>公务执勤</label>
+          </div>
+          <div class="chart" v-loading="bool" element-loading-background="rgba(0, 0, 0, 0.6)">
+            <div class="rescueChartCon">
+              <!-- 暂时弃用 @refresh="refreshList" -->
+              <detachmentOfficialCom v-if="!bool" :statisData="detachmentList"></detachmentOfficialCom>
+            </div>
+          </div>
+        </div>
+        <!-- 公务执勤描述框  -->
+        <div class="fireFightingDescribe">
+          <div class="contentText">
+            <p>
+              2019年1月1日至2019年12月3日，全省共接社会救助
+              <span class="number">{{rescue_data.alarm||0}}</span>
+              <span class="number">{{rescue_data.intensive||0}}</span>起，财产损失
+              <span class="number">{{rescue_data.money||0}}</span>万元，出动车辆
+              <span class="number">{{rescue_data.car||0}}</span>辆次，出动人员
+              <span class="number">{{rescue_data.person||0}}</span>人次，抢救人员
+              <span class="number">{{rescue_data.rescue||0}}</span>人。
+            </p>
+          </div>
+        </div>
+        <!-- 公务执勤查询列表 -->
+        <div class="tableDiv">
+          <div class="table-title">
+            <i class="title-i"></i>
+            <label>应急救援分析(单位:起)</label>
+          </div>
+          <div class="tableBox">
             <el-row class="rowDiv" v-if="!bool">
               <el-col
                 :span="4"
@@ -392,7 +556,9 @@ import {
 } from "../requestUrl";
 import statisticeCom from "./components/statisticeCom.vue";
 import detachmentCom from "./components/detachmentCom.vue";
-import detachment2Com from "./components/detachmentCom2.vue";
+import detachmentEmergencyCom from "./components/detachmentEmergencyCom.vue";
+import detachmentSocialCom from "./components/detachmentSocialCom.vue";
+import detachmentOfficialCom from "./components/detachmentOfficialCom.vue";
 // import func from "d:/commandrescue/vue-temp/vue-editor-bridge";
 export default {
   name: "emergency",
@@ -402,12 +568,16 @@ export default {
     comOut,
     statisticeCom,
     detachmentCom,
-    detachment2Com
+    detachmentEmergencyCom,
+    detachmentSocialCom,
+    detachmentOfficialCom
   },
   data() {
     return {
       bool: true,
       boolDetach: false,
+      boolSocial: true,
+      boolOfficial: true,
       //  区域火灾扑救遮罩
       boolFireArea: false,
       boolFireAreaData: true,
