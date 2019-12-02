@@ -292,20 +292,22 @@
     height: 480px;
   }
   .fireFightingDescribe{
-    min-height: 156px;
+    min-height: 90px;
     border-style: solid;
     border-width: 1px;
     border-image-source: linear-gradient(90deg, rgb(7, 82, 125) 0%, rgba(27, 189, 255, 1) 100%);
     border-image-slice: 1;
     margin-top:20px;
   .contentText{
-    text-align: center;
-    line-height:156px;
+    text-align: left;
+    line-height:50px;
     color:#fff;
     font-size:22px;
+    text-indent:50px;
+    padding:20px;
     .number{
       font-size: 36px;
-    color: #fe9403;
+      color: #fe9403;
     }
   }
   }

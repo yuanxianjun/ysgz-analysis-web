@@ -1,13 +1,14 @@
 import Vue from 'vue';
-import index from './indexAna.vue'
-import '@/common/styles/reset.css'
-import '@/zqtjIndex/indexAna/assets/css/myStyle.scss'
+import axios from "axios";
+import index from './indexAna.vue';
+import '@/common/styles/reset.css';
+import '@/zqtjIndex/indexAna/assets/css/myStyle.scss';
 import 'element-ui/lib/theme-chalk/index.css';
-import { Button, Message, Table, TableColumn, Row, Col, DatePicker, Cascader, Loading } from 'element-ui'
+import { Button, Message, Table, TableColumn, Row, Col, DatePicker, Cascader, Loading } from 'element-ui';
 // collapse 展开折叠
-import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-Vue.component(CollapseTransition.name, CollapseTransition)
-import axios from "axios"
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+Vue.component(CollapseTransition.name, CollapseTransition);
+
 // Button select  Row Col table
 Vue.use(Button);
 Vue.use(Table);
