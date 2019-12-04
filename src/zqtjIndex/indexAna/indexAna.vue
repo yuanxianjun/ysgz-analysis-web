@@ -47,21 +47,21 @@
                         <el-col :span="8" class="elCol">
                             <div class="label">接警总量</div>
                             <div class="valueDiv">
-                                <i class="value">{{sumData.total}}</i>
+                                <span class="value">{{sumData.total}}</span>
                                 <span class="unit">起</span>
                             </div>
                         </el-col>
                         <el-col :span="8" class="elCol">
                             <div class="label">出动车辆</div>
                             <div class="valueDiv">
-                                <i class="value">{{sumData.car}}</i>
+                                <span class="value">{{sumData.car}}</span>
                                 <span class="unit">辆</span>
                             </div>
                         </el-col>
                         <el-col :span="8" class="elCol">
                             <div class="label">出动人员</div>
                             <div class="valueDiv">
-                                <i class="value">{{sumData.person}}</i>
+                                <span class="value">{{sumData.person}}</span>
                                 <span class="unit">人</span>
                             </div>
                         </el-col>
@@ -69,6 +69,74 @@
                 </div>
             </div>
             <div class="content">
+                <div class="totalNum">
+                    <el-row>
+                        <el-col :span="8" class="totalCol">
+                            <div class="label">火灾扑救</div>
+                            <div class="contentValue">
+                                <div class="valueDiv">
+                                    <span class="valueName">数量：</span>
+                                    <span class="value">{{fightFire_data.alarm}}</span>
+                                    <span class="unit">起</span>
+                                </div>
+                                <div class="cutLine"></div>
+                                <div class="valueDiv">
+                                    <span class="valueName">占比：</span>
+                                    <span class="value yellowColor">{{one}}</span>
+                                    <span class="unit yellowColor">%</span>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="totalCol">
+                            <div class="label">应急救援</div>
+                            <div class="contentValue">
+                                <div class="valueDiv">
+                                    <span class="valueName">数量：</span>
+                                    <span class="value">{{rescue_data.alarm}}</span>
+                                    <span class="unit">起</span>
+                                </div>
+                                <div class="cutLine"></div>
+                                <div class="valueDiv">
+                                    <span class="valueName">占比：</span>
+                                    <span class="value yellowColor">{{two}}</span>
+                                    <span class="unit yellowColor">%</span>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="totalCol">
+                            <div class="label">社会救助</div>
+                            <div class="contentValue">
+                                <div class="valueDiv">
+                                    <span class="valueName">数量：</span>
+                                    <span class="value">5389</span>
+                                    <span class="unit">起</span>
+                                </div>
+                                <div class="cutLine"></div>
+                                <div class="valueDiv">
+                                    <span class="valueName">占比：</span>
+                                    <span class="value yellowColor">{{three}}</span>
+                                    <span class="unit yellowColor">%</span>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="totalCol">
+                            <div class="label">公务执勤</div>
+                            <div class="contentValue">
+                                <div class="valueDiv">
+                                    <span class="valueName">数量：</span>
+                                    <span class="value">318</span>
+                                    <span class="unit">起</span>
+                                </div>
+                                <div class="cutLine"></div>
+                                <div class="valueDiv">
+                                    <span class="valueName">占比：</span>
+                                    <span class="value yellowColor">{{four}}</span>
+                                    <span class="unit yellowColor">%</span>
+                                </div>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
                 <!-- 火灾扑救框 -->
                 <div class="fireFightingAll">
                     <div class="table-title">
@@ -146,11 +214,13 @@
                 <div class="fireFightingDescribe">
                     <div class="contentText">
                         <p>
-                            2019年1月1日至2019年12月3日，全省共接报火灾
-                            <span class="number">{{rescue_data.alarm }}</span>起，死亡
+                            2019年1月1日至{{getCurrTime()}}，全省共接报火灾
+                            <span
+                                class="number"
+                            >{{fightFire_data.alarm }}</span>起，死亡
                             <span class="number">37</span>起，受伤
                             <span class="number">27</span>人，直接财产损失
-                            <span class="number">{{rescue_data.money||0}}</span>万元，与去年同期相比，火灾起数上升
+                            <span class="number">{{fightFire_data.money||0}}</span>万元，与去年同期相比，火灾起数上升
                             <span class="number">31.50%</span>
                             ，亡人数上升
                             <span class="number">19.35%</span>
@@ -329,10 +399,10 @@
                 <div class="fireFightingDescribe">
                     <div class="contentText">
                         <p>
-                            2019年1月1日至2019年12月2日，全省共接报应急救援
+                            2019年1月1日至{{getCurrTime()}}，全省共接报应急救援
                             <span
                                 class="number"
-                            >{{rescue_data.alarm||0}}</span>起，抢救人员3284
+                            >{{rescue_data.alarm||0}}</span>起，抢救人员
                             <span class="number">{{rescue_data.rescue||0}}</span>
                             人。与去年同期相比，应急救援起数上升
                             <span
@@ -423,7 +493,7 @@
                 <div class="fireFightingDescribe">
                     <div class="contentText">
                         <p>
-                            2019年1月1日至2019年12月1日，全省共接社会救助
+                            2019年1月1日至{{getCurrTime()}}，全省共接社会救助
                             <span class="number">5389</span> 起，与去年同期相比，社会救助起数上升
                             <span class="number">22.65%</span>。其中取马蜂窝占比
                             <span class="number">56.35%</span>，抓动物占比
@@ -481,15 +551,13 @@
                 <div class="fireFightingDescribe">
                     <div class="contentText">
                         <p>
-                            2019年1月1日至2019年12月3日，全省共接社会救助
-                            <span
-                                class="number"
-                            >{{rescue_data.alarm||0}}</span>
-                            <span class="number">{{rescue_data.intensive||0}}</span>起，财产损失
-                            <span class="number">{{rescue_data.money||0}}</span>万元，出动车辆
-                            <span class="number">{{rescue_data.car||0}}</span>辆次，出动人员
-                            <span class="number">{{rescue_data.person||0}}</span>人次，抢救人员
-                            <span class="number">{{rescue_data.rescue||0}}</span>人。
+                            2019年1月1日至{{getCurrTime()}}，全省共接公务执勤
+                            <span class="number">318</span>起，与去年同期相比，出动数上升
+                            <span class="number">1225%</span>。其中，其它公务执勤出动占比
+                            <span class="number">81.76%</span>，重大会议占比
+                            <span class="number">4.09%</span>，大型文体活动占比
+                            <span class="number">12.89%</span>，大型展览会占比
+                            <span class="number">1.26%</span>。
                         </p>
                     </div>
                 </div>
@@ -538,7 +606,6 @@ import detachmentCom from "./components/detachmentCom.vue";
 import detachmentEmergencyCom from "./components/detachmentEmergencyCom.vue";
 import detachmentSocialCom from "./components/detachmentSocialCom.vue";
 import detachmentOfficialCom from "./components/detachmentOfficialCom.vue";
-// import func from "d:/commandrescue/vue-temp/vue-editor-bridge";
 export default {
     name: "emergency",
     components: {
@@ -553,10 +620,17 @@ export default {
     },
     data() {
         return {
+            // 四种类型的总数 从左向右
+            one: 0,
+            two: 0,
+            three: 0,
+            four: 0,
+
             bool: true,
             boolDetach: false,
             boolSocial: true,
             boolOfficial: true,
+
             //  区域火灾扑救遮罩
             boolFireArea: false,
             boolFireAreaData: true,
@@ -602,7 +676,9 @@ export default {
                 rescue: 0,
                 areaFireAnalysis: []
             },
-            rescue_data: {},
+            rescue_data: {
+                alarm: 0
+            },
             sumData: {
                 car: 0,
                 person: 0,
@@ -643,6 +719,8 @@ export default {
         }
     },
     created() {
+        this.getCurrTime();
+
         this.userInfo = {
             admin: false,
             areaId: "520102",
@@ -657,26 +735,90 @@ export default {
             userName: "甘泉"
         };
         window.localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
-        this.localInfo_gd();
         this.orgTreeId = this.userInfo.orgTree;
         this.orgTree_gd(this.orgTreeId);
         this.dateDetail();
-    },
-    mounted() {
         this.postAll();
-    },
 
+        this.localInfo_gd();
+    },
+    mounted() {},
     methods: {
+        getCurrTime() {
+            let time = new Date();
+            let year, month, day, hour, min, sec;
+            year = time.getFullYear();
+            month =
+                time.getMonth() + 1 < 10
+                    ? "0" + (time.getMonth() + 1)
+                    : time.getMonth() + 1;
+            day = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
+            return year + "年" + month + "月" + day + "日";
+        },
+        computerNum(res1, res2) {
+            var num = res1 * 1 + res2 * 1 + 5389 + 318;
+
+            this.one = ((res1 * 100) / num).toFixed(2);
+            this.two = ((res2 * 100) / num).toFixed(2);
+            this.three = ((5389 * 100) / num).toFixed(2);
+            this.four = ((318 * 100) / num).toFixed(2);
+        },
         postAll() {
             // var index = this.selectedOptions.length - 1;
             // this.orgTreeId = this.selectedOptions[index];
             this.sumInfo_get();
-            this.fightFire_get();
             this.fireAnalysis_get();
-            this.rescueData_get();
             this.rescue_get();
-        },
 
+            var _ = this;
+
+            // var a1 = 0,
+            //     b1 = 0;
+            // var fun1 = new Promise(resolve => {
+            //     var a = _.rescueData_get();
+            //     resolve(a);
+            // });
+            // var fun2 = new Promise(resolve => {
+            //     var b = _.fightFire_get();
+            //     resolve("true");
+            // });
+
+            // 火灾扑救综合信息
+            var fightFire_get = new Promise(resolve => {
+                this.boolFireArea = true;
+                this.axios({
+                    method: "post",
+                    url: fightFire,
+                    data: this.params
+                }).then(res => {
+                    this.fightFire_data = res.data.result;
+                    this.boolFireArea = false;
+                    var judgeCondition = res.data.result.areaFireAnalysis;
+                    if (judgeCondition !== null) {
+                        this.boolFireAreaData = true;
+                    } else if (judgeCondition == null) {
+                        this.boolFireAreaData = false;
+                    }
+
+                    resolve(res.data.result.alarm);
+                });
+            });
+            // 应急救援
+            var rescueData_get = new Promise(resolve => {
+                this.axios({
+                    method: "post",
+                    url: rescue,
+                    data: this.params
+                }).then(res => {
+                    this.rescue_data = res.data.result;
+
+                    resolve(res.data.result.alarm);
+                });
+            });
+            Promise.all([fightFire_get, rescueData_get]).then(result => {
+                _.computerNum(result[0], result[1]);
+            });
+        },
         // 火灾场所综合信息
         fireAnalysis_get() {
             this.axios({
@@ -685,24 +827,6 @@ export default {
                 data: this.params
             }).then(res => {
                 this.firePlace = res.data.result;
-            });
-        },
-        // 火灾扑救综合信息
-        fightFire_get() {
-            this.boolFireArea = true;
-            this.axios({
-                method: "post",
-                url: fightFire,
-                data: this.params
-            }).then(res => {
-                this.fightFire_data = res.data.result;
-                this.boolFireArea = false;
-                var judgeCondition = res.data.result.areaFireAnalysis;
-                if (judgeCondition !== null) {
-                    this.boolFireAreaData = true;
-                } else if (judgeCondition == null) {
-                    this.boolFireAreaData = false;
-                }
             });
         },
         // 接警综合信息
@@ -718,17 +842,6 @@ export default {
                 this.sumData.total = data.total ? data.total : 0;
             });
         },
-        // 应急救援
-        rescueData_get() {
-            this.axios({
-                method: "post",
-                url: rescue,
-                data: this.params
-            }).then(res => {
-                this.rescue_data = res.data.result;
-            });
-        },
-
         // 根据userId 查询
         localInfo_gd() {
             var hytoken = window.localStorage.getItem("hytoken");
@@ -742,6 +855,10 @@ export default {
                         this.resetSetItem("userInfo", JSON.stringify(data));
                         this.userInfo = data;
                     }
+                    this.orgTreeId = this.userInfo.orgTree;
+                    this.orgTree_gd(this.orgTreeId);
+                    this.dateDetail();
+                    this.postAll();
                 } else if (res.data.code == 500) {
                     this.$message({
                         message: res.data.msg,
