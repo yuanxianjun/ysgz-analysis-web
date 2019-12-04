@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import detailAna from './detailAna.vue'
+import localPage from './detailAna.vue'
 import '@/common/styles/reset.css'
 import axios from 'axios'
 import { Row, Col, Message, Button, Table, TableColumn, Loading } from "element-ui"
@@ -29,14 +29,7 @@ Vue.prototype.resetSetItem = (key, newVal) => {
         return storage.setItem(key, newVal);
     }
 };
-axios.get(`${process.env.BASE_URL}domain.json`)
-    .then(res => {
-        axios.defaults.baseURL = res.data.baseUrl;
-        axios.defaults.rabbitMQUrl = res.data.rabbitMQUrl;
-        new Vue({
-            render: h => h(detailAna)
-        }).$mount('#app')
-
-    }).catch(err => {
-        console.log(err);
-    });
+axios.defaults.baseURL = location.origin + "/ysgz/";
+new Vue({
+    render: h => h(localPage)
+}).$mount('#app')

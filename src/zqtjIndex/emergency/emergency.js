@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import index from './emergency.vue'
+import localPage from './emergency.vue'
 import '@/common/styles/reset.css'
 import '@/zqtjIndex/emergency/assets/css/myStyle.scss'
 import 'element-ui/lib/theme-chalk/index.css';
@@ -36,14 +36,7 @@ Vue.prototype.resetSetItem = (key, newVal) => {
     }
 };
 Vue.config.productionTip = false;
-axios.get(`${process.env.BASE_URL}domain.json`)
-    .then(res => {
-        axios.defaults.baseURL = res.data.baseUrl;
-        axios.defaults.mqURL = res.data.activeMQUrl;
-        localStorage.setItem('mqUrl', res.data.activeMQUrl);
-        new Vue({
-            render: h => h(index)
-        }).$mount('#app')
-    }).catch(err => {
-        console.log(err);
-    });
+axios.defaults.baseURL = location.origin + "/ysgz/";
+new Vue({
+    render: h => h(localPage)
+}).$mount('#app')

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import copterData from './copterData.vue'
+import localPage from './copterData.vue'
 import '@/common/styles/reset.css'
 import axios from '@/zqtjIndex/ajax'
 import { Row, Col, Message, Button, Table, TableColumn } from "element-ui"
@@ -28,14 +28,7 @@ Vue.prototype.resetSetItem = (key, newVal) => {
         return storage.setItem(key, newVal);
     }
 };
-axios.get(`${process.env.BASE_URL}domain.json`)
-    .then(res => {
-        axios.defaults.baseURL = res.data.baseUrl;
-        axios.defaults.rabbitMQUrl = res.data.rabbitMQUrl;
-        new Vue({
-            render: h => h(copterData)
-        }).$mount('#app')
-
-    }).catch(err => {
-        console.log(err);
-    });
+axios.defaults.baseURL = location.origin + "/ysgz/";
+new Vue({
+    render: h => h(localPage)
+}).$mount('#app')
