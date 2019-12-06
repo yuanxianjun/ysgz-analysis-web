@@ -71,66 +71,18 @@
             <div class="content">
                 <div class="totalNum">
                     <el-row>
-                        <el-col :span="8" class="totalCol">
-                            <div class="label">火灾扑救</div>
+                        <el-col v-for="(item,index) in countPercentData" :span="8" class="totalCol">
+                            <div class="label">{{item.name}}</div>
                             <div class="contentValue">
                                 <div class="valueDiv">
                                     <span class="valueName">数量：</span>
-                                    <span class="value">{{fightFire_data.alarm}}</span>
+                                    <span class="value">{{item.count}}</span>
                                     <span class="unit">起</span>
                                 </div>
                                 <div class="cutLine"></div>
                                 <div class="valueDiv">
                                     <span class="valueName">占比：</span>
-                                    <span class="value yellowColor">{{one}}</span>
-                                    <span class="unit yellowColor">%</span>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="8" class="totalCol">
-                            <div class="label">应急救援</div>
-                            <div class="contentValue">
-                                <div class="valueDiv">
-                                    <span class="valueName">数量：</span>
-                                    <span class="value">{{rescue_data.alarm}}</span>
-                                    <span class="unit">起</span>
-                                </div>
-                                <div class="cutLine"></div>
-                                <div class="valueDiv">
-                                    <span class="valueName">占比：</span>
-                                    <span class="value yellowColor">{{two}}</span>
-                                    <span class="unit yellowColor">%</span>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="8" class="totalCol">
-                            <div class="label">社会救助</div>
-                            <div class="contentValue">
-                                <div class="valueDiv">
-                                    <span class="valueName">数量：</span>
-                                    <span class="value">5389</span>
-                                    <span class="unit">起</span>
-                                </div>
-                                <div class="cutLine"></div>
-                                <div class="valueDiv">
-                                    <span class="valueName">占比：</span>
-                                    <span class="value yellowColor">{{three}}</span>
-                                    <span class="unit yellowColor">%</span>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="8" class="totalCol">
-                            <div class="label">公务执勤</div>
-                            <div class="contentValue">
-                                <div class="valueDiv">
-                                    <span class="valueName">数量：</span>
-                                    <span class="value">318</span>
-                                    <span class="unit">起</span>
-                                </div>
-                                <div class="cutLine"></div>
-                                <div class="valueDiv">
-                                    <span class="valueName">占比：</span>
-                                    <span class="value yellowColor">{{four}}</span>
+                                    <span class="value yellowColor">{{item.percentage}}</span>
                                     <span class="unit yellowColor">%</span>
                                 </div>
                             </div>
@@ -191,21 +143,21 @@
                     </div>
                 </div>
                 <!-- 火灾扑救框 -->
-                <div class="areaFireDiv" v-if="boolFireAreaData">
+                <div class="areaFireDiv" v-if="boolDetach">
                     <div class="table-title">
                         <i class="title-i"></i>
                         <label>区域火灾扑救数量</label>
                     </div>
                     <div
                         class="chart"
-                        v-loading="boolFireArea"
+                        v-loading="bool"
                         element-loading-background="rgba(0, 0, 0, 0.6)"
                     >
                         <div class="rescueChartCon">
                             <!-- 暂时弃用 @refresh="refreshList"-->
                             <detachment-com
-                                v-if="!boolFireArea"
-                                :statisData="fightFire_data.areaFireAnalysis"
+                                v-if="statisticalData.fireList"
+                                :statisData="statisticalData.fireList"
                             ></detachment-com>
                         </div>
                     </div>
@@ -242,7 +194,7 @@
                             <el-col
                                 :span="4"
                                 class="tableCol"
-                                v-for="(item,index) in firePlace"
+                                v-for="(item,index) in firePlaceData.fireList"
                                 :key="index"
                             >
                                 <template>
@@ -391,7 +343,10 @@
                     >
                         <div class="rescueChartCon">
                             <!-- 暂时弃用 @refresh="refreshList" -->
-                            <detachmentEmergencyCom v-if="!bool" :statisData="detachmentList"></detachmentEmergencyCom>
+                            <detachmentEmergencyCom
+                                v-if="statisticalData.rescueList"
+                                :rescueProp="statisticalData.rescueList"
+                            ></detachmentEmergencyCom>
                         </div>
                     </div>
                 </div>
@@ -484,8 +439,11 @@
                         element-loading-background="rgba(0, 0, 0, 0.6)"
                     >
                         <div class="rescueChartCon">
-                            <!-- 暂时弃用 @refresh="refreshList" :statisData="detachmentList" -->
-                            <detachmentSocialCom></detachmentSocialCom>
+                            <!-- 暂时弃用 @refresh="refreshList"  -->
+                            <detachmentSocialCom
+                                v-if="statisticalData.socialList"
+                                :socialData="statisticalData.socialList"
+                            ></detachmentSocialCom>
                         </div>
                     </div>
                 </div>
@@ -494,7 +452,9 @@
                     <div class="contentText">
                         <p>
                             2019年1月1日至{{getCurrTime()}}，全省共接社会救助
-                            <span class="number">5389</span> 起，与去年同期相比，社会救助起数上升
+                            <span
+                                class="number"
+                            >{{countPercentData[2]['count']}}</span> 起，与去年同期相比，社会救助起数上升
                             <span class="number">22.65%</span>。其中取马蜂窝占比
                             <span class="number">56.35%</span>，抓动物占比
                             <span class="number">13%</span>，开门占比
@@ -516,7 +476,7 @@
                             <el-col
                                 :span="4"
                                 class="tableCol"
-                                v-for="(item,index) in social_data"
+                                v-for="(item,index) in firePlaceData.socialList"
                                 :key="index"
                             >
                                 <template>
@@ -531,7 +491,7 @@
                 </div>
 
                 <!-- 公务执勤统计图 -->
-                <div class="areaFireDiv" v-if="boolOfficial">
+                <div class="areaFireDiv" v-if="boolDetach">
                     <div class="table-title">
                         <i class="title-i"></i>
                         <label>公务执勤</label>
@@ -542,8 +502,11 @@
                         element-loading-background="rgba(0, 0, 0, 0.6)"
                     >
                         <div class="rescueChartCon">
-                            <!-- 暂时弃用 @refresh="refreshList" v-if="!bool" :statisData="detachmentList" -->
-                            <detachmentOfficialCom></detachmentOfficialCom>
+                            <!-- 暂时弃用 @refresh="refreshList"  -->
+                            <detachmentOfficialCom
+                                v-if="statisticalData.dutyList"
+                                :officialData="statisticalData.dutyList"
+                            ></detachmentOfficialCom>
                         </div>
                     </div>
                 </div>
@@ -552,7 +515,9 @@
                     <div class="contentText">
                         <p>
                             2019年1月1日至{{getCurrTime()}}，全省共接公务执勤
-                            <span class="number">318</span>起，与去年同期相比，出动数上升
+                            <span
+                                class="number"
+                            >{{countPercentData[3]['count']}}</span>起，与去年同期相比，出动数上升
                             <span class="number">1225%</span>。其中，其它公务执勤出动占比
                             <span class="number">81.76%</span>，重大会议占比
                             <span class="number">4.09%</span>，大型文体活动占比
@@ -572,7 +537,7 @@
                             <el-col
                                 :span="4"
                                 class="tableCol"
-                                v-for="(item,index) in official_data"
+                                v-for="(item,index) in firePlaceData.dutyList"
                                 :key="index"
                             >
                                 <template>
@@ -599,13 +564,15 @@ import {
     info,
     fightFire,
     fireAnalysis,
-    rescue
+    rescue,
+    alarmType
 } from "../requestUrl";
 import statisticeCom from "./components/statisticeCom.vue";
 import detachmentCom from "./components/detachmentCom.vue";
 import detachmentEmergencyCom from "./components/detachmentEmergencyCom.vue";
 import detachmentSocialCom from "./components/detachmentSocialCom.vue";
 import detachmentOfficialCom from "./components/detachmentOfficialCom.vue";
+import QS from "qs";
 export default {
     name: "emergency",
     components: {
@@ -620,20 +587,24 @@ export default {
     },
     data() {
         return {
-            // 四种类型的总数 从左向右
-            one: 0,
-            two: 0,
-            three: 0,
-            four: 0,
+            // 统计图数据
+            statisticalData: {
+                fireList: null,
+                rescueList: null, //应急救援
+                socialList: null, //社会救助
+                dutyList: null //公务执勤
+            },
+            // 四种类型的总数 以及占比 从左向右
+            countPercentData: [
+                { count: 0 },
+                { count: 0 },
+                { count: 0 },
+                { count: 0 }
+            ],
 
             bool: true,
-            boolDetach: false,
-            boolSocial: true,
-            boolOfficial: true,
+            boolDetach: true,
 
-            //  区域火灾扑救遮罩
-            boolFireArea: false,
-            boolFireAreaData: true,
             userInfo: JSON.parse(window.localStorage.getItem("userInfo")),
             orgTreeId: "",
             dateValue: [],
@@ -666,7 +637,6 @@ export default {
                 { name: "核与辐射事件", id: "020507000000", value: 0 },
                 { name: "公共卫生事件", id: "020504000000", value: 0 }
             ],
-            detachmentList: [],
             fightFire_data: {
                 alarm: 0,
                 intensive: 0,
@@ -684,63 +654,46 @@ export default {
                 person: 0,
                 total: 0
             },
-            firePlace: {},
-            // 社会救助表格数据
-            social_data: [
-                { name: "开门", num: "585" },
-                { name: "取马蜂窝", num: "3037" },
-                { name: "冲马路", num: "5" },
-                { name: "送水", num: "50" },
-                { name: "关水龙头", num: "3" },
-                { name: "高空取物", num: "91" },
-                { name: "抓动物", num: "700" },
-                { name: "其他", num: "918" }
-            ],
-            // 公务执勤表格数据
-            official_data: [
-                { name: "元首保卫", num: "0" },
-                { name: "我国国家元首", num: "0" },
-                { name: "国外元首", num: "0" },
-                { name: "重大会议", num: "13" },
-                { name: "大型文体活动", num: "41" },
-                { name: "大型展览会", num: "4" },
-                { name: "其它", num: "260" }
-            ]
+            firePlaceData: {
+                fireList: [],
+                dutyList: [],
+                socialList: []
+            }
         };
     },
     computed: {
         // 更新各个接口参数params
         params: function() {
-            return {
+            return QS.stringify({
                 endDate: this.dateValue[1],
                 orgTreeId: this.orgTreeId,
                 startDate: this.dateValue[0]
-            };
+            });
         }
     },
     created() {
         this.getCurrTime();
-
-        this.userInfo = {
-            admin: false,
-            areaId: "520102",
-            areaName: "贵州",
-            cityId: "520100",
-            orgId: "213f9a43359c4ce7bfd998d983de24d8",
-            orgName: "指挥中心",
-            orgRole: "01",
-            orgTree: "0100000052000000",
-            roleName: "指挥员",
-            userId: "2e9a5b91639b4d15a2aa0ba8c049b909",
-            userName: "甘泉"
-        };
-        window.localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
-        this.orgTreeId = this.userInfo.orgTree;
-        this.orgTree_gd(this.orgTreeId);
-        this.dateDetail();
-        this.postAll();
-
         this.localInfo_gd();
+
+        //部署删除
+        // this.userInfo = {
+        //     admin: false,
+        //     areaId: "520102",
+        //     areaName: "贵州",
+        //     cityId: "520100",
+        //     orgId: "213f9a43359c4ce7bfd998d983de24d8",
+        //     orgName: "指挥中心",
+        //     orgRole: "01",
+        //     orgTree: "0100000052000000",
+        //     roleName: "指挥员",
+        //     userId: "2e9a5b91639b4d15a2aa0ba8c049b909",
+        //     userName: "甘泉"
+        // };
+        // window.localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+        // this.orgTreeId = this.userInfo.orgTree;
+        // this.orgTree_gd(this.orgTreeId);
+        // this.dateDetail();
+        // this.postAll();
     },
     mounted() {},
     methods: {
@@ -755,55 +708,25 @@ export default {
             day = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
             return year + "年" + month + "月" + day + "日";
         },
-        computerNum(res1, res2) {
-            var num = res1 * 1 + res2 * 1 + 5389 + 318;
-
-            this.one = ((res1 * 100) / num).toFixed(2);
-            this.two = ((res2 * 100) / num).toFixed(2);
-            this.three = ((5389 * 100) / num).toFixed(2);
-            this.four = ((318 * 100) / num).toFixed(2);
-        },
         postAll() {
-            // var index = this.selectedOptions.length - 1;
-            // this.orgTreeId = this.selectedOptions[index];
             this.sumInfo_get();
             this.fireAnalysis_get();
             this.rescue_get();
+            this.alarmType_get();
 
             var _ = this;
 
-            // var a1 = 0,
-            //     b1 = 0;
-            // var fun1 = new Promise(resolve => {
-            //     var a = _.rescueData_get();
-            //     resolve(a);
-            // });
-            // var fun2 = new Promise(resolve => {
-            //     var b = _.fightFire_get();
-            //     resolve("true");
-            // });
-
             // 火灾扑救综合信息
             var fightFire_get = new Promise(resolve => {
-                this.boolFireArea = true;
                 this.axios({
                     method: "post",
                     url: fightFire,
                     data: this.params
                 }).then(res => {
                     this.fightFire_data = res.data.result;
-                    this.boolFireArea = false;
-                    var judgeCondition = res.data.result.areaFireAnalysis;
-                    if (judgeCondition !== null) {
-                        this.boolFireAreaData = true;
-                    } else if (judgeCondition == null) {
-                        this.boolFireAreaData = false;
-                    }
-
-                    resolve(res.data.result.alarm);
                 });
             });
-            // 应急救援
+            // 应急救援  18项列表
             var rescueData_get = new Promise(resolve => {
                 this.axios({
                     method: "post",
@@ -811,13 +734,9 @@ export default {
                     data: this.params
                 }).then(res => {
                     this.rescue_data = res.data.result;
-
-                    resolve(res.data.result.alarm);
                 });
             });
-            Promise.all([fightFire_get, rescueData_get]).then(result => {
-                _.computerNum(result[0], result[1]);
-            });
+            Promise.all([fightFire_get, rescueData_get]);
         },
         // 火灾场所综合信息
         fireAnalysis_get() {
@@ -826,9 +745,15 @@ export default {
                 url: fireAnalysis,
                 data: this.params
             }).then(res => {
-                this.firePlace = res.data.result;
+                /**
+                 * @param{Array} fireList:火灾扑救,
+                 * @param{Array} socialList:社会救助,
+                 * @param{Array} dutyList:公务执勤
+                 * */
+                this.firePlaceData = res.data.result;
             });
         },
+
         // 接警综合信息
         sumInfo_get() {
             this.axios({
@@ -939,7 +864,6 @@ export default {
         },
         // 分析列表
         rescue_get() {
-            this.bool = true;
             this.axios({
                 method: "post",
                 url: rescueAnalysis,
@@ -975,17 +899,43 @@ export default {
                         }
                     }
                 });
+            });
+        },
+        // 接警分析 统计信息
+        alarmType_get() {
+            this.bool = true;
+            this.axios({
+                method: "post",
+                url: alarmType,
+                data: this.params
+            }).then(res => {
+                var data = res.data.result;
                 this.bool = false;
-                if (data.areaList == null) {
+
+                // 火灾扑救 统计图数据
+                this.statisticalData.fireList = data.fireList;
+                // 应急救援 统计图数据
+                this.statisticalData.rescueList = data.rescueList;
+                // 社会救助 统计图数据
+                this.statisticalData.socialList = data.socialList;
+                // 公务执勤 统计图数据
+                this.statisticalData.dutyList = data.dutyList;
+
+                // 火灾扑救的数量和占比
+                var nameList = ["火灾扑救", "应急救援", "社会救助", "公务执勤"];
+                this.countPercentData = data.dataList.map((item, index) => {
+                    item["name"] = nameList[index];
+                    return item;
+                });
+                if (!data.fireList) {
                     this.boolDetach = false;
                 } else {
                     this.boolDetach = true;
-                    this.detachmentList = data.areaList;
                 }
-                // this.analysisList[8].value = floodsNum;
             });
         }
     },
+
     destroyed() {}
 };
 </script>

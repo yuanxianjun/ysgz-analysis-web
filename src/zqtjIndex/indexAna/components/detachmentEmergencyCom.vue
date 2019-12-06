@@ -10,16 +10,14 @@
 import echarts from "echarts";
 export default {
   name: "detachmentCom",
-  props: ["statisData"],
+  props: ["rescueProp"],
   data() {
     return {};
   },
   watch: {},
   created() {},
   mounted() {
-    if (this.statisData) {
-      this.pieData(this.statisData);
-    }
+      this.pieData(this.rescueProp);
   },
   updated: function() {},
   methods: {

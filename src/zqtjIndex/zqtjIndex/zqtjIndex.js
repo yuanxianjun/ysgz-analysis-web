@@ -3,7 +3,11 @@ import localPage from './zqtjIndex.vue'
 import '@/common/styles/reset.css'
 import './assets/style/style.css'
 import axios from '@/zqtjIndex/ajax'
-import { Row, Col, Message } from "element-ui"
+import {
+    Row,
+    Col,
+    Message
+} from "element-ui"
 Vue.use(Row)
 Vue.use(Col)
 Vue.prototype.axios = axios;
@@ -26,6 +30,7 @@ Vue.prototype.resetSetItem = (key, newVal) => {
     }
 };
 axios.defaults.baseURL = location.origin + "/ysgz/";
+
 new Vue({
     render: h => h(localPage)
 }).$mount('#app')

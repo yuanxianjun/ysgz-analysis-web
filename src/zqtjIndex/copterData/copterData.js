@@ -2,7 +2,14 @@ import Vue from 'vue'
 import localPage from './copterData.vue'
 import '@/common/styles/reset.css'
 import axios from '@/zqtjIndex/ajax'
-import { Row, Col, Message, Button, Table, TableColumn } from "element-ui"
+import {
+    Row,
+    Col,
+    Message,
+    Button,
+    Table,
+    TableColumn
+} from "element-ui"
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Row)
 Vue.use(Col)
@@ -29,6 +36,7 @@ Vue.prototype.resetSetItem = (key, newVal) => {
     }
 };
 axios.defaults.baseURL = location.origin + "/ysgz/";
+
 new Vue({
     render: h => h(localPage)
 }).$mount('#app')

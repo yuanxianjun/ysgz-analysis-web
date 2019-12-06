@@ -3,7 +3,17 @@ import localPage from './emergency.vue'
 import '@/common/styles/reset.css'
 import '@/zqtjIndex/emergency/assets/css/myStyle.scss'
 import 'element-ui/lib/theme-chalk/index.css';
-import { Button, Message, Table, TableColumn, Row, Col, DatePicker, Cascader, Loading } from 'element-ui'
+import {
+    Button,
+    Message,
+    Table,
+    TableColumn,
+    Row,
+    Col,
+    DatePicker,
+    Cascader,
+    Loading
+} from 'element-ui'
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 Vue.component(CollapseTransition.name, CollapseTransition)
@@ -37,6 +47,7 @@ Vue.prototype.resetSetItem = (key, newVal) => {
 };
 Vue.config.productionTip = false;
 axios.defaults.baseURL = location.origin + "/ysgz/";
+
 new Vue({
     render: h => h(localPage)
 }).$mount('#app')

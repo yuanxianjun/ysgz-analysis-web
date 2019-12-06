@@ -10,7 +10,7 @@
 import echarts from "echarts";
 export default {
     name: "detachmentCom",
-    props: ["statisData"],
+    props: ["officialData"],
     data() {
         return {
             data: [
@@ -70,10 +70,8 @@ export default {
     watch: {},
     created() {},
     mounted() {
-        // if (this.statisData) {
-        //   this.pieData(this.statisData);
-        // }
-        this.pieData(this.data);
+     
+        this.pieData(this.officialData);
     },
     updated: function() {},
     methods: {

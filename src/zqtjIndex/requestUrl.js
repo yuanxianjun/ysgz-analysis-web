@@ -9,6 +9,7 @@ let todayFire = "alarm/todayFire/",
     rsct = "/alarm/rescueStatisticAnalysisCityTotal/", //支队柱状图列表
     fightFire = "/alarm/fightFire/", //火灾扑救
     fireAnalysis = "/alarm/fireAnalysis/", //火灾场所
+    alarmType = "/alarm/alarmType/", //接警类型统计分
 
     info = "/alarm/info/"
     ;
@@ -16,5 +17,5 @@ let todayFire = "alarm/todayFire/",
 
 export {
     todayFire, fightFire, rescue, areaFire, emergencyRescue, rescueAnalysis, orgTreeUrl, rsa, rsaa, rsct,
-    info, fireAnalysis
+    info, fireAnalysis,alarmType
 }
