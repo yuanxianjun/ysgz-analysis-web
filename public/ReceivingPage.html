@@ -10,7 +10,6 @@
            window.location.href=this.location.protocol+'//'+this.location.host
         }
         var token = searchQueryString.substring(exists + tokenName.length+1);
-        console.log(token)
         // 排除token变量以后的无用变量
         exists = token.indexOf('&');
         if (exists != -1) {

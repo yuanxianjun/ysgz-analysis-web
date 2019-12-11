@@ -145,7 +145,7 @@ export default {
                             show: true,
                             // rotate: -36,
                             interval: "0",
-                            color: "rgb(170,170,170)",
+                            color: "#ffffff",
                             fontSize: 16
                         }
                     }
@@ -174,7 +174,7 @@ export default {
                             }
                         },
                         axisLabel: {
-                            color: "rgb(170,170,170)",
+                            color: "#ffffff",
                             formatter: "{value}"
                         }
                     },
@@ -238,6 +238,22 @@ export default {
                                     ]
                                 )
                             }
+                        },
+                        label: {
+                            show: true,
+                            position: "top",
+                            color: "#ffffff",
+                            fontSize: 30,
+                            fontFamily: "ROME",
+                            offset: [0, 8]
+                        },
+                        label: {
+                            show: true,
+                            position: "top",
+                            color: "#ffffff",
+                            fontSize: 30,
+                            fontFamily: "ROME",
+                            offset: [0, 8]
                         },
                         data: yData,
                         zlevel: 11

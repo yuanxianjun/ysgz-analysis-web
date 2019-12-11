@@ -8,7 +8,7 @@
           <div class="header">
             <div class="header_left">
               <!-- 退出按钮  -->
-              <comOut></comOut>
+            
             </div>
           </div>
           <div class="fireOne">
@@ -235,7 +235,7 @@ import { todayFire, fightFire, rescue } from "../requestUrl";
 
 import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
-import comOut from "@/zqtjIndex/components/comOut";
+
 import annularCom from "./components/annularCom";
 import emergencyCom from "./components/emergencyCom";
 export default {
@@ -243,7 +243,7 @@ export default {
   components: {
     comHeader,
     backHome,
-    comOut,
+
     annularCom,
     emergencyCom
   },
@@ -279,23 +279,11 @@ export default {
     };
   },
   created() {
-    this.userInfo = {
-      admin: false,
-      areaId: "520102",
-      areaName: "贵州",
-      cityId: "520100",
-      orgId: "213f9a43359c4ce7bfd998d983de24d8",
-      orgName: "指挥中心",
-      orgRole: "01",
-      orgTree: "0100000052000000",
-      roleName: "指挥员",
-      userId: "2e9a5b91639b4d15a2aa0ba8c049b909",
-      userName: "甘泉"
-    };
-    window.localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
-    this.localInfo_gd();
+    
+    
   },
   mounted() {
+    this.localInfo_gd();
     // this.fightFire_get();
     // this.rescue_get();
     // this.tableList();
@@ -304,10 +292,9 @@ export default {
   methods: {
     // 根据userId 查询
     localInfo_gd() {
-      var hytoken = window.localStorage.getItem("hytoken");
       this.axios({
         method: "post",
-        url: "/user/userInfo/?hytoken=" + hytoken
+        url: "/user/userInfo/" 
       }).then(res => {
         if (res.data && res.data.code === "success") {
           var data = res.data.result || {};

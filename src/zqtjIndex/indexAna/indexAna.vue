@@ -4,10 +4,6 @@
         <backHome></backHome>
         <div class="content-wrapper">
             <div class="header">
-                <div class="header_left">
-                    <!-- 退出按钮-->
-                    <comOut></comOut>
-                </div>
                 <div class="header_middle">
                     <div class="dateDiv">
                         <el-date-picker
@@ -42,512 +38,516 @@
                     </div>
                     <el-button class="customBtn" @click="postAll">查询</el-button>
                 </div>
-                <div class="header_right">
+            </div>
+            <div class="content">
+                <!-- 接警总量框 -->
+                <div class="totalNum">
                     <el-row>
-                        <el-col :span="8" class="elCol">
+                        <el-col :span="7" class="colSide">
+                            <div
+                                v-for="(item,index) in countPercentData.slice(0,2)"
+                                class="totalCol"
+                            >
+                                <div class="label">{{item.name}}</div>
+                                <div class="contentValue">
+                                    <div class="valueDiv">
+                                        <span class="valueName">数量：</span>
+                                        <span class="value">{{item.count}}</span>
+                                    </div>
+                                    <div class="cutLine"></div>
+                                    <div class="valueDiv">
+                                        <span class="valueName" style="text-indent:30px;">占比：</span>
+                                        <span class="value yellowColor">{{item.percentage}}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+
+                        <el-col :span="10" class="totalColBig">
                             <div class="label">接警总量</div>
                             <div class="valueDiv">
                                 <span class="value">{{sumData.total}}</span>
                                 <span class="unit">起</span>
                             </div>
                         </el-col>
-                        <el-col :span="8" class="elCol">
-                            <div class="label">出动车辆</div>
-                            <div class="valueDiv">
-                                <span class="value">{{sumData.car}}</span>
-                                <span class="unit">辆</span>
-                            </div>
-                        </el-col>
-                        <el-col :span="8" class="elCol">
-                            <div class="label">出动人员</div>
-                            <div class="valueDiv">
-                                <span class="value">{{sumData.person}}</span>
-                                <span class="unit">人</span>
-                            </div>
-                        </el-col>
-                    </el-row>
-                </div>
-            </div>
-            <div class="content">
-                <div class="totalNum">
-                    <el-row>
-                        <el-col v-for="(item,index) in countPercentData" :span="8" class="totalCol">
-                            <div class="label">{{item.name}}</div>
-                            <div class="contentValue">
-                                <div class="valueDiv">
-                                    <span class="valueName">数量：</span>
-                                    <span class="value">{{item.count}}</span>
-                                    <span class="unit">起</span>
-                                </div>
-                                <div class="cutLine"></div>
-                                <div class="valueDiv">
-                                    <span class="valueName">占比：</span>
-                                    <span class="value yellowColor">{{item.percentage}}</span>
-                                    <span class="unit yellowColor">%</span>
+
+                        <el-col :span="7" class="colSide">
+                            <div
+                                v-for="(item,index) in countPercentData.slice(2,4)"
+                                class="totalCol"
+                            >
+                                <div class="label">{{item.name}}</div>
+                                <div class="contentValue">
+                                    <div class="valueDiv">
+                                        <span class="valueName">数量：</span>
+                                        <span class="value">{{item.count}}</span>
+                                    </div>
+                                    <div class="cutLine"></div>
+                                    <div class="valueDiv">
+                                        <span class="valueName" style="text-indent:30px;">占比：</span>
+                                        <span class="value yellowColor">{{item.percentage}}%</span>
+                                    </div>
                                 </div>
                             </div>
                         </el-col>
                     </el-row>
                 </div>
-                <!-- 火灾扑救框 -->
-                <div class="fireFightingAll">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>火灾扑救</label>
-                    </div>
-                    <div class="fireLiDiv">
-                        <el-row>
-                            <el-col :span="4" class="fireliBg">
-                                <p class="fireTitle">火灾接警</p>
-                                <p class="fireValue">
-                                    <span class="number">{{fightFire_data.alarm}}</span>
-                                    <span class="unit">起</span>
-                                </p>
-                            </el-col>
-                            <el-col :span="4" class="fireliBg">
-                                <p class="fireTitle">亡人火灾</p>
-                                <p class="fireValue">
-                                    <span class="number">{{fightFire_data.intensive }}</span>
-                                    <span class="unit">起</span>
-                                </p>
-                            </el-col>
-                            <el-col :span="4" class="fireliBg">
-                                <p class="fireTitle">出动车辆</p>
-                                <p class="fireValue">
-                                    <span class="number">{{fightFire_data.car}}</span>
-                                    <span class="unit">辆</span>
-                                </p>
-                            </el-col>
-                            <el-col :span="4" class="fireliBg">
-                                <p class="fireTitle">出动人员</p>
-                                <p class="fireValue">
-                                    <span class="number">{{fightFire_data.person}}</span>
-                                    <span class="unit">人</span>
-                                </p>
-                            </el-col>
-                            <el-col :span="4" class="fireliBg">
-                                <p class="fireTitle">财产损失</p>
-                                <p class="fireValue">
-                                    <span class="number">{{fightFire_data.money}}</span>
-                                    <span class="unit">万元</span>
-                                </p>
-                            </el-col>
-                            <el-col :span="4" class="fireliBg">
-                                <p class="fireTitle">抢救人员</p>
-                                <p class="fireValue">
-                                    <span class="number">{{fightFire_data.rescue}}</span>
-                                    <span class="unit">人</span>
-                                </p>
-                            </el-col>
-                        </el-row>
-                    </div>
-                </div>
-                <!-- 火灾扑救框 -->
-                <div class="areaFireDiv" v-if="boolDetach">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>区域火灾扑救数量</label>
-                    </div>
-                    <div
-                        class="chart"
-                        v-loading="bool"
-                        element-loading-background="rgba(0, 0, 0, 0.6)"
-                    >
-                        <div class="rescueChartCon">
-                            <!-- 暂时弃用 @refresh="refreshList"-->
-                            <detachment-com
-                                v-if="statisticalData.fireList"
-                                :statisData="statisticalData.fireList"
-                            ></detachment-com>
+                <!-- 火灾扑救模块 -->
+                <div class="fire">
+                    <div class="table-title1">火灾扑救</div>
+                    <!-- 火灾扑救描述框 -->
+                    <div class="fireFightingDescribe">
+                        <div class="contentText">
+                            <p>
+                                2019年1月1日至{{getCurrTime()}}，全省共接报火灾
+                                <span
+                                    class="number"
+                                >{{fightFire_data.alarm }}</span>起，死亡
+                                <span class="number">{{fightFire_data.die }}</span>起，受伤
+                                <span class="number">{{fightFire_data.injured }}</span>人，直接财产损失
+                                <span class="number">{{fightFire_data.money||0}}</span>万元，与去年同期相比，火灾起数上升
+                                <span class="number">31.50%</span>
+                                ，亡人数上升
+                                <span class="number">19.35%</span>
+                                ，伤人数上升
+                                <span class="number">17.39%</span>
+                                ，直接财产损失上升
+                                <span class="number">20.46%</span>。
+                            </p>
                         </div>
                     </div>
-                </div>
-                <!-- 火灾扑救描述框 -->
-                <div class="fireFightingDescribe">
-                    <div class="contentText">
-                        <p>
-                            2019年1月1日至{{getCurrTime()}}，全省共接报火灾
-                            <span
-                                class="number"
-                            >{{fightFire_data.alarm }}</span>起，死亡
-                            <span class="number">37</span>起，受伤
-                            <span class="number">27</span>人，直接财产损失
-                            <span class="number">{{fightFire_data.money||0}}</span>万元，与去年同期相比，火灾起数上升
-                            <span class="number">31.50%</span>
-                            ，亡人数上升
-                            <span class="number">19.35%</span>
-                            ，伤人数上升
-                            <span class="number">17.39%</span>
-                            ，直接财产损失上升
-                            <span class="number">20.46%</span>。
-                        </p>
-                    </div>
-                </div>
-                <!-- 火灾场所框 表格 -->
-                <div class="firePlace">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>火灾分析(单位:起)</label>
-                    </div>
-                    <div class="tableBox">
-                        <el-row class="rowDiv">
-                            <el-col
-                                :span="4"
-                                class="tableCol"
-                                v-for="(item,index) in firePlaceData.fireList"
-                                :key="index"
-                            >
-                                <template>
-                                    <div>
-                                        <div class="title">{{item.name}}</div>
-                                        <div class="number">{{item.num}}</div>
-                                    </div>
-                                </template>
-                            </el-col>
-                        </el-row>
-                    </div>
-                </div>
-                <!-- 应急救援总数框 -->
-                <div class="emergenceRescue">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>应急救援</label>
-                    </div>
-                    <div class="rescueOneCon">
-                        <el-row>
-                            <el-col :span="4">
-                                <div class="rescueOneCon_div">
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <img src="./assets/img/应急救援.png" />
-                                        </el-col>
-                                        <el-col :span="14">
-                                            <div style="display:inline-block;">
-                                                <p class="rescueOneCon_title gradientFont">应急救援</p>
-                                                <p>
-                                                    <span class="number">{{rescue_data.alarm ||0}}</span>
-                                                    <span class="unit">起</span>
-                                                </p>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                            </el-col>
-                            <el-col :span="4">
-                                <div class="rescueOneCon_div">
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <img src="./assets/img/重大事故.png" />
-                                        </el-col>
-                                        <el-col :span="14">
-                                            <div>
-                                                <p class="rescueOneCon_title gradientFont">重大事故</p>
-                                                <p>
-                                                    <span
-                                                        class="number"
-                                                    >{{rescue_data.intensive||0}}</span>
-                                                    <span class="unit">起</span>
-                                                </p>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                            </el-col>
+                    <!-- 火灾扑救框 -->
+                    <div class="fireFightingAll">
+                        <div class="fireLiDiv">
+                            <el-row>
+                                <el-col :span="4" class="fireliBg">
+                                    <p class="fireTitle">火灾接警</p>
+                                    <p class="fireValue">
+                                        <span class="number">{{fightFire_data.alarm}}</span>
+                                        <span class="unit">起</span>
+                                    </p>
+                                </el-col>
 
-                            <el-col :span="4">
-                                <div class="rescueOneCon_div">
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <img src="./assets/img/出动车辆.png" />
-                                        </el-col>
-                                        <el-col :span="14">
-                                            <div style="display:inline-block;">
-                                                <p class="rescueOneCon_title gradientFont">出动车辆</p>
-                                                <p>
-                                                    <span class="number">{{rescue_data.car ||0 }}</span>
-                                                    <span class="unit">辆次</span>
-                                                </p>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                            </el-col>
-                            <el-col :span="4">
-                                <div class="rescueOneCon_div">
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <img src="./assets/img/出动人员.png" />
-                                        </el-col>
-                                        <el-col :span="14">
-                                            <div>
-                                                <p class="rescueOneCon_title gradientFont">出动人员</p>
-                                                <p>
-                                                    <span class="number">{{rescue_data.person ||0}}</span>
-                                                    <span class="unit">人</span>
-                                                </p>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                            </el-col>
+                                <el-col :span="4" class="fireliBg">
+                                    <div @click="toFire('亡人火灾')">
+                                        <p class="fireTitle">亡人火灾</p>
+                                        <p class="fireValue">
+                                            <span class="number">{{fightFire_data.intensive}}</span>
+                                            <span class="unit">起</span>
+                                        </p>
+                                    </div>
+                                </el-col>
 
-                            <el-col :span="4">
-                                <div class="rescueOneCon_div">
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <img src="./assets/img/财产损失.png" />
-                                        </el-col>
-                                        <el-col :span="14">
-                                            <div style="display:inline-block;">
-                                                <p class="rescueOneCon_title gradientFont">财产损失</p>
-                                                <p>
-                                                    <span class="number">{{rescue_data.money ||0}}</span>
-                                                    <span class="unit">万元</span>
-                                                </p>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                            </el-col>
-                            <el-col :span="4">
-                                <div class="rescueOneCon_div">
-                                    <el-row>
-                                        <el-col :span="10">
-                                            <img src="./assets/img/抢救人员.png" />
-                                        </el-col>
-                                        <el-col :span="14">
-                                            <div>
-                                                <p class="rescueOneCon_title gradientFont">抢救人员</p>
-                                                <p>
-                                                    <span class="number">{{rescue_data.rescue || 0}}</span>
-                                                    <span class="unit">人</span>
-                                                </p>
-                                            </div>
-                                        </el-col>
-                                    </el-row>
-                                </div>
-                            </el-col>
-                        </el-row>
+                                <el-col :span="4" class="fireliBg">
+                                    <p class="fireTitle">死亡人数</p>
+                                    <p class="fireValue">
+                                        <span class="number">{{fightFire_data.die}}</span>
+                                        <span class="unit">辆</span>
+                                    </p>
+                                </el-col>
+                                <el-col :span="4" class="fireliBg">
+                                    <p class="fireTitle">受伤人数</p>
+                                    <p class="fireValue">
+                                        <span class="number">{{fightFire_data.injured}}</span>
+                                        <span class="unit">人</span>
+                                    </p>
+                                </el-col>
+                                <el-col :span="4" class="fireliBg">
+                                    <p class="fireTitle">财产损失</p>
+                                    <p class="fireValue">
+                                        <span class="number">{{fightFire_data.money}}</span>
+                                        <span class="unit">万元</span>
+                                    </p>
+                                </el-col>
+                                <el-col :span="4" class="fireliBg">
+                                    <p class="fireTitle">抢救人员</p>
+                                    <p class="fireValue">
+                                        <span class="number">{{fightFire_data.rescue}}</span>
+                                        <span class="unit">人</span>
+                                    </p>
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
-                </div>
-                <!-- 区域应急救援统计框 -->
-                <div class="areaFireDiv" v-if="boolDetach">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>区域应急救援数量</label>
+                    <!-- 火灾扑救框 -->
+                    <div class="areaFireDiv" v-if="boolDetach">
+                        <div class="table-title">
+                            <i class="title-i"></i>
+                            <label>区域火灾扑救数量</label>
+                        </div>
+                        <div
+                            class="chart"
+                            v-loading="bool"
+                            element-loading-background="rgba(0, 0, 0, 0.6)"
+                        >
+                            <div class="rescueChartCon">
+                                <!-- 暂时弃用 @refresh="refreshList"-->
+                                <detachment-com
+                                    v-if="statisticalData.fireList"
+                                    :statisData="statisticalData.fireList"
+                                ></detachment-com>
+                            </div>
+                        </div>
                     </div>
-                    <div
-                        class="chart"
-                        v-loading="bool"
-                        element-loading-background="rgba(0, 0, 0, 0.6)"
-                    >
-                        <div class="rescueChartCon">
-                            <!-- 暂时弃用 @refresh="refreshList" -->
-                            <detachmentEmergencyCom
-                                v-if="statisticalData.rescueList"
-                                :rescueProp="statisticalData.rescueList"
-                            ></detachmentEmergencyCom>
+
+                    <!-- 火灾场所框 表格 -->
+                    <div class="firePlace">
+                        <div class="table-title">
+                            <i class="title-i"></i>
+                            <label>火灾分析(单位:起)</label>
+                        </div>
+                        <div class="tableBox">
+                            <el-row class="rowDiv">
+                                <el-col
+                                    :span="6"
+                                    class="tableCol"
+                                    v-for="(item,index) in firePlaceData.fireList"
+                                    :key="index"
+                                >
+                                    <template>
+                                        <div>
+                                            <div class="title">{{item.name}}</div>
+                                            <div class="number">{{item.num}}</div>
+                                        </div>
+                                    </template>
+                                </el-col>
+                            </el-row>
                         </div>
                     </div>
                 </div>
-                <!-- 应急救援描述框  -->
-                <div class="fireFightingDescribe">
-                    <div class="contentText">
-                        <p>
-                            2019年1月1日至{{getCurrTime()}}，全省共接报应急救援
-                            <span
-                                class="number"
-                            >{{rescue_data.alarm||0}}</span>起，抢救人员
-                            <span class="number">{{rescue_data.rescue||0}}</span>
-                            人。与去年同期相比，应急救援起数上升
-                            <span
-                                class="number"
-                            >16.97%</span>。财产损失其中群众遇险占比
-                            <span class="number">49.96%</span>，交通事故占比
-                            <span class="number">27.84%</span>，化学危险品事故占比
-                            <span class="number">3.36%</span>，水旱灾害占比
-                            <span class="number">4%</span>，建筑物坍塌占比
-                            <span class="number">0.98%</span>，地质灾害占比
-                            <span class="number">0.47%</span>，森林火灾占比
-                            <span class="number">1.27%</span>。
-                        </p>
+                <!-- 抢险救援模块 -->
+                <div class="emergency">
+                    <div class="table-title1">抢险救援</div>
+                    <!-- 抢险救援描述框  -->
+                    <div class="fireFightingDescribe">
+                        <div class="contentText">
+                            <p>
+                                2019年1月1日至{{getCurrTime()}}，全省共接报抢险救援
+                                <span
+                                    class="number"
+                                >{{rescue_data.alarm||0}}</span>起，抢救人员
+                                <span class="number">{{rescue_data.rescue||0}}</span>
+                                人。与去年同期相比，抢险救援起数上升
+                                <span
+                                    class="number"
+                                >16.97%</span>。财产损失其中群众遇险占比
+                                <span class="number">49.96%</span>，交通事故占比
+                                <span class="number">27.84%</span>，化学危险品事故占比
+                                <span class="number">3.36%</span>，水旱灾害占比
+                                <span class="number">4%</span>，建筑物坍塌占比
+                                <span class="number">0.98%</span>，地质灾害占比
+                                <span class="number">0.47%</span>，森林火灾占比
+                                <span class="number">1.27%</span>。
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <!-- 应急救援分析 列表 -->
-                <div class="tableDiv">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>应急救援分析(单位:起)</label>
-                    </div>
-                    <div class="tableBox">
-                        <el-row class="rowDiv" v-if="!bool">
-                            <el-col
-                                :span="4"
-                                class="tableCol"
-                                v-for="(item,index) in limitData(0,6)"
-                                :key="index"
-                            >
-                                <template>
-                                    <div @click="toNext(item)">
-                                        <div class="title">{{item.name}}</div>
-                                        <div class="number">{{item.value}}</div>
+                    <!-- 抢险救援总数框 -->
+                    <div class="emergenceRescue">
+                        <div class="rescueOneCon">
+                            <el-row>
+                                <el-col :span="5">
+                                    <div class="rescueOneCon_div">
+                                        <el-row>
+                                            <el-col :span="8" class="imgDiv">
+                                                <img src="./assets/img/emergency.png" />
+                                            </el-col>
+                                            <el-col :span="16">
+                                                <div style="display:inline-block;">
+                                                    <p class="rescueOneCon_title gradientFont">抢险救援</p>
+                                                    <p>
+                                                        <span
+                                                            class="number"
+                                                        >{{rescue_data.alarm ||0}}</span>
+                                                        <span class="unit">起</span>
+                                                    </p>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
                                     </div>
-                                </template>
-                            </el-col>
-                        </el-row>
-                        <el-row class="rowDiv" v-if="!bool">
-                            <el-col
-                                :span="4"
-                                class="tableCol"
-                                v-for="(item,index) in limitData(6,12)"
-                                :key="index"
-                            >
-                                <template>
-                                    <div @click="toNext(item)">
-                                        <div class="title">{{item.name}}</div>
-                                        <div class="number">{{item.value}}</div>
+                                </el-col>
+
+                                <el-col :span="5">
+                                    <div class="rescueOneCon_div">
+                                        <el-row>
+                                            <el-col :span="8" class="imgDiv">
+                                                <img src="./assets/img/outCar.png" />
+                                            </el-col>
+                                            <el-col :span="16">
+                                                <div style="display:inline-block;">
+                                                    <p class="rescueOneCon_title gradientFont">出动车辆</p>
+                                                    <p>
+                                                        <span
+                                                            class="number"
+                                                        >{{rescue_data.car ||0 }}</span>
+                                                        <span class="unit">辆次</span>
+                                                    </p>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
                                     </div>
-                                </template>
-                            </el-col>
-                        </el-row>
-                        <el-row class="rowDiv" v-if="!bool">
-                            <el-col
-                                :span="4"
-                                class="tableCol"
-                                v-for="(item,index) in limitData(12,18)"
-                                :key="index"
-                            >
-                                <template>
-                                    <div @click="toNext(item)">
-                                        <div class="title">{{item.name}}</div>
-                                        <div class="number">{{item.value}}</div>
+                                </el-col>
+                                <el-col :span="5">
+                                    <div class="rescueOneCon_div">
+                                        <el-row>
+                                            <el-col :span="8" class="imgDiv">
+                                                <img src="./assets/img/outPeo.png" />
+                                            </el-col>
+                                            <el-col :span="16">
+                                                <div>
+                                                    <p class="rescueOneCon_title gradientFont">出动人员</p>
+                                                    <p>
+                                                        <span
+                                                            class="number"
+                                                        >{{rescue_data.person ||0}}</span>
+                                                        <span class="unit">人</span>
+                                                    </p>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
                                     </div>
-                                </template>
-                            </el-col>
-                        </el-row>
+                                </el-col>
+
+                                <el-col :span="5">
+                                    <div class="rescueOneCon_div">
+                                        <el-row>
+                                            <el-col :span="8" class="imgDiv">
+                                                <img src="./assets/img/财产损失.png" />
+                                            </el-col>
+                                            <el-col :span="16">
+                                                <div style="display:inline-block;">
+                                                    <p class="rescueOneCon_title gradientFont">财产损失</p>
+                                                    <p>
+                                                        <span
+                                                            class="number"
+                                                        >{{rescue_data.money ||0}}</span>
+                                                        <span class="unit">万元</span>
+                                                    </p>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                                <el-col :span="4">
+                                    <div class="rescueOneCon_div">
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <img src="./assets/img/抢救人员.png" />
+                                            </el-col>
+                                            <el-col :span="16">
+                                                <div>
+                                                    <p class="rescueOneCon_title gradientFont">抢救人员</p>
+                                                    <p>
+                                                        <span
+                                                            class="number"
+                                                        >{{rescue_data.rescue || 0}}</span>
+                                                        <span class="unit">人</span>
+                                                    </p>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
-                </div>
-                <!-- 社会救助统计图 -->
-                <div class="areaFireDiv" v-if="boolDetach">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>社会救助</label>
+                    <!-- 区域抢险救援统计框 -->
+                    <div class="areaFireDiv" v-if="boolDetach">
+                        <div class="table-title">
+                            <i class="title-i"></i>
+                            <label>区域抢险救援数量</label>
+                        </div>
+                        <div
+                            class="chart"
+                            v-loading="bool"
+                            element-loading-background="rgba(0, 0, 0, 0.6)"
+                        >
+                            <div class="rescueChartCon">
+                                <!-- 暂时弃用 @refresh="refreshList" -->
+                                <detachmentEmergencyCom
+                                    v-if="statisticalData.rescueList"
+                                    :rescueProp="statisticalData.rescueList"
+                                ></detachmentEmergencyCom>
+                            </div>
+                        </div>
                     </div>
-                    <div
-                        class="chart"
-                        v-loading="bool"
-                        element-loading-background="rgba(0, 0, 0, 0.6)"
-                    >
-                        <div class="rescueChartCon">
-                            <!-- 暂时弃用 @refresh="refreshList"  -->
-                            <detachmentSocialCom
-                                v-if="statisticalData.socialList"
-                                :socialData="statisticalData.socialList"
-                            ></detachmentSocialCom>
+
+                    <!-- 抢险救援分析 列表 -->
+                    <div class="tableDiv">
+                        <div class="table-title">
+                            <i class="title-i"></i>
+                            <label>抢险救援分析(单位:起)</label>
+                        </div>
+                        <div class="tableBox">
+                            <el-row class="rowDiv" v-if="!bool">
+                                <el-col
+                                    :span="4"
+                                    class="tableCol"
+                                    v-for="(item,index) in limitData(0,6)"
+                                    :key="index"
+                                >
+                                    <template>
+                                        <div @click="toNext(item,'抢险救援')">
+                                            <div class="title">{{item.name}}</div>
+                                            <div class="number">{{item.value}}</div>
+                                        </div>
+                                    </template>
+                                </el-col>
+                            </el-row>
+                            <el-row class="rowDiv" v-if="!bool">
+                                <el-col
+                                    :span="4"
+                                    class="tableCol"
+                                    v-for="(item,index) in limitData(6,12)"
+                                    :key="index"
+                                >
+                                    <template>
+                                        <div @click="toNext(item,'抢险救援')">
+                                            <div class="title">{{item.name}}</div>
+                                            <div class="number">{{item.value}}</div>
+                                        </div>
+                                    </template>
+                                </el-col>
+                            </el-row>
+                            <el-row class="rowDiv" v-if="!bool">
+                                <el-col
+                                    :span="4"
+                                    class="tableCol"
+                                    v-for="(item,index) in limitData(12,18)"
+                                    :key="index"
+                                >
+                                    <template>
+                                        <div @click="toNext(item,'抢险救援')">
+                                            <div class="title">{{item.name}}</div>
+                                            <div class="number">{{item.value}}</div>
+                                        </div>
+                                    </template>
+                                </el-col>
+                            </el-row>
                         </div>
                     </div>
                 </div>
-                <!-- 社会救助描述框  -->
-                <div class="fireFightingDescribe">
-                    <div class="contentText">
-                        <p>
-                            2019年1月1日至{{getCurrTime()}}，全省共接社会救助
-                            <span
-                                class="number"
-                            >{{countPercentData[2]['count']}}</span> 起，与去年同期相比，社会救助起数上升
-                            <span class="number">22.65%</span>。其中取马蜂窝占比
-                            <span class="number">56.35%</span>，抓动物占比
-                            <span class="number">13%</span>，开门占比
-                            <span class="number">10.86%</span>，高空取物
-                            <span class="number">1.69%</span>，送水
-                            <span class="number">0.93%</span>，其它社会救助
-                            <span class="number">17%</span>。
-                        </p>
+                <!-- 社会救助模块 -->
+                <div class="social">
+                    <div class="table-title1">社会救助</div>
+                    <!-- 社会救助描述框  -->
+                    <div class="fireFightingDescribe">
+                        <div class="contentText">
+                            <p>
+                                2019年1月1日至{{getCurrTime()}}，全省共接社会救助
+                                <span
+                                    class="number"
+                                >{{countPercentData[2]['count']}}</span> 起，与去年同期相比，社会救助起数上升
+                                <span class="number">22.65%</span>。其中取马蜂窝占比
+                                <span class="number">56.35%</span>，抓动物占比
+                                <span class="number">13%</span>，开门占比
+                                <span class="number">10.86%</span>，高空取物
+                                <span class="number">1.69%</span>，送水
+                                <span class="number">0.93%</span>，其它社会救助
+                                <span class="number">17%</span>。
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <!-- 社会救助查询列表 -->
-                <div class="firePlace">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>社会救助(单位:起)</label>
+                    <!-- 社会救助统计图 -->
+                    <div class="areaFireDiv" v-if="boolDetach">
+                        <div
+                            class="chart"
+                            v-loading="bool"
+                            element-loading-background="rgba(0, 0, 0, 0.6)"
+                        >
+                            <div class="rescueChartCon">
+                                <!-- 暂时弃用 @refresh="refreshList"  -->
+                                <detachmentSocialCom
+                                    v-if="statisticalData.socialList"
+                                    :socialData="statisticalData.socialList"
+                                ></detachmentSocialCom>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tableBox">
-                        <el-row class="rowDiv">
-                            <el-col
-                                :span="4"
-                                class="tableCol"
-                                v-for="(item,index) in firePlaceData.socialList"
-                                :key="index"
-                            >
-                                <template>
-                                    <div>
-                                        <div class="title">{{item.name}}</div>
-                                        <div class="number">{{item.num}}</div>
-                                    </div>
-                                </template>
-                            </el-col>
-                        </el-row>
+
+                    <!-- 社会救助查询列表 -->
+                    <div class="firePlace">
+                        <div class="table-title">
+                            <i class="title-i"></i>
+                            <label>社会救助(单位:起)</label>
+                        </div>
+                        <div class="tableBox">
+                            <el-row class="rowDiv">
+                                <el-col
+                                    :span="6"
+                                    class="tableCol"
+                                    v-for="(item,index) in firePlaceData.socialList"
+                                    :key="index"
+                                >
+                                    <template>
+                                        <div @click="toNext(item,'社会救助')">
+                                            <div class="title">{{item.name}}</div>
+                                            <div class="number">{{item.num}}</div>
+                                        </div>
+                                    </template>
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 公务执勤统计图 -->
-                <div class="areaFireDiv" v-if="boolDetach">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>公务执勤</label>
-                    </div>
-                    <div
-                        class="chart"
-                        v-loading="bool"
-                        element-loading-background="rgba(0, 0, 0, 0.6)"
-                    >
-                        <div class="rescueChartCon">
-                            <!-- 暂时弃用 @refresh="refreshList"  -->
-                            <detachmentOfficialCom
-                                v-if="statisticalData.dutyList"
-                                :officialData="statisticalData.dutyList"
-                            ></detachmentOfficialCom>
+                <div class="office">
+                    <div class="table-title1">公务执勤</div>
+                    <!-- 公务执勤描述框  -->
+                    <div class="fireFightingDescribe">
+                        <div class="contentText">
+                            <p>
+                                2019年1月1日至{{getCurrTime()}}，全省共接公务执勤
+                                <span
+                                    class="number"
+                                >{{countPercentData[3]['count']}}</span>起，与去年同期相比，出动数上升
+                                <span class="number">1225%</span>。其中，其它公务执勤出动占比
+                                <span class="number">81.76%</span>，重大会议占比
+                                <span class="number">4.09%</span>，大型文体活动占比
+                                <span class="number">12.89%</span>，大型展览会占比
+                                <span class="number">1.26%</span>。
+                            </p>
                         </div>
                     </div>
-                </div>
-                <!-- 公务执勤描述框  -->
-                <div class="fireFightingDescribe">
-                    <div class="contentText">
-                        <p>
-                            2019年1月1日至{{getCurrTime()}}，全省共接公务执勤
-                            <span
-                                class="number"
-                            >{{countPercentData[3]['count']}}</span>起，与去年同期相比，出动数上升
-                            <span class="number">1225%</span>。其中，其它公务执勤出动占比
-                            <span class="number">81.76%</span>，重大会议占比
-                            <span class="number">4.09%</span>，大型文体活动占比
-                            <span class="number">12.89%</span>，大型展览会占比
-                            <span class="number">1.26%</span>。
-                        </p>
+                    <!-- 公务执勤统计图 -->
+                    <div class="areaFireDiv" v-if="boolDetach">
+                        <div
+                            class="chart"
+                            v-loading="bool"
+                            element-loading-background="rgba(0, 0, 0, 0.6)"
+                        >
+                            <div class="rescueChartCon">
+                                <!-- 暂时弃用 @refresh="refreshList"  -->
+                                <detachmentOfficialCom
+                                    v-if="statisticalData.dutyList"
+                                    :officialData="statisticalData.dutyList"
+                                ></detachmentOfficialCom>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!-- 公务执勤查询列表 -->
-                <div class="firePlace">
-                    <div class="table-title">
-                        <i class="title-i"></i>
-                        <label>公务执勤(单位:起)</label>
-                    </div>
-                    <div class="tableBox">
-                        <el-row class="rowDiv">
-                            <el-col
-                                :span="4"
-                                class="tableCol"
-                                v-for="(item,index) in firePlaceData.dutyList"
-                                :key="index"
-                            >
-                                <template>
-                                    <div>
-                                        <div class="title">{{item.name}}</div>
-                                        <div class="number">{{item.num}}</div>
-                                    </div>
-                                </template>
-                            </el-col>
-                        </el-row>
+
+                    <!-- 公务执勤查询列表 -->
+                    <div class="firePlace">
+                        <div class="table-title">
+                            <i class="title-i"></i>
+                            <label>公务执勤(单位:起)</label>
+                        </div>
+                        <div class="tableBox">
+                            <el-row class="rowDiv">
+                                <el-col
+                                    :span="4"
+                                    class="tableCol"
+                                    v-for="(item,index) in firePlaceData.dutyList"
+                                    :key="index"
+                                >
+                                    <template>
+                                        <div>
+                                            <div class="title">{{item.name}}</div>
+                                            <div class="number">{{item.num}}</div>
+                                        </div>
+                                    </template>
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -557,7 +557,6 @@
 <script>
 import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
-import comOut from "@/zqtjIndex/components/comOut";
 import {
     rescueAnalysis,
     orgTreeUrl,
@@ -578,7 +577,7 @@ export default {
     components: {
         comHeader,
         backHome,
-        comOut,
+
         statisticeCom,
         detachmentCom,
         detachmentEmergencyCom,
@@ -589,8 +588,8 @@ export default {
         return {
             // 统计图数据
             statisticalData: {
-                fireList: null,
-                rescueList: null, //应急救援
+                fireList: null, //火灾扑救
+                rescueList: null, //抢险救援
                 socialList: null, //社会救助
                 dutyList: null //公务执勤
             },
@@ -601,10 +600,8 @@ export default {
                 { count: 0 },
                 { count: 0 }
             ],
-
             bool: true,
             boolDetach: true,
-
             userInfo: JSON.parse(window.localStorage.getItem("userInfo")),
             orgTreeId: "",
             dateValue: [],
@@ -664,38 +661,43 @@ export default {
     computed: {
         // 更新各个接口参数params
         params: function() {
-            return QS.stringify({
+            return {
                 endDate: this.dateValue[1],
                 orgTreeId: this.orgTreeId,
                 startDate: this.dateValue[0]
-            });
+            };
         }
     },
     created() {
         this.getCurrTime();
-        this.localInfo_gd();
 
-        //部署删除
-        // this.userInfo = {
-        //     admin: false,
-        //     areaId: "520102",
-        //     areaName: "贵州",
-        //     cityId: "520100",
-        //     orgId: "213f9a43359c4ce7bfd998d983de24d8",
-        //     orgName: "指挥中心",
-        //     orgRole: "01",
-        //     orgTree: "0100000052000000",
-        //     roleName: "指挥员",
-        //     userId: "2e9a5b91639b4d15a2aa0ba8c049b909",
-        //     userName: "甘泉"
-        // };
-        // window.localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
-        // this.orgTreeId = this.userInfo.orgTree;
-        // this.orgTree_gd(this.orgTreeId);
-        // this.dateDetail();
-        // this.postAll();
+        //部署删除或者注释
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>/*
+
+        this.userInfo = {
+            admin: false,
+            areaId: "520102",
+            areaName: "贵州",
+            cityId: "520100",
+            orgId: "213f9a43359c4ce7bfd998d983de24d8",
+            orgName: "指挥中心",
+            orgRole: "01",
+            orgTree: "0100000052000000",
+            roleName: "指挥员",
+            userId: "2e9a5b91639b4d15a2aa0ba8c049b909",
+            userName: "甘泉"
+        };
+        window.localStorage.setItem("userInfo", JSON.stringify(this.userInfo));
+        this.orgTreeId = this.userInfo.orgTree;
+        this.orgTree_gd(this.orgTreeId);
+        this.dateDetail();
+        this.postAll();
+
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     },
-    mounted() {},
+    mounted() {
+        this.localInfo_gd();
+    },
     methods: {
         getCurrTime() {
             let time = new Date();
@@ -715,7 +717,6 @@ export default {
             this.alarmType_get();
 
             var _ = this;
-
             // 火灾扑救综合信息
             var fightFire_get = new Promise(resolve => {
                 this.axios({
@@ -726,7 +727,7 @@ export default {
                     this.fightFire_data = res.data.result;
                 });
             });
-            // 应急救援  18项列表
+            // 抢险救援  18项列表
             var rescueData_get = new Promise(resolve => {
                 this.axios({
                     method: "post",
@@ -772,7 +773,7 @@ export default {
             var hytoken = window.localStorage.getItem("hytoken");
             this.axios({
                 method: "post",
-                url: "/user/userInfo/?hytoken=" + hytoken
+                url: "/user/userInfo?hytoken=" + hytoken
             }).then(res => {
                 if (res.data && res.data.code === "success") {
                     var data = res.data.result || {};
@@ -794,24 +795,43 @@ export default {
             });
         },
         // 跳转到区队的统计页面
-        toNext(item) {
-            if (item.value < 1) {
+        toNext(item, typeName) {
+            if (item.value < 1 || item.num < 1) {
                 return;
             }
-
             var jsonData = JSON.stringify([
-                // { link: "indexAna.html", name: "应急救援数据" },
+                // { link: "indexAna.html", name: "抢险救援数据" },
                 { link: "calledAna.html", name: item.name }
             ]);
             window.localStorage.setItem("linkPageObj", jsonData);
             var dataJson = {
                 dataName: item.name,
-                dataId: item.id,
+                dataId: item.id || item.code,
                 dateValue: this.dateValue,
-                orgTreeId: this.orgTreeId
+                orgTreeId: this.orgTreeId,
+                typeName: typeName
             };
             window.localStorage.setItem("dataJson", JSON.stringify(dataJson));
             window.location.href = `calledAna.html`;
+        },
+        // 跳转到亡人火灾详细列表页面
+        toFire(name) {
+            if (this.fightFire_data.intensive < 1) {
+                return;
+            }
+            var jsonData = JSON.stringify([
+                // { link: "indexAna.html", name: "抢险救援数据" },
+                { link: "namesFire.html", name: name }
+            ]);
+            var dataJson = {
+                dataName: name,
+                dataId: "0",
+                dateValue: this.dateValue,
+                orgTreeId: this.orgTreeId
+            };
+            window.localStorage.setItem("linkPageObj", jsonData);
+            window.localStorage.setItem("dataJson", JSON.stringify(dataJson));
+            window.location.href = `namesFire.html`;
         },
         limitData(index, limit) {
             var data = this.analysisList;
@@ -914,7 +934,7 @@ export default {
 
                 // 火灾扑救 统计图数据
                 this.statisticalData.fireList = data.fireList;
-                // 应急救援 统计图数据
+                // 抢险救援 统计图数据
                 this.statisticalData.rescueList = data.rescueList;
                 // 社会救助 统计图数据
                 this.statisticalData.socialList = data.socialList;
@@ -922,7 +942,7 @@ export default {
                 this.statisticalData.dutyList = data.dutyList;
 
                 // 火灾扑救的数量和占比
-                var nameList = ["火灾扑救", "应急救援", "社会救助", "公务执勤"];
+                var nameList = ["火灾扑救", "抢险救援", "社会救助", "公务执勤"];
                 this.countPercentData = data.dataList.map((item, index) => {
                     item["name"] = nameList[index];
                     return item;
@@ -935,7 +955,6 @@ export default {
             });
         }
     },
-
     destroyed() {}
 };
 </script>

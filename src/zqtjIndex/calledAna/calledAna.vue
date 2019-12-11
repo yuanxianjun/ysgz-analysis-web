@@ -7,7 +7,7 @@
     <div class="header">
       <div class="header_left">
         <!-- 退出按钮  -->
-        <comOut></comOut>
+        
       </div>
       <div class="header_right">
         <el-button
@@ -34,7 +34,7 @@
 // 引入头部的组件
 import comHeader from "../components/comHeader";
 import backHome from "../components/toHome";
-import comOut from "../components/comOut";
+
 import bollSearch from "../../zqtjIndex/components/doScheduling";
 import tableCom from "../components/tableCom";
 import maskBox from "../components/maskBox";
@@ -73,7 +73,7 @@ export default {
   computed: {},
   components: {
     comHeader,
-    comOut,
+   
     backHome,
     bollSearch,
     maskBox,

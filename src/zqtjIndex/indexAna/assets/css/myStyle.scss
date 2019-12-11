@@ -10,9 +10,10 @@
   background-size: 100% 100%;
 
   .gradientFont {
-    background-image: -webkit-linear-gradient(bottom, #107dd2, #01f9fd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    // background-image: -webkit-linear-gradient(bottom, #107dd2, #01f9fd);
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    color: #ffffff;
   }
 
   .bgCon {
@@ -27,6 +28,7 @@
     width: 1920px;
     height: 990px;
     padding: 30px;
+    padding-top: 0px;
 
     .tableDiv {
       width: 1840px;
@@ -55,8 +57,8 @@
         }
 
         .title {
-          height: 43px;
-          line-height: 43px;
+          height: 50px;
+          line-height: 50px;
           text-align: center;
           color: #ffffff;
           font-size: 24px;
@@ -72,8 +74,8 @@
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           // color:#ffffff;
-          font-size: 36px;
-          line-height: 70px;
+          font-size: 60px;
+          line-height: 80px;
           text-align: center;
           font-family: ROME;
         }
@@ -102,18 +104,23 @@
       font-size: 24px;
       font-weight: bold;
     }
+
+    .table-title1 {
+      height: 50px;
+      line-height: 50px;
+      color: #ffff;
+      font-size: 30px;
+      text-indent: 30px;
+    }
   }
 
   .header {
     width: 100%;
-    height: 100px;
+    height: 40px;
     box-sizing: border-box;
-    position: relative;
 
     .customBtn {
-      position: absolute;
-      right: 0;
-      top: 52px;
+
       width: 94px;
       height: 36px;
       line-height: 36px;
@@ -131,6 +138,8 @@
       border: solid 1px #5fd6ff;
       font-size: 24px;
       color: #ffffff;
+      margin-left: 20px;
+
     }
 
     .el-button:hover {
@@ -141,16 +150,14 @@
       color: #ffffff;
     }
 
-    .header_left {
-      float: left;
-    }
-
     .header_middle {
       float: left;
-      height: 100px;
+      height: 40px;
       line-height: 100px;
-      margin-left: 20px;
-      position: relative;
+      margin-left: 403px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: row;
 
       .dateDiv {
         width: 449px;
@@ -181,7 +188,6 @@
         width: 344px;
         height: 40px;
         margin-left: 30px;
-        margin-top: 10px;
         background: url(../img/1.png)no-repeat center center;
         background-size: 100% 100%;
 
@@ -199,50 +205,6 @@
         }
 
       }
-    }
-
-    .header_right {
-      width: 966px;
-      float: left;
-
-      // background:skyblue;
-      .elCol {
-        width: 223px;
-        height: 93px;
-        margin-left: 85px;
-        background: url(../img/receivebg.png) no-repeat center center;
-        background-size: 100% 100%;
-
-        .label {
-          font-size: 18px;
-          color: #00caff;
-          text-indent: 40px;
-          margin-top: 17px;
-        }
-
-        .valueDiv {
-          text-align: right;
-
-          .value {
-            display: inline-block;
-            font-size: 42px;
-            font-weight: bold;
-            font-style: italic;
-            letter-spacing: 1px;
-            color: #00faa8;
-            font-family: ROME;
-          }
-
-          .unit {
-            display: inline-block;
-            text-align: center;
-            width: 45px;
-            font-size: 16px;
-            color: #03eba1;
-          }
-        }
-      }
-
     }
   }
 
@@ -289,29 +251,57 @@
     height: 830px;
     overflow: auto;
 
+    // 火灾扑救
+    .fire {
+      background-color: rgba(0, 255, 255, 0.15);
+      margin-top: 20px;
+    }
+
+    // 抢险救援
+    .emergency {
+      background-color: rgba(255, 244, 92, 0.15);
+      margin-top: 20px;
+    }
+
+    .social {
+      background-color: rgba(0, 255, 0, 0.15);
+      margin-top: 20px;
+    }
+
+    // 公务执勤
+    .office {
+      display: none;
+    }
+
     .totalNum {
       width: 100%;
-      height: 150px;
-      margin-top: 20px;
+      height: 330px;
+      // margin-top: 20px;
+      overflow: hidden;
+
+      .colSide {
+        width: 556px;
+        height: 100%;
+      }
 
       .totalCol {
-        width: 464px;
-        height: 156px;
-        // background: url(../img/receivebg.png) no-repeat center center;
+        width: 556px;
+        height: 153px;
         background-size: 100% 100%;
 
         .label {
           width: 100%;
-          font-size: 24px;
+          height: 40px;
+          font-size: 30px;
           text-align: center;
-          background-image: -webkit-linear-gradient(top, #52f8ea, #0590fe);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          color: #fff;
+          margin-top: 12px;
         }
 
         .contentValue {
-          width: 456px;
+          width: 556px;
           height: 94px;
+          margin: 0 auto;
           margin-top: 10px;
           line-height: 94px;
           border-style: solid;
@@ -319,38 +309,30 @@
           border-color: #006b7d;
           border-radius: 5px;
           box-shadow: inset 0px 0px 5px 1px #006b7d;
+          overflow: hidden;
         }
 
         .valueDiv {
-          text-align: center;
+          text-align: left;
           float: left;
           width: 49%;
 
           .valueName {
-            font-size: 18px;
-            color: #00ccff;
+            font-size: 24px;
+            color: #ffffff;
             display: inline-block;
             vertical-align: top;
+            text-indent: 10px;
           }
 
           .value {
             display: inline-block;
-            font-size: 42px;
+            font-size: 60px;
             font-family: ROME;
-            font-style: italic;
             color: #00faa8;
-            // vertical-align: middle;
           }
 
-          .unit {
-            height: 104px;
-            display: inline-block;
-            text-align: center;
-            width: 30px;
-            font-size: 16px;
-            color: #03eba1;
-            vertical-align: middle;
-          }
+
 
           .yellowColor {
             color: #ffd74a;
@@ -359,9 +341,9 @@
 
         .cutLine {
           width: 1px;
-          height: 38px;
+          height: 70px;
           float: left;
-          margin-top: 25.15px;
+          margin-top: 10px;
           border: none;
           background-image: repeating-linear-gradient(0deg, #0336ff, #01b4ff 4px, transparent 0, transparent 8px);
           // border-style: dashed;
@@ -373,45 +355,98 @@
           // border-image-slice: 1;
         }
       }
+
+      .totalColBig {
+        width: 667px;
+        height: 292px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #006b7d;
+        border-radius: 5px;
+        box-shadow: inset 0px 0px 5px 1px #006b7d;
+        margin: 30px;
+
+        .label {
+          width: 100%;
+          height: 40px;
+          font-size: 30px;
+          text-align: center;
+          color: #ffffff;
+          margin-top: 73px;
+        }
+
+        .valueDiv {
+          width: 100%;
+          text-align: center;
+          margin-top: 30px;
+
+          .value {
+            display: inline-block;
+            font-size: 80px;
+            font-family: ROME;
+            color: #ffffff;
+            // vertical-align: middle;
+          }
+
+          .unit {
+            height: 50px;
+            display: inline-block;
+            text-align: center;
+            width: 55px;
+            font-size: 24px;
+            color: #ffffff;
+            vertical-align: middle;
+          }
+
+        }
+      }
     }
 
     .fireFightingAll {
       width: 100%;
-      height: 188px;
+      height: 120px;
 
       .fireLiDiv {
         height: 107px;
         margin-top: 20px;
 
+        .fireliBg:hover {
+          cursor: pointer;
+        }
+
         .fireliBg {
-          width: 209px;
-          height: 109px;
+          width: 266px;
+          height: 108px;
           background: url(../img/fireFightli.png)no-repeat center center;
+          background-size: 100% 100%;
           text-align: center;
-          margin-left: 60px;
-          margin-right: 30px;
+          margin-left: 30px;
+          margin-right: 10px;
 
           .fireTitle {
             font-size: 24px;
-            background-image: -webkit-linear-gradient(bottom, #097bd7, #4fede1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-top: 20px;
+            // background-image: -webkit-linear-gradient(bottom, #097bd7, #4fede1);
+            // -webkit-background-clip: text;
+            // -webkit-text-fill-color: transparent;
+            color: #ffffff;
+            margin-top: 10px;
           }
 
           .fireValue {
-            line-height: 50px;
+            line-height: 80px;
 
             .number {
               font-family: ROME;
-              font-size: 36px;
+              font-size: 60px;
               color: #f95a92;
-              vertical-align: middle;
+              vertical-align: top;
             }
 
             .unit {
-              font-size: 14px;
-              color: #03b0d8;
+              display: inline-block;
+              height: 70px;
+              font-size: 18px;
+              color: #ffffff;
               padding-left: 10px;
               vertical-align: bottom;
             }
@@ -426,12 +461,14 @@
     }
 
     .fireFightingDescribe {
+      width: 1802px;
       min-height: 90px;
       border-style: solid;
       border-width: 1px;
       border-image-source: linear-gradient(90deg, rgb(7, 82, 125) 0%, rgba(27, 189, 255, 1) 100%);
       border-image-slice: 1;
-      margin-top: 20px;
+      margin: 0 auto;
+      margin-top: 10px;
 
       .contentText {
         text-align: left;
@@ -442,7 +479,7 @@
         padding: 20px;
 
         .number {
-          font-size: 36px;
+          font-size: 60px;
           color: #fe9403;
           font-family: ROME;
           vertical-align: bottom;
@@ -478,22 +515,32 @@
             line-height: 50px;
           }
 
+          .imgDiv {
+            text-align: right;
+            padding-right: 10px;
+          }
+
           img {
+            // display: block;
+            margin-top: 15px;
             width: 82px;
             height: 82px;
-            display: inline-block;
+
           }
 
           .number {
-            font-size: 36px;
+            font-size: 60px;
             color: #ffb260;
             font-family: ROME;
           }
 
           .unit {
+            display: inline-block;
             font-size: 18px;
-            color: #03b0d8;
+            color: #ffffff;
             padding-left: 10px;
+            vertical-align: bottom;
+            height: 32px;
           }
         }
       }

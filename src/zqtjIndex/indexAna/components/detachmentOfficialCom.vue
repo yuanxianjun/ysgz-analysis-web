@@ -240,6 +240,14 @@ export default {
                                 )
                             }
                         },
+                          label: {
+                            show: true,
+                            position: "top",
+                            color: "#ffffff",
+                            fontSize: 30,
+                            fontFamily: "ROME",
+                            offset: [0, 8]
+                        },
                         data: yData,
                         zlevel: 11
                     },

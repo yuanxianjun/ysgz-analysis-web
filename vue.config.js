@@ -7,15 +7,20 @@ module.exports = {
     devServer: {
         open: true,
         hot: true,
-        compress: true,//服务器压缩
+        compress: true, //服务器压缩
         // before: function (app, server) {
         //     app.get('/', function (req, res) {   
         //         res.redirect('/IMapManagement.html');
         //     });        // }
         historyApiFallback: {
-            rewrites: [
-                { from: /^\/$/, to: '/indexAna.html' },
-                { from: /^\/index/, to: "/indexAna.html" },
+            rewrites: [{
+                    from: /^\/$/,
+                    to: '/indexAna.html'
+                },
+                {
+                    from: /^\/index/,
+                    to: "/indexAna.html"
+                },
             ]
         }
     },
@@ -44,10 +49,16 @@ module.exports = {
         //     template: 'src/zqtjIndex/zqtjIndex/zqtjIndex.html',
         //     filename: 'disasterAna.html'
         // },
+        // 市级页面
         'calledAna': {
             entry: 'src/zqtjIndex/calledAna/calledAna.js',
             template: 'src/zqtjIndex/calledAna/calledAna.html',
             filename: 'calledAna.html'
+        },
+        'namesFire': {
+            entry: 'src/zqtjIndex/namesFire/namesFire.js',
+            template: 'src/zqtjIndex/namesFire/namesFire.html',
+            filename: 'namesFire.html'
         },
         // 详情三级页面
         'detailAna': {

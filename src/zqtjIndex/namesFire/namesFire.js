@@ -1,18 +1,25 @@
-import Vue from 'vue'
-import localPage from './zqtjIndex.vue'
+import Vue from 'vue';
+import localPage from './namesFire.vue'
 import '@/common/styles/reset.css'
-import './assets/style/style.css'
-import axios from '@/zqtjIndex/ajax'
+import '@/zqtjIndex/namesFire/assets/css/myStyle.scss'
+import 'element-ui/lib/theme-chalk/index.css';
 import {
-    Row,
-    Col,
-    Message
-} from "element-ui"
-Vue.use(Row)
-Vue.use(Col)
-Vue.prototype.axios = axios;
+    Message,
+    Table,
+    TableColumn,
+    Loading,
+    Pagination
+} from 'element-ui'
+// collapse 展开折叠
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+Vue.component(CollapseTransition.name, CollapseTransition)
+import axios from "axios"
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use(Loading);
+Vue.use(Pagination);
 Vue.prototype.$message = Message;
-Vue.config.productionTip = false;
+Vue.prototype.axios = axios;
 Vue.prototype.resetSetItem = (key, newVal) => {
     if (key === 'userInfo') {
         // 创建一个StorageEvent事件
@@ -29,10 +36,11 @@ Vue.prototype.resetSetItem = (key, newVal) => {
         return storage.setItem(key, newVal);
     }
 };
+Vue.config.productionTip = false;
+
 axios.defaults.baseURL = location.origin + "/ysgz/";
 // axios.defaults.baseURL = "http://192.168.94.161:8086/ysgz";
 // axios.defaults.baseURL = "http://192.168.1.141:8918/ysgz";
-
 new Vue({
     render: h => h(localPage)
 }).$mount('#app')
