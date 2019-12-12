@@ -23,8 +23,8 @@
                     <el-table-column align="center" prop="address" label="起火场所"></el-table-column>
                     <el-table-column align="center" prop="reason" label="火灾原因"></el-table-column>
                     <el-table-column align="center" prop="money" label="直接财产损失(元)"></el-table-column>
-                    <el-table-column align="center" prop="die" label="亡人数"></el-table-column>
-                    <el-table-column align="center" prop="injured" label="伤人数"></el-table-column>
+                    <el-table-column align="center" prop="die" width="180" label="亡人数"></el-table-column>
+                    <el-table-column align="center" prop="injured" width="180" label="伤人数"></el-table-column>
                 </el-table>
             </div>
             <div class="pageRate">

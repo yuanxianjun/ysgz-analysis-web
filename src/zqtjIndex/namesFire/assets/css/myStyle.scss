@@ -38,7 +38,8 @@
     }
 
     .el-table .cell {
-      line-height: 30px;
+      line-height: 48px;
+      font-size: 48px;
       background-image: linear-gradient(top,
           #00f6fb 0%,
           #00ff98 100%);
@@ -61,10 +62,9 @@
 
     .el-table__header-wrapper {
       .el-table__header {
-        font-size: 24px;
-
-        height: 64px;
-        line-height: 64px;
+        font-size: 48px;
+        height: 48px;
+        line-height: 48px;
 
         tr {
 
