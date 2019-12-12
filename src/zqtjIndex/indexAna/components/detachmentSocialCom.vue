@@ -153,7 +153,7 @@ export default {
                 yAxis: [
                     {
                         type: "value",
-                        name: "起",
+                        name: "/起",
                         nameLocation: "end",
                         nameTextStyle: {
                             color: "rgb(170,170,170)",
@@ -175,7 +175,9 @@ export default {
                         },
                         axisLabel: {
                             color: "#ffffff",
-                            formatter: "{value}"
+                            formatter: "{value}",
+                            fontFamily: "ROME",
+                            fontSize: 18
                         }
                     },
                     {

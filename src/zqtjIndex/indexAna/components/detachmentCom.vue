@@ -95,14 +95,15 @@ export default {
                             // rotate: -36,
                             interval: "0",
                             color: "#ffffff",
-                            fontSize: 16
+                            fontSize: 18,
+                            fontFamily: "ROME"
                         }
                     }
                 ],
                 yAxis: [
                     {
                         type: "value",
-                        name: "起",
+                        name: "/起",
                         nameLocation: "end",
                         nameTextStyle: {
                             color: "#ffffff",
@@ -124,7 +125,9 @@ export default {
                         },
                         axisLabel: {
                             color: "#ffffff",
-                            formatter: "{value}"
+                            formatter: "{value}",
+                            fontSize: 18,
+                            fontFamily: "ROME"
                         }
                     },
                     {
