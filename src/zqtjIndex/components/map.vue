@@ -95,8 +95,9 @@ export default {
                 data
             }).then(res => {
                 this.loadTable = false;
-                this.allData = res.data.result.mapList;
-                this.dealData(res.data.result.titleList);
+                var data = res.data.result;
+                this.allData = data.mapList || [];
+                this.dealData(data.titleList);
             });
         },
         // 处理数据

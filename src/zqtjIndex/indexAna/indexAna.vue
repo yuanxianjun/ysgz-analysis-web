@@ -39,7 +39,7 @@
                     <el-button class="customBtn" @click="postAll">查询</el-button>
                 </div>
             </div>
-            <div class="content">
+            <div class="content" ref="content">
                 <!-- 接警总量框 -->
                 <div class="totalNum">
                     <el-row>
@@ -66,7 +66,7 @@
                         <el-col :span="10" class="totalColBig">
                             <div class="label">接警总量</div>
                             <div class="valueDiv">
-                                <span class="value">{{sumData.total}}</span>
+                                <span class="value">{{statisticalData.total}}</span>
                                 <span class="unit">起</span>
                             </div>
                         </el-col>
@@ -577,7 +577,6 @@ export default {
     components: {
         comHeader,
         backHome,
-
         statisticeCom,
         detachmentCom,
         detachmentEmergencyCom,
@@ -591,7 +590,8 @@ export default {
                 fireList: null, //火灾扑救
                 rescueList: null, //抢险救援
                 socialList: null, //社会救助
-                dutyList: null //公务执勤
+                dutyList: null, //公务执勤,
+                total: 0
             },
             // 四种类型的总数 以及占比 从左向右
             countPercentData: [
@@ -637,20 +637,16 @@ export default {
             fightFire_data: {
                 alarm: 0,
                 intensive: 0,
-                car: 0,
-                person: 0,
                 money: 0,
                 rescue: 0,
+                die: 0,
+                injured: 0,
                 areaFireAnalysis: []
             },
             rescue_data: {
                 alarm: 0
             },
-            sumData: {
-                car: 0,
-                person: 0,
-                total: 0
-            },
+
             firePlaceData: {
                 fireList: [],
                 dutyList: [],
@@ -670,10 +666,11 @@ export default {
     },
     created() {
         this.getCurrTime();
-
+    },
+    mounted() {
         //部署删除或者注释
-        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>/*
-
+        // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        /*
         this.userInfo = {
             admin: false,
             areaId: "520102",
@@ -692,11 +689,12 @@ export default {
         this.orgTree_gd(this.orgTreeId);
         this.dateDetail();
         this.postAll();
-
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    },
-    mounted() {
+*/
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         this.localInfo_gd();
+    },
+    updated() {
+        this.movePos();
     },
     methods: {
         getCurrTime() {
@@ -711,14 +709,13 @@ export default {
             return year + "年" + month + "月" + day + "日";
         },
         postAll() {
-            this.sumInfo_get();
             this.fireAnalysis_get();
             this.rescue_get();
             this.alarmType_get();
-
             var _ = this;
+
             // 火灾扑救综合信息
-            var fightFire_get = new Promise(resolve => {
+            var fightFire_get = () => {
                 this.axios({
                     method: "post",
                     url: fightFire,
@@ -726,9 +723,11 @@ export default {
                 }).then(res => {
                     this.fightFire_data = res.data.result;
                 });
-            });
+            };
+
             // 抢险救援  18项列表
-            var rescueData_get = new Promise(resolve => {
+
+            var rescueData_get = () => {
                 this.axios({
                     method: "post",
                     url: rescue,
@@ -736,8 +735,25 @@ export default {
                 }).then(res => {
                     this.rescue_data = res.data.result;
                 });
-            });
-            Promise.all([fightFire_get, rescueData_get]);
+            };
+
+            this.axios
+                .all([
+                    this.fireAnalysis_get(),
+                    this.rescue_get(),
+                    this.alarmType_get(),
+                    rescueData_get(),
+                    fightFire_get()
+                ])
+                .then(
+                    _.axios.spread(function() {
+                        // Both requests are now complete
+                        // this.$nextTick(function() {
+                        //     // DOM 现在更新了
+                        //     _.movePos();
+                        // });
+                    })
+                );
         },
         // 火灾场所综合信息
         fireAnalysis_get() {
@@ -752,20 +768,6 @@ export default {
                  * @param{Array} dutyList:公务执勤
                  * */
                 this.firePlaceData = res.data.result;
-            });
-        },
-
-        // 接警综合信息
-        sumInfo_get() {
-            this.axios({
-                method: "post",
-                url: info,
-                data: this.params
-            }).then(res => {
-                var data = res.data.result;
-                this.sumData.car = data.car ? data.car : 0;
-                this.sumData.person = data.person ? data.person : 0;
-                this.sumData.total = data.total ? data.total : 0;
             });
         },
         // 根据userId 查询
@@ -794,6 +796,14 @@ export default {
                 }
             });
         },
+        // 刚入页面的时候跳转到哪个位置
+        movePos() {
+            let distance = 0,
+                dataJson = JSON.parse(localStorage.getItem("dataJson"));
+            distance = dataJson.contentPos || 0;
+            // 控制移动
+            document.querySelector(".content").scrollTo(0, distance);
+        },
         // 跳转到区队的统计页面
         toNext(item, typeName) {
             if (item.value < 1 || item.num < 1) {
@@ -809,7 +819,8 @@ export default {
                 dataId: item.id || item.code,
                 dateValue: this.dateValue,
                 orgTreeId: this.orgTreeId,
-                typeName: typeName
+                typeName: typeName,
+                contentPos: this.$refs["content"].scrollTop
             };
             window.localStorage.setItem("dataJson", JSON.stringify(dataJson));
             window.location.href = `calledAna.html`;
@@ -924,6 +935,7 @@ export default {
         // 接警分析 统计信息
         alarmType_get() {
             this.bool = true;
+            this.boolDetach = false;
             this.axios({
                 method: "post",
                 url: alarmType,
@@ -947,6 +959,10 @@ export default {
                     item["name"] = nameList[index];
                     return item;
                 });
+
+                // 接警总量
+                this.statisticalData.total = data.total;
+
                 if (!data.fireList) {
                     this.boolDetach = false;
                 } else {

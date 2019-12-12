@@ -13,10 +13,7 @@ let todayFire = "alarm/todayFire/",
     dieAlarmInfo = "/alarm/dieAlarmInfo/", //亡人火灾详情列表
     disasterAnalysis = "/alarm/disasterAnalysis/", //社会救助分析城市
     disasterAnalysisArea = "/alarm/disasterAnalysisArea/", //社会救助分析地区
-
     info = "/alarm/info/";
-
-
 export {
     todayFire,
     fightFire,
