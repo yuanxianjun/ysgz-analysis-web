@@ -66,7 +66,7 @@
                         <el-col :span="10" class="totalColBig">
                             <div class="label">接警总量</div>
                             <div class="valueDiv">
-                                <span class="value">{{statisticalData.total}}</span>
+                                <span class="valueAll">{{statisticalData.total}}</span>
                                 <span class="unit">起</span>
                             </div>
                         </el-col>
