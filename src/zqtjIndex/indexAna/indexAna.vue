@@ -39,7 +39,7 @@
                     <el-button class="customBtn" @click="postAll">查询</el-button>
                 </div>
             </div>
-            <div class="content" ref="content">
+            <div class="contentIndex" ref="contentIndex">
                 <!-- 接警总量框 -->
                 <div class="totalNum">
                     <el-row>
@@ -802,7 +802,7 @@ export default {
                 dataJson = JSON.parse(localStorage.getItem("dataJson"));
             distance = dataJson.contentPos || 0;
             // 控制移动
-            document.querySelector(".content").scrollTo(0, distance);
+            document.querySelector(".contentIndex").scrollTo(0, distance);
         },
         // 跳转到区队的统计页面
         toNext(item, typeName) {
@@ -820,7 +820,7 @@ export default {
                 dateValue: this.dateValue,
                 orgTreeId: this.orgTreeId,
                 typeName: typeName,
-                contentPos: this.$refs["content"].scrollTop
+                contentPos: this.$refs["contentIndex"].scrollTop
             };
             window.localStorage.setItem("dataJson", JSON.stringify(dataJson));
             window.location.href = `calledAna.html`;
