@@ -157,7 +157,7 @@ export default {
                         name: "/起",
                         nameLocation: "end",
                         nameTextStyle: {
-                            color: "rgb(170,170,170)",
+                            color: "#ffffff",
                             verticalAlign: "bottom"
                         },
                         gridIndex: 0,
