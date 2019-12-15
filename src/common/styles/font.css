@@ -2,3 +2,7 @@
     font-family: "ROME"; 
     src: url("../../common/fonts/290-CAI978.TTF");
 }
+@font-face {
+    font-family: "YI"; 
+    src: url("../../common/fonts/yiwei.ttf");
+}

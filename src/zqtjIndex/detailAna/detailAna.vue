@@ -225,71 +225,8 @@ export default {
         width: 100%;
         padding: 40px;
         overflow: auto;
-        .el-table--border::after,
-        .el-table--group::after,
-        .el-table::before {
-            background-color: #006d94;
-        }
-        .el-table,
-        .el-table__expanded-cell,
-        .el-table th,
-        .el-table tr {
-            background-color: transparent !important;
-        }
-        .el-table--border,
-        .el-table--group {
-            border-color: #006d94;
-        }
-        td {
-            border-color: #006d94;
-        }
-        .el-table__header-wrapper {
-            .el-table__header {
-                font-size: 24px;
-
-                height: 64px;
-                line-height: 64px;
-                tr {
-                    color: #ffffff !important;
-                }
-                th {
-                    padding: 0px !important;
-                    border-color: #006d94;
-                    background: url(../../common/images/title_bg.png) no-repeat
-                        center center;
-                    background-size: 100% 100%;
-                }
-            }
-        }
-        .el-table__body {
-            .el-table__row {
-                height: 64px;
-                line-height: 64px;
-                font-size: 48px !important;
-                color: #ffffff !important;
-                text-align: center;
-                td {
-                    font-family: ROME;
-                    background-image: linear-gradient(
-                        top,
-                        #00f6fb 0%,
-                        #00ff98 100%
-                    );
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    border-color: #006d94;
-                    border-top: none;
-                }
-                td:first-of-type,
-                .el-table_1_column_2,
-                .el-table_1_column_1 {
-                    color: #ffffff;
-                    font-size: 24px;
-                    background: none;
-                    -webkit-text-fill-color: #ffffff;
-                }
-            }
-        }
+        
+        
         .rightHeader {
             text-align: right;
             border-right: 0px !important;

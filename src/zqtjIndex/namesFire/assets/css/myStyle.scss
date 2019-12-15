@@ -24,93 +24,14 @@
     width: 100%;
     height: 863px;
 
-    .el-table--border::after,
-    .el-table--group::after,
-    .el-table::before {
-      background-color: #006d94 !important;
-    }
-
-    .el-table,
-    .el-table__expanded-cell,
-    .el-table th,
-    .el-table tr {
-      background-color: transparent !important;
-    }
-
-    .el-table .cell {
-      line-height: 48px;
-      font-size: 48px;
-      background-image: linear-gradient(top,
-          #00f6fb 0%,
-          #00ff98 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .el-table--border,
-    .el-table--group {
-      border-color: #006d94 !important;
-    }
-
-    td {
-      border-color: #006d94 !important;
-    }
-
-    .el-table--enable-row-hover .el-table__body tr:hover>td {
-      background-color: transparent !important;
-    }
-
-    .el-table__header-wrapper {
-      .el-table__header {
-        font-size: 48px;
-        height: 48px;
-        line-height: 48px;
-
-        tr {
-
-          border-color: #006d94 !important;
-        }
-
-        th {
-          padding: 0px !important;
-          border-color: #006d94 !important;
-          background: url(../../../../common/images/title_bg.png) no-repeat center center;
-          background-size: 100% 100%;
+ 
 
 
-        }
-      }
-    }
+  
 
-    .el-table__body {
-      .el-table__row {
-        height: 64px;
-        line-height: 64px;
-        font-size: 48px !important;
-        color: #ffffff !important;
-        text-align: center;
+ 
 
-        td {
-          color: #ffffff;
-          border-color: #006d94;
-          border-top: none;
-          font-size: 24px;
-
-          .cell {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff;
-          }
-        }
-
-        td:first-of-type,
-        .el-table_1_column_1 {
-          color: #ffffff;
-          font-size: 24px;
-          background: none;
-          -webkit-text-fill-color: #ffffff;
-        }
-      }
-    }
+    
   }
 
   // 分页按钮样式

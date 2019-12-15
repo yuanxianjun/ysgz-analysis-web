@@ -121,15 +121,19 @@
                         <div class="fireLiDiv">
                             <el-row>
                                 <el-col :span="4" class="fireliBg">
-                                    <p class="fireTitle">火灾接警</p>
-                                    <p class="fireValue">
-                                        <span class="number">{{fightFire_data.alarm}}</span>
-                                        <span class="unit">起</span>
-                                    </p>
+                                    <div @click="toFire('火灾接警',fightFire_data.alarm,'fireReport')">
+                                        <p class="fireTitle">火灾接警</p>
+                                        <p class="fireValue">
+                                            <span class="number">{{fightFire_data.alarm}}</span>
+                                            <span class="unit">起</span>
+                                        </p>
+                                    </div>
                                 </el-col>
 
                                 <el-col :span="4" class="fireliBg">
-                                    <div @click="toFire('亡人火灾')">
+                                    <div
+                                        @click="toFire('亡人火灾',fightFire_data.intensive,'namesFire')"
+                                    >
                                         <p class="fireTitle">亡人火灾</p>
                                         <p class="fireValue">
                                             <span class="number">{{fightFire_data.intensive}}</span>
@@ -671,6 +675,7 @@ export default {
         //部署删除或者注释
         // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         /*
+
         this.userInfo = {
             admin: false,
             areaId: "520102",
@@ -825,24 +830,36 @@ export default {
             window.localStorage.setItem("dataJson", JSON.stringify(dataJson));
             window.location.href = `calledAna.html`;
         },
+        /**
+         * 方法说明
+         * @method toFire
+         * @for 火灾扑救二级页
+         * @param {string} name 火灾扑救类型
+         * @param {value} value 火灾扑救类型
+         * @param {String} linkPage 火灾扑救类型
+         *  */
+
         // 跳转到亡人火灾详细列表页面
-        toFire(name) {
-            if (this.fightFire_data.intensive < 1) {
+        toFire(name, value, linkPage) {
+            // 没有火灾则不跳转
+            if (value < 1) {
                 return;
             }
-            var jsonData = JSON.stringify([
-                // { link: "indexAna.html", name: "抢险救援数据" },
-                { link: "namesFire.html", name: name }
-            ]);
+
             var dataJson = {
                 dataName: name,
                 dataId: "0",
                 dateValue: this.dateValue,
                 orgTreeId: this.orgTreeId
             };
-            window.localStorage.setItem("linkPageObj", jsonData);
             window.localStorage.setItem("dataJson", JSON.stringify(dataJson));
-            window.location.href = `namesFire.html`;
+
+            var jsonData = JSON.stringify([
+                // { link: "indexAna.html", name: "抢险救援数据" },
+                { link: "namesFire.html", name: name }
+            ]);
+            window.localStorage.setItem("linkPageObj", jsonData);
+            window.location.href = `${linkPage}.html`;
         },
         limitData(index, limit) {
             var data = this.analysisList;

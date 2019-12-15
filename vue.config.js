@@ -49,16 +49,23 @@ module.exports = {
         //     template: 'src/zqtjIndex/zqtjIndex/zqtjIndex.html',
         //     filename: 'disasterAna.html'
         // },
-        // 市级页面
+        // 市级表格页面
         'calledAna': {
             entry: 'src/zqtjIndex/calledAna/calledAna.js',
             template: 'src/zqtjIndex/calledAna/calledAna.html',
             filename: 'calledAna.html'
         },
+        // 亡人火灾页面
         'namesFire': {
             entry: 'src/zqtjIndex/namesFire/namesFire.js',
             template: 'src/zqtjIndex/namesFire/namesFire.html',
             filename: 'namesFire.html'
+        },
+        // 火灾综合报告页面
+        'fireReport': {
+            entry: 'src/zqtjIndex/fireReport/fireReport.js',
+            template: 'src/zqtjIndex/fireReport/fireReport.html',
+            filename: 'fireReport.html'
         },
         // 详情三级页面
         'detailAna': {

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import localPage from './calledAna.vue'
-import '@/common/styles/reset.css'
+import '@/common/styles/reset.scss'
 import '@/zqtjIndex/calledAna/assets/css/myStyle.scss'
 import 'element-ui/lib/theme-chalk/index.css';
 import {
@@ -39,7 +39,7 @@ Vue.prototype.resetSetItem = (key, newVal) => {
 };
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = location.origin + "/ysgz/";axios.defaults.baseURL = "http://192.168.1.141:8918/ysgz";
+axios.defaults.baseURL = location.origin + "/ysgz/";// axios.defaults.baseURL = "http://192.168.1.141:8918/ysgz";
 // axios.defaults.baseURL = "http://192.168.94.161:8086/ysgz";
 new Vue({
     render: h => h(localPage)
