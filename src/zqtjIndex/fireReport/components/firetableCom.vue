@@ -67,5 +67,6 @@ export default {
     width: 100%;
     height: auto;
     margin-top: 10px;
+    min-height: 0;
 }
 </style>

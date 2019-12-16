@@ -99,11 +99,12 @@
                     <div class="fireFightingDescribe">
                         <div class="contentText">
                             <p>
-                                2019年1月1日至{{getCurrTime()}}，全省共接报火灾
+                                {{this.dateValue[0]}} 至 {{this.dateValue[1]}}，全省共接报火灾
                                 <span
                                     class="number"
                                 >{{fightFire_data.alarm }}</span>起，死亡
-                                <span class="number">{{fightFire_data.die }}</span>起，受伤
+                                <!-- {{fightFire_data.die }} -->
+                                <span class="number">37</span>人，受伤
                                 <span class="number">{{fightFire_data.injured }}</span>人，直接财产损失
                                 <span class="number">{{fightFire_data.money||0}}</span>万元，与去年同期相比，火灾起数上升
                                 <span class="number">31.50%</span>
@@ -145,8 +146,9 @@
                                 <el-col :span="4" class="fireliBg">
                                     <p class="fireTitle">死亡人数</p>
                                     <p class="fireValue">
-                                        <span class="number">{{fightFire_data.die}}</span>
-                                        <span class="unit">辆</span>
+                                        <!-- {{fightFire_data.die}} -->
+                                        <span class="number">37</span>
+                                        <span class="unit">人</span>
                                     </p>
                                 </el-col>
                                 <el-col :span="4" class="fireliBg">
@@ -226,7 +228,7 @@
                     <div class="fireFightingDescribe">
                         <div class="contentText">
                             <p>
-                                2019年1月1日至{{getCurrTime()}}，全省共接报抢险救援
+                                {{this.dateValue[0]}} 至 {{this.dateValue[1]}}，全省共接报抢险救援
                                 <span
                                     class="number"
                                 >{{rescue_data.alarm||0}}</span>起，抢救人员
@@ -437,7 +439,7 @@
                     <div class="fireFightingDescribe">
                         <div class="contentText">
                             <p>
-                                2019年1月1日至{{getCurrTime()}}，全省共接社会救助
+                                {{this.dateValue[0]}} 至 {{this.dateValue[1]}}，全省共接社会救助
                                 <span
                                     class="number"
                                 >{{countPercentData[2]['count']}}</span> 起，与去年同期相比，社会救助起数上升
@@ -500,7 +502,7 @@
                     <div class="fireFightingDescribe">
                         <div class="contentText">
                             <p>
-                                2019年1月1日至{{getCurrTime()}}，全省共接公务执勤
+                                {{this.dateValue[0]}} 至 {{this.dateValue[1]}}，全省共接公务执勤
                                 <span
                                     class="number"
                                 >{{countPercentData[3]['count']}}</span>起，与去年同期相比，出动数上升
@@ -854,12 +856,22 @@ export default {
             };
             window.localStorage.setItem("dataJson", JSON.stringify(dataJson));
 
-            var jsonData = JSON.stringify([
-                // { link: "indexAna.html", name: "抢险救援数据" },
-                { link: "namesFire.html", name: name }
-            ]);
-            window.localStorage.setItem("linkPageObj", jsonData);
-            window.location.href = `${linkPage}.html`;
+            if (name == "亡人火灾") {
+                var jsonData = JSON.stringify([
+                    // { link: "indexAna.html", name: "抢险救援数据" },
+                    { link: "namesFire.html", name: name }
+                ]);
+                window.localStorage.setItem("linkPageObj", jsonData);
+                window.location.href = "namesFire.html";
+            } else if (name == "火灾接警") {
+                var jsonData = JSON.stringify([
+                    // { link: "indexAna.html", name: "抢险救援数据" },
+                    { link: "fireReport.html", name: name }
+                ]);
+                window.localStorage.setItem("linkPageObj", jsonData);
+                window.location.href = "fireReport.html";
+            }
+            // console.log(`${linkPage}.html`);
         },
         limitData(index, limit) {
             var data = this.analysisList;

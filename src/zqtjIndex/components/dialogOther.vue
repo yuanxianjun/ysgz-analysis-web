@@ -7,7 +7,7 @@
         </div>
         <p class="content_item">
             其他类型事件接警量排名前三的支队有：
-            <span class="redFont">贵阳市消防支队31.50%、六盘水市消防支队、毕节市消防支队。</span>
+            <span class="redFont">贵阳市消防支队、六盘水市消防支队、毕节市消防支队。</span>
             其中贵阳市消防支队占比31.50%、六盘水市消防支队占比14.02%、毕节市消防支队占比12.19%。
         </p>
         <p class="content_item">

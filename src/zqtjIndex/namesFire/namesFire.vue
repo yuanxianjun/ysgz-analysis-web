@@ -11,7 +11,6 @@
                 element-loading-background="rgba(0, 0, 0, 0.6)"
             >
                 <el-table
-                    highlight-current-row
                     id="jtTable"
                     border
                     :data="tableData"
