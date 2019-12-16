@@ -5,5 +5,5 @@
   "whiteList": [
     "blob:http"
   ],
-  "ssoLock": false
+  "ssoLock": true
 }
