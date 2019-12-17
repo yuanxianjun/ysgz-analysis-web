@@ -780,20 +780,25 @@ export default {
                      *  */
                     var startDate = _.dateValue[0].slice(0, 7),
                         endDate = _.dateValue[1].slice(0, 7),
-                        sum = 0,
+                        otherCount =
+                            _.statisticalData.total -
+                            _.countPercentData[0].count * 1 -
+                            _.countPercentData[1].count * 1 -
+                            _.countPercentData[2].count * 1,
                         allName = "";
                     if (this.orgTreeId.length == 16) {
                         allName = "全省合计";
                     } else if (this.orgTreeId.length == "24") {
                         allName = "全市合计";
                     }
+
                     var firstData = {
                         area: startDate + "-" + endDate + allName,
                         total: _.statisticalData.total,
                         fire: _.countPercentData[0].count,
                         rescue: _.countPercentData[1].count,
                         social: _.countPercentData[2].count,
-                        other: _.countPercentData[3].count
+                        other: otherCount
                     };
                     if (_.mockData.length > 0) {
                         _.mockData.unshift(firstData);
