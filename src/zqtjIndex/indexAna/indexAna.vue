@@ -782,21 +782,18 @@ export default {
                         endDate = _.dateValue[1].slice(0, 7),
                         sum = 0,
                         allName = "";
-                    _.countPercentData.forEach(item => {
-                        sum += item.count * 1;
-                    });
                     if (this.orgTreeId.length == 16) {
-                        allName ="全省合计"
-                    } else if(this.orgTreeId.length == "24") {
-                        allName ="全市合计"
+                        allName = "全省合计";
+                    } else if (this.orgTreeId.length == "24") {
+                        allName = "全市合计";
                     }
                     var firstData = {
                         area: startDate + "-" + endDate + allName,
-                        total: sum,
+                        total: _.statisticalData.total,
                         fire: _.countPercentData[0].count,
                         rescue: _.countPercentData[1].count,
                         social: _.countPercentData[2].count,
-                        duty: _.countPercentData[3].count
+                        other: _.countPercentData[3].count
                     };
                     if (_.mockData.length > 0) {
                         _.mockData.unshift(firstData);

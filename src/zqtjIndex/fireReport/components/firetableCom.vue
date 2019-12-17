@@ -32,6 +32,18 @@ export default {
                     { label: "去年同期起数", prop: "last" },
                     { label: "同比", prop: "cmopare" }
                 ],
+                h6: [
+                    { label: "区县", prop: "area" },
+                    { label: "火灾起数", prop: "num" },
+                    { label: "去年同期起数", prop: "last" },
+                    { label: "同比", prop: "cmopare" }
+                ],
+                h7: [
+                    { label: "区县", prop: "area" },
+                    { label: "火灾起数", prop: "num" },
+                    { label: "去年同期起数", prop: "last" },
+                    { label: "同比增幅", prop: "cmopare" }
+                ],
                 h2: [
                     { label: "区  县", prop: "area" },
                     { label: "火灾起数", prop: "num" },
@@ -47,6 +59,12 @@ export default {
                     { label: "地州市", prop: "area" },
                     { label: "亡人数", prop: "num" },
                     { label: "亡人数占比", prop: "last" }
+                ],
+                h5: [
+                    { label: "地    区", prop: "area" },
+                    { label: "总起数", prop: "num" },
+                    { label: "农村火灾起数", prop: "last" },
+                    { label: "占比", prop: "cmopare" }
                 ]
             }
         };

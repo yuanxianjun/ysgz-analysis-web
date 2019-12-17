@@ -24,9 +24,9 @@
                 </div>
                 <div class="title3">(二)区县火灾整体情况。</div>
                 <div class="table_title">火灾起数前十位区县</div>
-                <firetable-com data-type="fireTop10" header-data="h1"></firetable-com>
+                <firetable-com data-type="fireTop10" header-data="h6"></firetable-com>
                 <div class="table_title">火灾起数同比上升幅度前10位区县</div>
-                <firetable-com data-type="up10" header-data="h1"></firetable-com>
+                <firetable-com data-type="up10" header-data="h7"></firetable-com>
                 <div class="labelP">
                     <span class="title4">（三）城区火灾情况。</span>
 
@@ -54,7 +54,7 @@
                         <span class="title3">铜仁</span>农村火灾176起，占本地区火灾总起数的46.81%；
                         <span class="title3">黔东南</span>农村火灾113起，占本地区火灾总起数的42.97%（其中贵安新区9起农村火灾，本地区占比50%）。
                     </span>
-                    <firetable-com data-type="countryfire" header-data="h3"></firetable-com>
+                    <firetable-com data-type="countryfire" header-data="h5"></firetable-com>
                 </div>
             </div>
             <div class="fr_content">
@@ -101,8 +101,8 @@
                 </div>
 
                 <div class="labelP">
-                    <span class="title4">（四）家俱、设备及竹、木等制品为主要火灾燃烧物。</span>
-                    <span class="label3">有2708起火灾的主要燃烧物为家俱、设备及竹、木等制品，占比52.70%；其次是轻工业品、纺织品，占比6%。</span>
+                    <span class="title4">（四）家具、设备及竹、木等制品为主要火灾燃烧物。</span>
+                    <span class="label3">有2708起火灾的主要燃烧物为家具、设备及竹、木等制品，占比52.70%；其次是轻工业品、纺织品，占比6%。</span>
                 </div>
             </div>
 

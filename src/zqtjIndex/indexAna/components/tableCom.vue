@@ -6,7 +6,7 @@
             <el-table-column align="center" prop="fire" label="火灾扑救"></el-table-column>
             <el-table-column align="center" prop="rescue" label="抢险救援"></el-table-column>
             <el-table-column align="center" prop="social" label="社会救助"></el-table-column>
-            <el-table-column align="center" prop="duty" label="公务执勤"></el-table-column>
+            <el-table-column align="center" prop="other" label="其它"></el-table-column>
         </el-table>
     </div>
 </template>
