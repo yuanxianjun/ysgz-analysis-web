@@ -155,5 +155,19 @@ export default {
 .myTable {
     width: 100%;
     min-height: 860px;
+    // .el-table__row {
+    //     td:nth-child(1) {
+    //         .cell {
+    //             font-size: 24px;
+    //         }
+    //     }
+    // }
+    // tbody {
+    //     tr:nth-child(1) {
+    //         color: red;
+    //         .el-table_1_column_2.cell {
+    //         }
+    //     }
+    // }
 }
 </style>

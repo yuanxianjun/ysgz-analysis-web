@@ -1,14 +1,18 @@
 <template>
     <div class="myTable">
         <el-table id="jtTable" border :data="mockData" style="width: 100%;">
-            <el-table-column type="index" label="排名" align="center" width="150"></el-table-column>
+            <el-table-column type="index" label="序号" align="center" width="150"></el-table-column>
             <el-table-column
                 v-for="(item,i) in mockHeader"
                 :key="i"
                 :label="item.label"
                 :prop="item.prop"
                 align="center"
-            ></el-table-column>
+            >
+                <!-- <template slot-scope="scope"> -->
+                <!-- <template <span>{{ scope.column.property }}</span> -->
+                <!-- </template> -->
+            </el-table-column>
         </el-table>
     </div>
 </template>
@@ -68,5 +72,12 @@ export default {
     height: auto;
     margin-top: 10px;
     min-height: 0;
+    // .el-table__row {
+    //     td:nth-child(2) {
+    //         .cell {
+    //             font-size: 24px;
+    //         }
+    //     }
+    // }
 }
 </style>

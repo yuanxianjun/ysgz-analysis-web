@@ -10,17 +10,29 @@
                 v-loading="loadTable"
                 element-loading-background="rgba(0, 0, 0, 0.6)"
             >
-                <el-table
-                    id="jtTable"
-                    border
-                    :data="tableData"
-                    height="863"
-                    v-if="!loadTable"
-                >
-                    <el-table-column align="center" prop="area" label="地区" width="250"></el-table-column>
+                <el-table id="jtTable" border :data="tableData" height="863" v-if="!loadTable">
+                    <el-table-column
+                        class="font24"
+                        align="center"
+                        prop="area"
+                        label="地区"
+                        width="250"
+                    >
+                        <template slot-scope="scope">
+                            <span class="font24">{{scope.row.area}}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column align="center" prop="date" label="时间"></el-table-column>
-                    <el-table-column align="center" prop="address" label="起火场所"></el-table-column>
-                    <el-table-column align="center" prop="reason" label="火灾原因"></el-table-column>
+                    <el-table-column align="center" prop="address" label="起火场所">
+                        <template slot-scope="scope">
+                            <span class="font24">{{scope.row.address}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column align="center" prop="reason" label="火灾原因">
+                        <template slot-scope="scope">
+                            <span class="font24">{{scope.row.reason}}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column align="center" prop="money" label="直接财产损失(元)"></el-table-column>
                     <el-table-column align="center" prop="die" width="180" label="亡人数"></el-table-column>
                     <el-table-column align="center" prop="injured" width="180" label="伤人数"></el-table-column>
@@ -110,4 +122,7 @@ export default {
 
 
 <style lang="scss" scoped>
+.font24 {
+    // font-size: 24px;
+}
 </style>

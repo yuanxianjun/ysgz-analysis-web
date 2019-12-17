@@ -163,14 +163,24 @@ body {
     background-color: transparent !important;
 }
 
+.el-table th {
+    .cell {
+        background-image: linear-gradient(top,
+                #00f6fb 0%,
+                #00ff98 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
 .el-table .cell {
     line-height: 48px !important;
     // font-size: 24px !important;
-    background-image: linear-gradient(top,
-            #00f6fb 0%,
-            #00ff98 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    // background-image: linear-gradient(top,
+    //         #00f6fb 0%,
+    //         #00ff98 100%);
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
 }
 
 .el-table--border,

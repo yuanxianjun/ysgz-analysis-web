@@ -1,5 +1,5 @@
 <template>
-    <div id="calledAna">
+    <div id="indexAna">
         <com-header></com-header>
         <backHome></backHome>
         <div class="content-wrapper">
@@ -36,9 +36,10 @@
                             @change="changeOrgTreeid"
                         ></el-cascader>
                     </div>
-                    <el-button class="customBtn" @click="postAll">查询</el-button>
+                    <el-button class="customBtn" @click="postAll(0)">查询</el-button>
                 </div>
             </div>
+
             <div class="contentIndex" ref="contentIndex">
                 <!-- 接警总量框 -->
                 <div class="totalNum">
@@ -92,6 +93,10 @@
                         </el-col>
                     </el-row>
                 </div>
+                <!-- 接警总量的表格 -->
+                <div class="indexTableDiv">
+                    <table-com ref="indexTable" v-if="showCon" :mockData="mockData"></table-com>
+                </div>
                 <!-- 火灾扑救模块 -->
                 <div class="fire">
                     <div class="table-title1">火灾扑救</div>
@@ -104,7 +109,7 @@
                                     class="number"
                                 >{{fightFire_data.alarm }}</span>起，死亡
                                 <!-- {{fightFire_data.die }} -->
-                                <span class="number">37</span>人，受伤
+                                <span class="number">39</span>人，受伤
                                 <span class="number">{{fightFire_data.injured }}</span>人，直接财产损失
                                 <span class="number">{{fightFire_data.money||0}}</span>万元，与去年同期相比，火灾起数上升
                                 <span class="number">31.50%</span>
@@ -147,7 +152,7 @@
                                     <p class="fireTitle">死亡人数</p>
                                     <p class="fireValue">
                                         <!-- {{fightFire_data.die}} -->
-                                        <span class="number">37</span>
+                                        <span class="number">39</span>
                                         <span class="unit">人</span>
                                     </p>
                                 </el-col>
@@ -495,7 +500,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- 公务执勤 -->
                 <div class="office">
                     <div class="table-title1">公务执勤</div>
                     <!-- 公务执勤描述框  -->
@@ -563,6 +568,7 @@
 <script>
 import comHeader from "@/zqtjIndex/components/comHeader";
 import backHome from "@/zqtjIndex/components/toHome";
+import tableCom from "./components/tableCom";
 import {
     rescueAnalysis,
     orgTreeUrl,
@@ -570,7 +576,8 @@ import {
     fightFire,
     fireAnalysis,
     rescue,
-    alarmType
+    alarmType,
+    alarmTypeCity
 } from "../requestUrl";
 import statisticeCom from "./components/statisticeCom.vue";
 import detachmentCom from "./components/detachmentCom.vue";
@@ -587,10 +594,15 @@ export default {
         detachmentCom,
         detachmentEmergencyCom,
         detachmentSocialCom,
-        detachmentOfficialCom
+        detachmentOfficialCom,
+        tableCom
     },
     data() {
         return {
+            // 表格数据
+            showOut: true,
+            showCon: false,
+            mockData: [],
             // 统计图数据
             statisticalData: {
                 fireList: null, //火灾扑救
@@ -624,7 +636,7 @@ export default {
                 { name: "化学危险品事故", id: "020100000000", value: 0 },
                 { name: "交通事故", id: "020300000000", value: 0 },
                 { name: "地震及次生灾害", id: "020401000000", value: 0 },
-                { name: "建筑物坍塌", id: "020200000000", value: 0 },
+                { name: "建筑物坍塌事故", id: "020200000000", value: 0 },
                 { name: "重大安全生产事故", id: "020505000000", value: 0 },
                 { name: "空难", id: "020508000000", value: 0 },
                 { name: "爆炸及恐怖事件", id: "020509000000", value: 0 },
@@ -715,12 +727,25 @@ export default {
             day = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
             return year + "年" + month + "月" + day + "日";
         },
-        postAll() {
+        postAll(val) {
+            var dataJson;
+            if (val == 0) {
+                dataJson = {
+                    dateValue: this.dateValue,
+                    orgTreeId: this.orgTreeId,
+                    contentPos: 0
+                };
+                window.localStorage.setItem(
+                    "dataJson",
+                    JSON.stringify(dataJson)
+                );
+            }
+
             this.fireAnalysis_get();
             this.rescue_get();
-            this.alarmType_get();
+            // this.alarmType_get();
+            // console.log(this.$refs.indexTable.getData());
             var _ = this;
-
             // 火灾扑救综合信息
             var fightFire_get = () => {
                 this.axios({
@@ -733,7 +758,6 @@ export default {
             };
 
             // 抢险救援  18项列表
-
             var rescueData_get = () => {
                 this.axios({
                     method: "post",
@@ -743,24 +767,56 @@ export default {
                     this.rescue_data = res.data.result;
                 });
             };
-
-            this.axios
-                .all([
-                    this.fireAnalysis_get(),
-                    this.rescue_get(),
-                    this.alarmType_get(),
-                    rescueData_get(),
-                    fightFire_get()
-                ])
-                .then(
-                    _.axios.spread(function() {
-                        // Both requests are now complete
-                        // this.$nextTick(function() {
-                        //     // DOM 现在更新了
-                        //     _.movePos();
-                        // });
-                    })
-                );
+            rescueData_get();
+            fightFire_get();
+            this.axios.all([_.alarmType_get(), _.getTableData()]).then(
+                _.axios.spread((res1, res2) => {
+                    //
+                    /**
+                     * 全省合计的第一条数据
+                     * @param{string} startDate开始时间
+                     * @param{String} endDate  结束时间
+                     * @param{o}firstData 处理好的数据格式
+                     *  */
+                    var startDate = _.dateValue[0].slice(0, 7),
+                        endDate = _.dateValue[1].slice(0, 7),
+                        sum = 0,
+                        allName = "";
+                    _.countPercentData.forEach(item => {
+                        sum += item.count * 1;
+                    });
+                    if (this.orgTreeId.length == 16) {
+                        allName ="全省合计"
+                    } else if(this.orgTreeId.length == "24") {
+                        allName ="全市合计"
+                    }
+                    var firstData = {
+                        area: startDate + "-" + endDate + allName,
+                        total: sum,
+                        fire: _.countPercentData[0].count,
+                        rescue: _.countPercentData[1].count,
+                        social: _.countPercentData[2].count,
+                        duty: _.countPercentData[3].count
+                    };
+                    if (_.mockData.length > 0) {
+                        _.mockData.unshift(firstData);
+                        _.showCon = true;
+                    } else {
+                        _.showCon = false;
+                    }
+                })
+            );
+        },
+        // 获取表格数据
+        getTableData() {
+            return this.axios({
+                method: "post",
+                url: alarmTypeCity,
+                data: this.params
+            }).then(res => {
+                var data = res.data.result;
+                this.mockData = data;
+            });
         },
         // 火灾场所综合信息
         fireAnalysis_get() {
@@ -807,7 +863,9 @@ export default {
         movePos() {
             let distance = 0,
                 dataJson = JSON.parse(localStorage.getItem("dataJson"));
-            distance = dataJson.contentPos || 0;
+            if (dataJson) {
+                distance = dataJson.contentPos || 0;
+            }
             // 控制移动
             document.querySelector(".contentIndex").scrollTo(0, distance);
         },
@@ -935,7 +993,7 @@ export default {
                     { name: "化学危险品事故", id: "020100000000", value: 0 },
                     { name: "交通事故", id: "020300000000", value: 0 },
                     { name: "地震及次生灾害", id: "020401000000", value: 0 },
-                    { name: "建筑物坍塌", id: "020200000000", value: 0 },
+                    { name: "建筑物坍塌事故", id: "020200000000", value: 0 },
                     { name: "重大安全生产事故", id: "020505000000", value: 0 },
                     { name: "空难", id: "020508000000", value: 0 },
                     { name: "爆炸及恐怖事件", id: "020509000000", value: 0 },
@@ -965,7 +1023,7 @@ export default {
         alarmType_get() {
             this.bool = true;
             this.boolDetach = false;
-            this.axios({
+            return this.axios({
                 method: "post",
                 url: alarmType,
                 data: this.params

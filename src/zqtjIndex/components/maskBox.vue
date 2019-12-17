@@ -174,7 +174,7 @@
                     <div v-if="title == '地震及次生灾害'" class="content">
                         <dialog-earth></dialog-earth>
                     </div>
-                    <div v-if="title == '建筑物坍塌'" class="content">
+                    <div v-if="title == '建筑物坍塌事故'" class="content">
                         <dialog-build></dialog-build>
                     </div>
                     <div v-if="title == '气象灾害'" class="content">

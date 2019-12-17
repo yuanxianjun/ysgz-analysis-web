@@ -1,6 +1,6 @@
 @import "../../../../common/styles/font.css";
 
-#calledAna {
+#indexAna {
   width: 1920px;
   height: 1080px;
   overflow: hidden;
@@ -32,7 +32,28 @@
 
     .tableDiv {
       width: 1840px;
-      // height:395px;
+
+      // border-bottom: 1px solid #006d94 !important;
+      .myTable {
+
+        // height:395px;
+        .el-table td {
+          border-bottom: 1px solid #006d94 !important;
+        }
+      }
+    }
+
+    .indexTableDiv {
+      width: 1840px;
+      margin-top: 10px;
+
+      .myTableDiv {
+
+        // height:395px;
+        .el-table td {
+          border-bottom: 1px solid #006d94 !important;
+        }
+      }
     }
 
     .tableBox {
@@ -234,8 +255,8 @@
     border-bottom: 1px solid transparent !important;
   }
 
-  #calledAna .el-table td,
-  #calledAna .el-table th.is-leaf {
+  #indexAna .el-table td,
+  #indexAna .el-table th.is-leaf {
     border-bottom: 1px solid transparent !important;
   }
 

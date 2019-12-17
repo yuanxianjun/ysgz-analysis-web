@@ -15,7 +15,7 @@ export default {
         { typeId: "020100000000", name: "化学危险品事故", value: 0 },
         { typeId: "020300000000", name: "道路交通事故", value: 0 },
         { typeId: "020401000000", name: "地震及次生灾害", value: 0 },
-        { typeId: "020200000000", name: "建筑物坍塌", value: 0 },
+        { typeId: "020200000000", name: "建筑物坍塌事故", value: 0 },
         { typeId: "020505000000", name: "重大安全生产事故", value: 0 },
         { typeId: "020508000000", name: "空难", value: 0 },
         { typeId: "020509000000", name: "爆炸及恐怖事件", value: 0 },
