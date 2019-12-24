@@ -214,7 +214,7 @@
             </div>
           </div>
           <div class="rescueChart">
-            <div class="nav-header">
+                  <div class="nav-header">
               <p>
                 应急救援数据
                 <span class="into_icon" @click="toNext"></span>

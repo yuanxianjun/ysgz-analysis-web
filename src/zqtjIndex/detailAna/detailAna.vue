@@ -98,7 +98,7 @@ export default {
             };
             if (type == "抢险救援") {
                 url = rsaa;
-            } else if (type == "社会救助") {
+            } else {
                 url = disasterAnalysisArea;
             }
             this.getData(url, data);
@@ -225,8 +225,7 @@ export default {
         width: 100%;
         padding: 40px;
         overflow: auto;
-        
-        
+
         .rightHeader {
             text-align: right;
             border-right: 0px !important;

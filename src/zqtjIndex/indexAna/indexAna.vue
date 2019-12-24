@@ -36,7 +36,7 @@
                             @change="changeOrgTreeid"
                         ></el-cascader>
                     </div>
-                    <el-button class="customBtn" @click="postAll(0)">查询</el-button>
+                    <el-button class="customBtn" @click="postAll()">查询</el-button>
                 </div>
             </div>
 
@@ -94,8 +94,8 @@
                     </el-row>
                 </div>
                 <!-- 接警总量的表格 -->
-                <div class="indexTableDiv">
-                    <table-com ref="indexTable" v-if="showCon" :mockData="mockData"></table-com>
+                <div class="indexTableDiv" v-if="showCon">
+                    <table-com ref="indexTable" :mockData="mockData"></table-com>
                 </div>
                 <!-- 火灾扑救模块 -->
                 <div class="fire">
@@ -216,7 +216,7 @@
                                     :key="index"
                                 >
                                     <template>
-                                        <div>
+                                        <div @click="toNext(item,'火灾扑救')">
                                             <div class="title">{{item.name}}</div>
                                             <div class="number">{{item.num}}</div>
                                         </div>
@@ -601,7 +601,7 @@ export default {
         return {
             // 表格数据
             showOut: true,
-            showCon: false,
+            showCon: true,
             mockData: [],
             // 统计图数据
             statisticalData: {
@@ -619,7 +619,7 @@ export default {
                 { count: 0 }
             ],
             bool: true,
-            boolDetach: true,
+            boolDetach: true, //如果是大队===false  大队往上===true
             userInfo: JSON.parse(window.localStorage.getItem("userInfo")),
             orgTreeId: "",
             dateValue: [],
@@ -712,9 +712,7 @@ export default {
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         this.localInfo_gd();
     },
-    updated() {
-        this.movePos();
-    },
+    updated() {},
     methods: {
         getCurrTime() {
             let time = new Date();
@@ -727,28 +725,15 @@ export default {
             day = time.getDate() < 10 ? "0" + time.getDate() : time.getDate();
             return year + "年" + month + "月" + day + "日";
         },
-        postAll(val) {
-            var dataJson;
-            if (val == 0) {
-                dataJson = {
-                    dateValue: this.dateValue,
-                    orgTreeId: this.orgTreeId,
-                    contentPos: 0
-                };
-                window.localStorage.setItem(
-                    "dataJson",
-                    JSON.stringify(dataJson)
-                );
-            }
-
-            this.fireAnalysis_get();
-            this.rescue_get();
+        postAll() {
+            var _ = this;
+            // this.fireAnalysis_get();
+            // this.rescue_get();
             // this.alarmType_get();
             // console.log(this.$refs.indexTable.getData());
-            var _ = this;
             // 火灾扑救综合信息
             var fightFire_get = () => {
-                this.axios({
+                return this.axios({
                     method: "post",
                     url: fightFire,
                     data: this.params
@@ -756,10 +741,9 @@ export default {
                     this.fightFire_data = res.data.result;
                 });
             };
-
             // 抢险救援  18项列表
             var rescueData_get = () => {
-                this.axios({
+                return this.axios({
                     method: "post",
                     url: rescue,
                     data: this.params
@@ -767,47 +751,63 @@ export default {
                     this.rescue_data = res.data.result;
                 });
             };
-            rescueData_get();
-            fightFire_get();
-            this.axios.all([_.alarmType_get(), _.getTableData()]).then(
-                _.axios.spread((res1, res2) => {
-                    //
-                    /**
-                     * 全省合计的第一条数据
-                     * @param{string} startDate开始时间
-                     * @param{String} endDate  结束时间
-                     * @param{o}firstData 处理好的数据格式
-                     *  */
-                    var startDate = _.dateValue[0].slice(0, 7),
-                        endDate = _.dateValue[1].slice(0, 7),
-                        otherCount =
-                            _.statisticalData.total -
-                            _.countPercentData[0].count * 1 -
-                            _.countPercentData[1].count * 1 -
-                            _.countPercentData[2].count * 1,
-                        allName = "";
-                    if (this.orgTreeId.length == 16) {
-                        allName = "全省合计";
-                    } else if (this.orgTreeId.length == "24") {
-                        allName = "全市合计";
-                    }
+            // rescueData_get();
+            // fightFire_get();
+            this.axios
+                .all([
+                    _.alarmType_get(),
+                    _.getTableData(),
+                    _.fireAnalysis_get(),
+                    _.rescue_get(),
+                    fightFire_get(),
+                    rescueData_get()
+                ])
+                .then(
+                    _.axios.spread((res1, res2) => {
+                        var promise1 = new Promise(function(resolve) {
+                            /**
+                             * 全省合计的第一条数据
+                             * @param{string} startDate开始时间
+                             * @param{String} endDate  结束时间
+                             * @param{o}firstData 处理好的数据格式
+                             *  */
+                            var startDate = _.dateValue[0].slice(0, 7),
+                                endDate = _.dateValue[1].slice(0, 7),
+                                otherCount =
+                                    _.statisticalData.total -
+                                    _.countPercentData[0].count * 1 -
+                                    _.countPercentData[1].count * 1 -
+                                    _.countPercentData[2].count * 1,
+                                allName = "";
+                            if (_.orgTreeId.length == 16) {
+                                allName = "全省合计";
+                            } else if (_.orgTreeId.length == "24") {
+                                allName = "全市合计";
+                            }
+                            var firstData = {
+                                area: startDate + "-" + endDate + allName,
+                                total: _.statisticalData.total,
+                                fire: _.countPercentData[0].count,
+                                rescue: _.countPercentData[1].count,
+                                social: _.countPercentData[2].count,
+                                other: otherCount
+                            };
+                            if (res2.length > 0) {
+                                _.showCon = true;
+                                _.mockData = res2;
+                                _.mockData.unshift(firstData);
+                            } else {
+                                _.showCon = false;
+                            }
+                            resolve(_.showCon);
+                        });
 
-                    var firstData = {
-                        area: startDate + "-" + endDate + allName,
-                        total: _.statisticalData.total,
-                        fire: _.countPercentData[0].count,
-                        rescue: _.countPercentData[1].count,
-                        social: _.countPercentData[2].count,
-                        other: otherCount
-                    };
-                    if (_.mockData.length > 0) {
-                        _.mockData.unshift(firstData);
-                        _.showCon = true;
-                    } else {
-                        _.showCon = false;
-                    }
-                })
-            );
+                        promise1.then(function(res) {
+                            console.log(res);
+                            _.movePos();
+                        });
+                    })
+                );
         },
         // 获取表格数据
         getTableData() {
@@ -817,12 +817,13 @@ export default {
                 data: this.params
             }).then(res => {
                 var data = res.data.result;
-                this.mockData = data;
+                this.mockData = [];
+                return data;
             });
         },
         // 火灾场所综合信息
         fireAnalysis_get() {
-            this.axios({
+            return this.axios({
                 method: "post",
                 url: fireAnalysis,
                 data: this.params
@@ -984,7 +985,7 @@ export default {
         },
         // 分析列表
         rescue_get() {
-            this.axios({
+            return this.axios({
                 method: "post",
                 url: rescueAnalysis,
                 data: this.params

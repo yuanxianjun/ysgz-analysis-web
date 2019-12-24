@@ -93,7 +93,7 @@ export default {
             };
             if (type == "抢险救援") {
                 this.getRsaData(data);
-            } else if (type == "社会救助") {
+            } else {
                 this.disasterAnalysis_post(data);
             }
         },
