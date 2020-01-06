@@ -38,7 +38,8 @@ Vue.prototype.resetSetItem = (key, newVal) => {
     }
 };
 axios.defaults.baseURL = location.origin + "/ysgz/";
-// axios.defaults.baseURL = "http://192.168.1.141:8918/ysgz"; // axios.defaults.baseURL = "http://192.168.94.161:8086/ysgz";
+// axios.defaults.baseURL = "http://192.168.1.141:8918/ysgz"; 
+// axios.defaults.baseURL = "http://192.168.94.161:8086/ysgz";
 new Vue({
     render: h => h(localPage)
 }).$mount('#app')

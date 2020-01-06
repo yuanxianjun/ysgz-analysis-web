@@ -31,12 +31,12 @@ module.exports = {
             template: 'src/zqtjIndex/indexAna/indexAna.html',
             filename: 'indexAna.html'
         },
-        // 第二版使用的首页
-        'index': {
-            entry: 'src/zqtjIndex/index/index.js',
-            template: 'src/zqtjIndex/index/index.html',
-            filename: 'index.html'
-        },
+        // 第二版使用的首页（暂时不用）
+        // 'index': {
+        //     entry: 'src/zqtjIndex/index/index.js',
+        //     template: 'src/zqtjIndex/index/index.html',
+        //     filename: 'index.html'
+        // },
         // 应急救援二级页面
         'emergency': {
             entry: 'src/zqtjIndex/emergency/emergency.js',

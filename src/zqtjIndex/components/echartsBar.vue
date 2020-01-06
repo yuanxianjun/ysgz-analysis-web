@@ -9,7 +9,7 @@
 </template>
 <script>
 import echarts from "echarts";
-import { rsa } from "../requestUrl";
+import { rsa, disasterAnalysis } from "../requestUrl";
 export default {
   name: "histogramCom",
   data() {
@@ -20,19 +20,32 @@ export default {
   },
   created() {},
   mounted() {
-    this.getData();
+    this.judgeType();
   },
   methods: {
-    getData() {
-      var data = {
+    // 判断是否是哪个类型的数据
+    judgeType() {
+      var type = this.dataJson.typeName,
+        url,
+        data;
+      data = {
         endDate: this.dataJson.dateValue[1],
         startDate: this.dataJson.dateValue[0],
         typeId: this.dataJson.dataId,
         orgTreeId: this.dataJson.orgTreeId
       };
+      if (type == "抢险救援") {
+        url = rsa;
+      } else {
+        url = disasterAnalysis;
+      }
+      this.getData(url, data);
+    },
+    // 获取数据
+    getData(url, data) {
       this.axios({
         method: "post",
-        url: rsa,
+        url,
         data
       }).then(res => {
         var resTitleData = res.data.result.titleList;
@@ -75,7 +88,9 @@ export default {
       // console.log(xData, yData);
       this.initChart(xData, yData);
     },
-    //折线图
+    /**
+     * 生产折线图
+     */
     initChart(xData, yData) {
       var _this = this;
 

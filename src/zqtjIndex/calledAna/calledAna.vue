@@ -7,7 +7,6 @@
     <div class="header">
       <div class="header_left">
         <!-- 退出按钮  -->
-        
       </div>
       <div class="header_right">
         <el-button
@@ -73,7 +72,7 @@ export default {
   computed: {},
   components: {
     comHeader,
-   
+
     backHome,
     bollSearch,
     maskBox,
