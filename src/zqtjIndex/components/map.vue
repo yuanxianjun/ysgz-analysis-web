@@ -38,26 +38,47 @@ export default {
       ],
       quJSON,
       nameData: [
-        { name: "威宁彝族回族苗族自治县", value: 0, city: "毕节" },
-        { name: "盘州市", value: 0, city: "六盘水" },
-        { name: "兴仁市", value: 0, city: "黔西南" },
-        { name: "关岭布依族苗族自治县", value: 0, city: "安顺" },
-        { name: "镇宁布依族苗族自治县", value: 0, city: "安顺" },
-        { name: "紫云苗族布依族自治县", value: 0, city: "安顺" },
-        { name: "望谟县", value: 0, city: "黔西南" },
-        { name: "平坝区", value: 0, city: "安顺" },
-        { name: "三都水族自治县", value: 0, city: "黔南" },
-        { name: "播州区", value: 0, city: "毕节" },
-        { name: "赤水市", value: 0, city: "遵义" },
-        { name: "道真仡佬族苗族自治县", value: 0, city: "遵义" },
-        { name: "务川仡佬族苗族自治县", value: 0, city: "遵义" },
-        { name: "沿河土家族自治县", value: 0, city: "铜仁" },
-        { name: "印江土家族苗族自治县", value: 0, city: "铜仁" },
-        { name: "松桃苗族自治县", value: 0, city: "铜仁" },
-        { name: "碧江区", value: 0, city: "铜仁" },
-        { name: "万山区", value: 0, city: "铜仁" },
-        { name: "玉屏侗族自治县", value: 0, city: "铜仁" },
-        { name: "观山湖区", value: 0, city: "贵阳" }
+        // { name: "威宁彝族回族苗族自治县", value: 0, city: "毕节市" },
+        // { name: "盘州市", value: 0, city: "六盘水市" },
+        // { name: "兴仁市", value: 0, city: "黔西南市" },
+        // { name: "关岭布依族苗族自治县", value: 0, city: "安顺市" },
+        // { name: "镇宁布依族苗族自治县", value: 0, city: "安顺市" },
+        // { name: "紫云苗族布依族自治县", value: 0, city: "安顺市" },
+        // { name: "望谟县", value: 0, city: "黔西南市" },
+        // { name: "平坝区", value: 0, city: "安顺市" },
+        // { name: "三都水族自治县", value: 0, city: "黔南市" },
+        // { name: "播州区", value: 0, city: "毕节市" },
+        // { name: "赤水县", value: 0, city: "遵义市" },
+        // { name: "道真仡佬族苗族自治县", value: 0, city: "遵义市" },
+        // { name: "务川仡佬族苗族自治县", value: 0, city: "遵义市" },
+        // { name: "沿河县族自治县", value: 0, city: "铜仁市" },
+        // { name: "印江土家族苗族自治县", value: 0, city: "铜仁市" },
+        // { name: "松桃苗族自治县", value: 0, city: "铜仁市" },
+        // { name: "碧江区", value: 0, city: "铜仁市" },
+        // { name: "万山区", value: 0, city: "铜仁市" },
+        // { name: "玉屏侗族自治县", value: 0, city: "铜仁市" },
+        // { name: "观山湖区", value: 0, city: "贵阳市" }
+        // 七星关 播州// { name: "威宁彝族回族苗族自治县", value: 0, city: "毕节市" },
+        // { name: "盘州市", value: 0, city: "六盘水市" },
+        // { name: "兴仁市", value: 0, city: "黔西南市" },
+        // { name: "关岭布依族苗族自治县", value: 0, city: "安顺市" },
+        // { name: "镇宁布依族苗族自治县", value: 0, city: "安顺市" },
+        // { name: "紫云苗族布依族自治县", value: 0, city: "安顺市" },
+        // { name: "望谟县", value: 0, city: "黔西南市" },
+        // { name: "平坝区", value: 0, city: "安顺市" },
+        // { name: "三都水族自治县", value: 0, city: "黔南市" },
+        // { name: "播州区", value: 0, city: "毕节市" },
+        // { name: "赤水县", value: 0, city: "遵义市" },
+        // { name: "道真仡佬族苗族自治县", value: 0, city: "遵义市" },
+        // { name: "务川仡佬族苗族自治县", value: 0, city: "遵义市" },
+        // { name: "沿河县族自治县", value: 0, city: "铜仁市" },
+        // { name: "印江土家族苗族自治县", value: 0, city: "铜仁市" },
+        // { name: "松桃苗族自治县", value: 0, city: "铜仁市" },
+        // { name: "碧江区", value: 0, city: "铜仁市" },
+        // { name: "万山区", value: 0, city: "铜仁市" },
+        // { name: "玉屏侗族自治县", value: 0, city: "铜仁市" },
+        // { name: "观山湖区", value: 0, city: "贵阳市" }
+        // 七星关 播州
       ],
       allData: [],
       dataJson: JSON.parse(window.localStorage.getItem("dataJson"))
@@ -135,15 +156,23 @@ export default {
           trigger: "item",
           formatter: function(params) {
             var quData = _this.allData;
-            for (let i = 0, len = quData.length; i < len; i++) {
-              if (params.name == quData[i].area) {
-                var val = params.data.city + params.name + "</br>";
-                _this.detailText.forEach(item => {
-                  val += item.name + " : " + quData[i][item.code] + "</br>";
-                });
+            if (params.name) {
+              let paramsName = params.name.substring(0, params.name.length - 1);
+              for (let i = 0, len = quData.length; i < len; i++) {
+                if (
+                  quData[i].area.indexOf(paramsName) > -1 ||
+                  paramsName.indexOf(quData[i].area) > -1
+                ) {
+                  var val = params.data.city + params.name + "</br>";
+                  _this.detailText.forEach(item => {
+                    val += item.name + " : " + quData[i][item.code] + "</br>";
+                  });
+                }
               }
+              return val;
+            } else {
+              return;
             }
-            return val;
           }
         },
         roam: true,
@@ -197,19 +226,28 @@ export default {
         ]
       };
       chart.setOption(option);
+
       const changeHighlight = function(params, whichAction) {
         var allData = _this.nameData;
-        for (let i = 0, len = allData.length; i < len; i++) {
-          if (allData[i].city == params.data.city) {
-            chart.dispatchAction({
-              type: whichAction,
-              name: allData[i].name
-            });
-          } else {
-            chart.dispatchAction({
-              type: "downplay",
-              name: allData[i].name
-            });
+
+        if (params.name) {
+          let dataCity = params.data.city;
+
+          // 遍历所有的数据
+          for (let i = 0, len = allData.length; i < len; i++) {
+            // 匹配city字段一样的高亮
+            if (allData[i].city == dataCity) {
+              chart.dispatchAction({
+                type: whichAction,
+                name: allData[i].name
+              });
+            } else {
+              //如果不一样的取消高亮
+              chart.dispatchAction({
+                type: "downplay",
+                name: allData[i].name
+              });
+            }
           }
         }
       };

@@ -563,6 +563,7 @@ export default {
   },
   data() {
     return {
+      //
       // 表格数据
       showOut: true,
       showCon: true,
@@ -596,26 +597,7 @@ export default {
       },
       selectedOptions: [],
       nameList: [],
-      analysisList: [
-        { name: "化学危险品事故", id: "020100000000", value: 0 },
-        { name: "交通事故", id: "020300000000", value: 0 },
-        { name: "地震及次生灾害", id: "020401000000", value: 0 },
-        { name: "建筑物坍塌事故", id: "020200000000", value: 0 },
-        { name: "重大安全生产事故", id: "020505000000", value: 0 },
-        { name: "空难", id: "020508000000", value: 0 },
-        { name: "爆炸及恐怖事件", id: "020509000000", value: 0 },
-        { name: "群众遇险", id: "020600000000", value: 0 },
-        { name: "水旱灾害", id: "水旱灾害", value: 0 },
-        { name: "气象灾害", id: "020403000000", value: 0 },
-        { name: "地质灾害", id: "020404000000", value: 0 },
-        { name: "森林火灾", id: "020801000000", value: 0 },
-        { name: "草原火灾", id: "020802000000", value: 0 },
-        { name: "矿山事故", id: "020803000000", value: 0 },
-        { name: "水上事故", id: "020604000000", value: 0 },
-        { name: "重大污染事件", id: "020503000000", value: 0 },
-        { name: "核与辐射事件", id: "020507000000", value: 0 },
-        { name: "公共卫生事件", id: "020504000000", value: 0 }
-      ],
+      analysisList: [],
       fightFire_data: {
         alarm: 0,
         intensive: 0,
@@ -626,7 +608,6 @@ export default {
         areaFireAnalysis: []
       },
       rescue_data: {},
-
       firePlaceData: {
         fireList: [],
         dutyList: [],
@@ -672,6 +653,7 @@ export default {
     this.dateDetail();
     this.localInfo_gd();
   },
+
   updated() {},
   methods: {
     // 汇总所有的请求
