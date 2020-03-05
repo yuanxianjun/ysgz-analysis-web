@@ -103,16 +103,16 @@
                   class="number"
                 >{{ fightFire_data.alarm ||0}}</span>起，死亡
                 <!-- {{fightFire_data.die }} -->
-                <span class="number">39</span>人，受伤
-                <span class="number">{{fightFire_data.injured ||0}}</span>人，直接财产损失
-                <span class="number">{{fightFire_data.money||0}}</span>万元，与去年同期相比，火灾起数上升
-                <span class="number">31.50%</span>
-                ，亡人数上升
-                <span class="number">19.35%</span>
-                ，伤人数上升
-                <span class="number">17.39%</span>
-                ，直接财产损失上升
-                <span class="number">20.46%</span>。
+                <span class="number">0</span>人，受伤
+                <span class="number">{{fightFire_data.injured || 0}}</span>人，直接财产损失
+                <span class="number">{{fightFire_data.money|| 0}}</span>万元，与去年同期相比，火灾起数持平
+                <!-- <span class="number">31.50%</span> -->
+                ，亡人数持平
+                <!-- <span class="number">19.35%</span> -->
+                ，伤人数持平
+                <!-- <span class="number">17.39%</span> -->
+                ，直接财产损失持平。
+                <!-- <span class="number">20.46%</span>。 -->
               </p>
             </div>
           </div>
@@ -144,7 +144,7 @@
                   <p class="fireTitle">死亡人数</p>
                   <p class="fireValue">
                     <!-- {{fightFire_data.die}} -->
-                    <span class="number">39</span>
+                    <span class="number">0</span>
                     <span class="unit">人</span>
                   </p>
                 </el-col>
@@ -226,8 +226,8 @@
                   class="number"
                 >{{rescue_data.alarm||0}}</span>起，抢救人员
                 <span class="number">{{rescue_data.rescue||0}}</span>
-                人。与去年同期相比，抢险救援起数上升
-                <span class="number">16.97%</span>。财产损失其中群众遇险占比
+                人。与去年同期相比，抢险救援起数持平。财产损失
+                <span class="number">{{rescue_data.money || 0}}</span>万元，其中群众遇险占比
                 <span class="number">49.96%</span>，交通事故占比
                 <span class="number">27.84%</span>，化学危险品事故占比
                 <span class="number">3.36%</span>，水旱灾害占比
@@ -419,8 +419,7 @@
                 {{this.dateValue[0]}} 至 {{this.dateValue[1]}}，全省共接社会救助
                 <span
                   class="number"
-                >{{countPercentData[2]['count']}}</span> 起，与去年同期相比，社会救助起数上升
-                <span class="number">22.65%</span>。其中取马蜂窝占比
+                >{{countPercentData[2]['count']}}</span> 起，与去年同期相比，社会救助起数持平。其中取马蜂窝占比
                 <span class="number">56.35%</span>，抓动物占比
                 <span class="number">13%</span>，开门占比
                 <span class="number">10.86%</span>，高空取物
@@ -782,7 +781,6 @@ export default {
           }
           this.orgTreeId = this.userInfo.orgTree;
           this.orgTree_gd(this.orgTreeId);
-
           this.postAll();
         } else if (res.data.code == 500) {
           this.$message({
