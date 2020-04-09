@@ -1,9 +1,0 @@
-{
-  "baseUrl": "http://ysgz.hydata666.com/ysgz",
-  "loginUrl": "http://ysgz.hydata666.com/index.html",
-  "urlList": [],
-  "whiteList": [
-    "blob:http"
-  ],
-  "ssoLock": true
-}
